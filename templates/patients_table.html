@@ -1,0 +1,33 @@
+<table class="patients">
+	{% if patients %}
+	{# Am pacienti de afisat #}
+	<tr>
+		<th></th>
+		<th>NUME</th>
+		<th>PRENUME</th>
+		<th>CNP</th>
+		<th>SEX</th>
+		<th>ADAUGAT DE</th>
+		<th>ULTIMA ACTUALIZARE</th>
+		<th></th>
+	</tr>
+	{% endif %}
+	{% for patient in patients %}
+	{# Parcurg pacientii si ii afisez #}
+	<tr>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.id }}. </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.lastname|title }} </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.firstname|title }} </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> <span style="color: #F00;">{{ patient.cnp|slice(0, 1) }}</span>{{ patient.cnp|slice(1) }} </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.getGender()|slice(0, 1) }} </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.getParent }} </a></td>
+		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.updated }} </a></td>
+		<td>
+			<img src="resources/images/trash-icon.png" title="Sterge pacientul" style="cursor: pointer;" onclick="javascript: deleteObject('pacientul', '{{ patient.id }}');" />
+		</td>
+	</tr>
+	{% else %}
+	<p>Nu avem nici un pacient inregistrat. <br />
+		Toata lumea e sanatoasa!</p>
+	{% endfor %}
+</table>

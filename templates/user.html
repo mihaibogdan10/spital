@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block Title %} Conectare {% endblock %}
+
+{% block ContentRight %}
+	<h4>{{ user.email}}</h4>
+	<hr />	
+	<form action="change_password.php" method="post" class="cmxform" id="passwordForm">
+		<table>
+			<tr>
+				<td>Nume:</td>
+				<td><input type="text" name="nume" id="nume" value="{{user.nume}}"/></td>
+			</tr>
+			<tr>
+				<td>Prenume:</td>
+				<td><input type="text" name="prenume" id="prenume" value="{{user.prenume}}"/></td>
+			</tr>
+			<tr>
+				<td>Parola veche:</td>
+				<td><input type="password" name="parola" id="parola"/></td>
+			</tr>
+			<tr>
+				<td>Parola noua:</td>
+				<td><input type="password" name="parola1" id="parola1"/></td>
+			</tr>
+			<tr>
+				<td>Repeta parola:</td>
+				<td><input type="password" name="parola2" id="parola2"/></td>
+			</tr>
+			<tr>
+				<td>
+					<label for="psc">Schimba parola:</label>
+				</td>
+				<td>
+					<input type="checkbox" name="psc" id="psc" style="margin: 0px 0px 0px 30px;" />
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="Modifica datele" class="btn"/>
+	</form>
+{% endblock %}
+
+{% block ContentLeft %}
+	<a href="user.php"> 
+		<img src="http://www.gravatar.com/avatar/{{ user.getEmailHash() }}?s=400" class="left" />
+	</a>
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+<script type="text/javascript" src="resources/scripts/valid.js"></script>
+{% endblock %}

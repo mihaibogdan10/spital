@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block Title %}Contact{% endblock %}
+
+{% block Content %}
+<form action="contact.php" method="post">
+	<table>
+		<tr>
+			<td>Nume:</td>
+			<td><input type="text" name="name" /></td>
+		</tr>
+		<tr>
+			<td>E-mail:</td>
+			<td><input type="text" name="email" /></td>
+		</tr>
+		<tr>
+			<td>Subiect:</td>
+			<td><input type="text" name="subject" /></td>
+		</tr>
+		<tr>
+			<td valign="top">Mesaj:</td>
+			<td><textarea name="message"></textarea></td>
+		</tr>
+	</table>
+	<input type="submit" value="Trimite" class="btn" />
+</form>
+{% endblock %} 

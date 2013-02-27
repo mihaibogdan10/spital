@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block Title %} Pacienti {% endblock %}
+
+{% block Content %}
+	{% include 'patients_table.html' with {'patients': patients}%}
+	<br />
+	<div id="add_new_patient">
+		<h4>Adauga un pacient nou</h4>
+		<hr />
+		<form action="new_patient.php" method="post" id="addPatientForm">
+			<table>
+				<tr>
+					<td>Nume:</td>
+					<td><input type="text" name="lastname" /></td>
+				</tr>
+				<tr>
+					<td>Prenume:</td>
+					<td><input type="text" name="firstname" /></td>
+				</tr>
+				<tr>
+					<td>CNP:</td>
+					<td><input type="text" name="cnp" /></td>
+				</tr>
+			</table>
+			<input type="submit" value="Adauga" class="btn" />
+		</form>
+	</div>
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(function () {
+			$.validator.addMethod("cnp", function(value, element) { return checkCNP(value); });
+			$('#addPatientForm').validate({
+				rules: {
+					lastname: "required",
+					firstname: "required",
+					cnp: { required: true, digits: true, minlength: 13, maxlength: 13, cnp: true }
+				},
+				messages: {
+					lastname: "Introdu numele pacientului",
+					firstname: "Introdu prenumele pacientului",
+					cnp: {
+						required: "Introdu codul CNP al pacientului",
+						digits: "Codul CNP contine doar cifre",
+						minlength: jQuery.format("Codul CNP trebuie sa contina {0} cifre"),
+						maxlength: jQuery.format("Codul CNP trebuie sa contina {0} cifre"),
+						cnp: "Codul CNP nu este valid"
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{% block Title %}Spital{% endblock %}</title>
+	<link rel="icon" href="resources/images/logo2.png" />
+	{% block Style %}
+		<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" />
+		<link href="resources/style/default.css" type="text/css" rel="stylesheet" media="all" />
+		<link href="resources/style/patient.css" type="text/css" rel="stylesheet" media="all" />
+		<link type="text/css" rel="stylesheet" href="resources/modules/jquery.notify/ui.notify.css"	 />
+	{% endblock %}
+	{% block Scripts %}	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+		<script src="resources/modules/jquery.notify/jquery.notify.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="resources/scripts/alert.js"></script>
+		<script type="text/javascript" src="resources/scripts/utils.js"></script>
+		<script language="javascript" type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+	{% endblock %}
+</head>
+
+<body>
+	<div id="main">
+		<div id="container" style="display:none">
+			<div id="default">
+				<a class="ui-notify-close" href="#"><span class="ui-icon ui-icon-close" style="float:right"></span></a>
+				<h1>#{title}</h1>
+				<p>#{text}</p>
+			</div>
+			<div id="themeroller" class="ui-state-error" style="padding:10px; -moz-box-shadow:0 0 6px #980000; -webkit-box-shadow:0 0 6px #980000; box-shadow:0 0 6px #980000;">
+				<a class="ui-notify-close" href="#"><span class="ui-icon ui-icon-close" style="float:right"></span></a>
+				<span style="float:left; margin:0 5px 0 0;" class="ui-icon ui-icon-alert"></span>
+				<h1>#{title}</h1>
+				<p>#{text}</p>
+				<p style="text-align:center"><a class="ui-notify-close" href="#">Close Me</a></p>
+			</div>
+		</div>
+		<div id="header">
+			<div id="topline"></div>
+			<div id="navbar">
+				<div class="w1000"> 
+					{% block Logo %}
+						<div class="logo left" style="margin-left: 30px; margin-top: 10px;">
+							<a href="index.php" style="margin-left: 0px;"><img src="resources/images/logo2.png" /></a>
+							<!--<img src="resources/images/logo2.png" />--> 
+						</div>
+					{% endblock %}
+					{% block Menu %} 
+						{% if user and (user.isDoctor or user.isAdmin) %}
+							<div>
+								<a href="#" class="left search" title="Cauta"></a> 
+								<input type="text" id="search_txt" class="left" />
+								<div id="search_results"></div>
+							</div>
+							<a href="patient.php" class="left" title="Pacienti">PACIENTI</a> 
+						{% endif %}
+						<a href="statistics.php" class="left" title="Statistici">STATISTICI</a> 
+						<a href="contact.php" class="left" title="Contact">CONTACT</a>
+						<a href="about.php" class="left" title="Despre">DESPRE</a>
+						{% if user and user.isAdmin %}
+							<a href="admin.php" class="left" title="Admin">ADMIN</a>
+						{% endif %}
+					{% endblock %}
+					{% block UserInfo %}
+						<div id="user_info" class="right"> 
+							{% if user and user.isAuthenticated %} 
+								<a href="user.php"> 
+									<img src="http://www.gravatar.com/avatar/{{ user.getEmailHash() }}?s=50" class="left" />
+								</a>
+								<div class="left"> 
+									<a href="user.php"><span class="name left">{{ user.prenume }}</span></a> <br />
+									<a href="logout.php" class="logout">Iesire</a> 
+								</div>
+							{% else %} 
+								<a href="connect.php" class="login left">Conecteaza-te</a> 
+							{% endif %} 
+						</div>
+					{% endblock %} 
+				</div>
+			</div>
+			<span class="clear"></span>
+		</div>
+		<div id="content">
+			<div class="w1000 leftBorder">
+				<div id="content_text"> 
+					<div class="alert"></div>
+					{% block Content %}
+						<div class="w470 left" style="{% block ContentLeftStyle %}{% endblock %}">
+							{% block ContentLeft %}	{% endblock %}
+						</div>
+						<div class="w470 right" style="{% block ContentRightStyle %}{% endblock %}">
+							{% block ContentRight %} {% endblock %}
+						</div>
+					{% endblock %} 
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="w1000"> 
+				{% block Footer %}
+					<div style="margin-top: 10px;"> 
+						<a href="index.php" title="Acasa">Acasa</a> 
+						<a href="contact.php" title="Contact">Contact</a>
+						<a href="about.php" title="Despre">Despre</a> 
+						<a href="#" title="Termeni si servicii">Termeni si servicii</a> 
+					</div>
+					<div style="margin-left: 25px; padding-top: 7px; color: #A0A0A0;">&copy; Copyright 2013. All rights reserved.</div>
+				{% endblock %} 
+			</div>
+		</div>
+	</div>
+	{% block Bottom %}
+		<script type="text/javascript" src="resources/scripts/search.js"></script>
+	{% endblock %}
+</body>
+</html>

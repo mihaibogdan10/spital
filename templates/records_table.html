@@ -1,0 +1,34 @@
+<table class="patients">
+	{% if records %}
+	<tr>
+		<th></th>
+		<th>INVESTIGATIE</th>
+		<th>DOCTOR</th>
+		<th>DATA</th>
+		<th></th>
+	</tr>
+	{% endif %}
+	{% for record in records %}
+	<tr>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ loop.index }}. </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ record.investigation|capitalize }} </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ record.sending_medic|title }} </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ record.timestamp }} </a></td>
+		<td>
+			<div class="left" style="width: 30px;">
+			<a href="edit_record.php?id={{ record.id }}">
+				<img src="resources/images/edit-icon.png" title="Editeaza" />
+			</a>
+			</div>
+			<div class="left" style="width: 20px; margin: 4px 0px 0px 5px;">
+			<!--<a href="print_record.php?id={{ record.id }}">
+				<img src="resources/images/printer-icon.png" title="Imprima"/>
+			</a>-->
+				<img src="resources/images/trash-icon.png" title="Sterge fisa" style="cursor: pointer;" onclick="javascript: deleteObject('fisa', '{{ record.id }}');" />
+			</div>
+		</td>
+	</tr>
+	{% else%}
+	<p>Nu am gasit nici o fisa.</p>
+	{% endfor %}
+</table>

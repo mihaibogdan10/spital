@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block Title %} Statistici {% endblock %}
+{% block Style %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="resources/style/statistics.css" />
+{% endblock %}
+{% block Scripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+{% endblock %}
+
+{% block Content %}
+	
+	<p> Alegeti sexul si varsta pentru care doriti sa viziualizati o reprezentare grafica a impartirii pe categorii a fiselor inscrise pana in prezent.</p>
+	
+	<select id = "sex_select">
+		<option value = "Both"> Ambele sexe </option>
+		<option value = "Male"> Barbati </option>
+		<option value = "Female"> Femei </option>
+	</select>
+	<p>
+		<label for="age_span">Varsta:</label>
+		<span id="age_span"></span>
+	</p>
+	<div id="slider_age"></div>
+	<input type="button" value="trimite" id = "query_button">
+		
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+	<script type="text/javascript" src="resources/scripts/statistics.js"></script>
+{% endblock %}

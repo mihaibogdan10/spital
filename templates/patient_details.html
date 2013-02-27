@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% set patient_records = patient.getRecords() %}
+
+{% block Title %} {{ patient.lastname }} {{ patient.firstname }} {% endblock %}
+
+{% block Style %}
+	{{ parent() }}
+	<link href="resources/style/patient.css" type="text/css" rel="stylesheet" media="all" />
+{% endblock %}
+
+{% block ContentLeftStyle %}width:360px;{% endblock %}
+{% block ContentLeft %}
+	<h3>{{ patient.lastname|title }} {{ patient.firstname|title }}</h3>
+	<hr />
+	<table>
+		<tr>
+			<td width="130px">Nume:</td>
+			<td>{{ patient.lastname }}</td>
+		</tr>
+		<tr>
+			<td>Prenume:</td>
+			<td>{{ patient.firstname }}</td>
+		</tr>
+		<tr>
+			<td>Sex:</td>
+			<td>{{ patient.getGender() }}</td>
+		</tr>
+		<tr>
+			<td>Data nasterii:</td>
+			<td>{{ patient.getBirthDate() }}</td>
+		</tr>
+		<tr>
+			<td>CNP:</td>
+			<td>{{ patient.cnp }}</td>
+		</tr>
+		<tr>
+			<td>Adaugat de:</td>
+			<td>{{ patient.getParent() }}</td>
+		</tr>
+		<tr>
+			<td>Ultima actualizare:</td>
+			<td>{{ patient.updated }}</td>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block ContentRightStyle %}width:540px;{% endblock %}
+{% block ContentRight %}
+
+	{% include 'records_table.html' with {'records': patient_records} %}
+	
+	<br />
+	<div id="add_new_record">
+		<h4>Adauga o fisa noua</h4>
+		<hr />
+		<form action="add_record.php" method="post" id="addRecordForm">
+			<input type="hidden" name="patient" value="{{ patient.id }}" />
+			<table>
+				<tr>
+					<td>Diagnostic de trimitere:</td>
+					<td><input type="text" name="sending_diagnosis" /></td>
+				</tr>
+				<tr>
+					<td>Medic:</td>
+					<td><input type="text" name="sending_medic" /></td>
+				</tr>
+				<tr>
+					<td>Investigatie:</td>
+					<td>
+						<select name = "investigation">
+							<option value = ""> alege o optiune </option>
+							<option value = "scintigrama osoasa">scintigrama osoasa</option>
+							<option value = "scintigrama tiroidiana">scintigrama tiroidiana</option>
+							<option value = "scintigrama paratiroidiana">scintigrama paratiroidiana</option>
+							<option value = "scintigrama hepatica">scintigrama hepatica</option>
+							<option value = "scintigrama renala">scintigrama renala</option>
+							<option value = "scintigrama pulmonara">scintigrama pulmonara</option>
+							<option value = "scintigrama de cord">scintigrama de cord</option>
+							<option value = "diverse">diverse</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clinica:</td>
+					<td><input type="text" name="clinic" /></td>
+				</tr>
+			</table>
+			<input type="submit" value="Adauga" class="btn" />
+		</form>	
+	</div>
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(function () {
+			$('#addRecordForm').validate({
+				rules: {
+					sending_diagnosis: "required",
+					sending_medic: "required",
+					investigation: "required",
+					clinic: "required"
+				},
+				messages: {
+					sending_diagnosis: "Introdu diagnosticul de trimitere",
+					sending_medic: "Completeaza numele medicului",
+					investigation: "Introdu investigatia facuta",
+					clinic: "Introdu numele clinicii"
+				}
+			});
+		});
+	</script>
+{% endblock %}

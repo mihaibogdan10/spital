@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} {% endblock %}
+{% block Style %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="resources/style/record.css" />
+{% endblock %}
+{% block Scripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+{% block Content %}
+
+	<input type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />		
+	<br style = "clear : both;" />
+	
+	<div id = "firstSection">
+		<table>
+			<tr>
+				<td class = "info">Gamma camera : </td>
+				<td><input type="text" class = "editable importantInfo" id = "gamma_room_input" placeholder="Introduceti gamma camera."></td>
+			</tr>
+			<tr>
+				<td class = "info">Colimator : </td>
+				<td><input class = "editable importantInfo" id = "collimator_input" placeholder="Introduceti colimatorul."></td>
+			</tr>
+			<tr>
+				<td class = "info">Izotop <sup>99m</sup>Tc  Radiofarmaceutic: </td>
+				<td><input class = "editable importantInfo" id = "radiopharmaceutical_isotope_input" placeholder="Introduceti izotopul radiofarmaceutic."></td>
+			</tr>
+			<tr>
+				<td class = "info">Doza: </td>
+				<td><input class = "editable importantInfo" id = "dose_input" placeholder="Introduceti doza."></td>
+			</tr>		
+			<tr>
+				<td class = "info">Clinica / Cabinet medical: </td>
+				<td><input class = "editable importantInfo" id = "clinic_input" placeholder="Introduceti clinica."></td>
+			</tr>		
+			<tr>
+				<td class = "info">Investigatie recomandata de: </td>
+				<td><input class = "editable importantInfo" id = "sending_medic_input" placeholder="Introduceti numele."></td>
+			</tr>
+			<tr>
+				<td class = "info">Diagnostic de trimitere: </td>
+				<td><input class = "editable importantInfo" id = 'sending_diagnosis_input' placeholder="Introduceti diagnosticul de trimitere."></td>
+			</tr>
+			<tr>
+				<td class = "info">Tipul investigatiei de medicina nucleara: </td>
+				<td>
+					<span class="importantInfo" id="investigation_span">
+						{{ record.investigation }}
+					</span>
+					<select id = "investigation_select">
+						<option value = ""> alege o optiune </option>
+						<option value = "scintigrama osoasa">scintigrama osoasa</option>
+						<option value = "scintigrama tiroidiana">scintigrama tiroidiana</option>
+						<option value = "scintigrama paratiroidiana">scintigrama paratiroidiana</option>
+						<option value = "scintigrama hepatica">scintigrama hepatica</option>
+						<option value = "scintigrama renala">scintigrama renala</option>
+						<option value = "scintigrama pulmonara">scintigrama pulmonara</option>
+						<option value = "scintigrama de cord">scintigrama de cord</option>
+						<option value = "diverse">diverse</option>
+					</select>
+					<a class = "editButton" href ="javascript: showSelect();">Edit</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+		
+	<br style = "clear : both;" />
+		
+	<div id = "investigation_details">
+		<h2 id = "investigation_title"> 
+			{{ record.investigation }}
+		</h2>
+		
+		<textarea id = 'investigation_result_textarea'>
+		</textarea>
+
+		<img class = "saveButton" id = "save_result_image" src = "resources/images/save-button.png" alt = "save"/>
+	</div>
+	
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+	<script>
+		patient_id = {{record.getPatient().id}};
+		clinic_data = "{{ record.clinic }}";
+		gamma_room_data = "{{ record.gamma_room }}";
+		collimator_data = "{{ record.collimator }}";
+		radiopharmaceutical_isotope_data = "{{ record.radiopharmaceutical_isotope }}";
+		dose_data = "{{ record.dose }}";
+		sending_medic_data = "{{ record.sending_medic }}";
+		sending_diagnosis_data = "{{ record.sending_diagnosis }}";
+		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;746&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;it-IT&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;it-IT&quot;&gt;Prof.dr. &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt; &lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
+	</script>
+	<script type="text/javascript" src="resources/scripts/edit_record.js"></script>
+{% endblock %}

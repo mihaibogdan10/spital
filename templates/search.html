@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block Title %}Cauta: {{ query }}{% endblock %}
+
+{% block Content %}
+	
+	<h4>Rezultate pentru pacienti:</h4>
+	<hr /><br />
+	{% include 'patients_table.html' with {'patients': patients} %}
+	<br /><br />
+	
+	<h4>Rezultate pentru fise:</h4>
+	<hr/><br />
+	{% include 'records_table.html' with {'records': records} %}
+	<br /><br />
+	
+{% endblock %}

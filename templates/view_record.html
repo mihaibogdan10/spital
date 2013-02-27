@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} - Fisa {% endblock %}</title> 
+	{% block Style %}
+		<link rel="stylesheet" type="text/css" href="resources/style/record.css" />
+	{% endblock %}
+	{% block Scripts %}
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
+	{% endblock %}
+</head>
+
+<body>
+	<a class = "printButton" href="javascript: window.print();">Print</a>
+	
+	<span type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />
+	<div>
+		<img style = "float : left; border: 2px solid;" src = "resources/images/symbol.png" height = "150" width = "150" alt = "symbol" />
+		<div id = "header">
+			<p class = "header_p" id = "clinicName">Spitalul Clinic Judetean de Urgente "Sf. Spiridon" IASI</p>
+			<p class = "header_p">Laborator Medicina Nucleara</p>
+			<p class = "header_p">B-dul Independentei nr. 1 Iasi, tel. 0232 240 822 int. 120</p>
+			<p class = "header_p">e-mail: medicinanucleara_iasi@yahoo.com</p>
+			<p class = "header_p">- Laborator acreditat ISO -</p>
+		</div>
+		<img style = "float : right;" src = "resources/images/certificate.jpg" height = "150" width = "150" alt = "certificate" />
+	</div>
+		
+	<br style = "clear : both;" />
+	
+	<div id = "firstSection">
+		<h1> BULETIN  DE  INVESTIGATIE </h1>
+		<p class = "info"> Nume / Prenume pacient :
+			<span class = "importantInfo">
+					{{ record.getPatient() }}
+			</span>
+		</p>
+		<p class = "info">Sex : 
+			<span class = "importantInfo">
+				{{ record.getPatient().getGender()|slice(0, 1) }}
+			</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data nasterii : 
+			<span class = "importantInfo">
+				{{ record.getPatient().getBirthDate() }}
+			</span>
+		</p>
+		<p class = "info">Numar caz : 
+			<span class = "importantInfo">
+				{{ record.id }}
+			</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data :
+			<span class = "importantInfo">
+				{{ record.getDate() }}
+			</span>
+		</p>
+		<p class = "info">Gamma camera : 
+			<span type="text" class = "importantInfo" id = "gamma_room_span"></span >
+		</p>
+		<p class = "info">Colimator : 
+			<span class = "importantInfo" id = "collimator_span"></span>
+		</p>
+		<p class = "info">Izotop <sup>99m</sup>Tc  Radiofarmaceutic: 
+			<span class = "importantInfo" id = "radiopharmaceutical_isotope_span"></span>
+			Doza:
+			<span class = "importantInfo" id = "dose_span"></span>
+		</p>
+		
+		<p class = "info">Clinica / Cabinet medical: {{ record.clinic }} </p>
+		<p class = "info">Spital / Policlinica:  Sp."Sf. Spiridon" Localitatea: Iasi</p>
+		
+		<p class = "info">Investigatie recomandata de: 
+			<span class = "importantInfo" id = "sending_medic_span"></span>
+		</p>
+		<p class = "info">Diagnostic de trimitere: 
+			<span class = "importantInfo" id = 'sending_diagnosis_span'></span>
+		</p>
+		<p class = "info">Tipul investigatiei de medicina nucleara: 
+			<span class="importantInfo" id="investigation_span">
+				{{ record.investigation }}
+			</span>
+		</p>
+	</div>
+		
+	<br style = "clear : both;" />
+		
+	<div id = "investigation_details">
+		<h2 id = "investigation_title"> 
+			{{ record.investigation }}
+		</h2>
+		<div id = "investigation_result_div">
+		</div>
+	</div>
+	
+	<br style = "clear : both;" />
+	
+	{% block Bottom %}
+		<script>
+			gamma_room_data = "{{ record.gamma_room }}";
+			collimator_data = "{{ record.collimator }}";
+			radiopharmaceutical_isotope_data = "{{ record.radiopharmaceutical_isotope }}";
+			dose_data = "{{ record.dose }}";
+			sending_medic_data = "{{ record.sending_medic }}";
+			sending_diagnosis_data = "{{ record.sending_diagnosis }}";
+			investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;746&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;it-IT&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;it-IT&quot;&gt;Prof.dr. &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt; &lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
+		</script>
+		<script type="text/javascript" src="resources/scripts/view_record.js"></script>
+	{% endblock %}
+	
+	<br style = "clear : both;" />
+	
+	</body>
+</html>

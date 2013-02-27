@@ -1,0 +1,92 @@
+h1, h2 {
+    text-align : center;
+    margin : 30px 0px 20px 0px;
+}
+
+body {
+    width : 860px;
+    margin : 10px auto 0px auto;
+	line-height: 150%;
+}
+
+.importantInfo {
+    font-weight: 600;
+    /*font-family: Consolas;*/
+	font-family: "Times New Roman", Times, serif;
+}
+
+.editable {
+    background: #F2F2F2;
+    display: inline-block;
+    width : 16.5em;
+    height: 16px;
+    line-height: 1;
+    padding: 5px;
+    text-indent: 1px;
+	border-color: #bebebe;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 3px #dbdbdb,inset 0 -1px 0 #e9e9e9;
+}
+
+.info {
+    /*font-family:'Prestige Elite Std';*/
+	font-family: "Times New Roman", Times, serif;
+    padding:0px;
+    margin:0px;
+}
+
+#header {
+    float: left;
+    width: 490px;
+    text-align: center;
+    margin : 5px 0px 0px 0px;
+    padding : 0px;
+}
+
+.header_p {
+    margin : 0px;
+    padding : 3px;
+}
+
+#clinicName {
+    font-size:1.2em;
+    font-weight : 700;
+}
+
+#investigation_select {
+    display:none;
+}
+
+#investigation_result_textarea {
+	display : inline-block;
+	width : 760px;
+}
+
+.editButton {
+    display : inline-block;
+    width : 16px;
+    height : 16px;
+    background-image:url("../images/edit-button16x16.png");
+    text-indent: -99999px;
+}
+
+.printButton{
+    position : fixed;
+	top : 20px;
+	left : 20px;
+    width : 81px;
+    height : 22px;
+    background-image:url("../images/print-button.png");
+    text-indent: -99999px;
+}
+
+.saveButton {
+	z-index:9999;
+    position : absolute;
+}
+
+.editButton:hover, .saveButton:hover, .printButton:hover{
+    cursor : pointer;
+}
