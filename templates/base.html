@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -42,7 +42,7 @@
 				<div class="w1000"> 
 					{% block Logo %}
 						<div class="logo left" style="margin-left: 30px; margin-top: 10px;">
-							<a href="index.php" style="margin-left: 0px;"><img src="resources/images/logo2.png" /></a>
+							<a href="index.php" style="margin-left: 0px;"><img src="resources/images/logo2.png" alt = "logo2"/></a>
 							<!--<img src="resources/images/logo2.png" />--> 
 						</div>
 					{% endblock %}
@@ -66,7 +66,7 @@
 						<div id="user_info" class="right"> 
 							{% if user and user.isAuthenticated %} 
 								<a href="user.php"> 
-									<img src="http://www.gravatar.com/avatar/{{ user.getEmailHash() }}?s=50" class="left" />
+									<img src="http://www.gravatar.com/avatar/{{ user.getEmailHash() }}?s=50" class="left" alt = "avatar"/>
 								</a>
 								<div class="left"> 
 									<a href="user.php"><span class="name left">{{ user.prenume }}</span></a> <br />
