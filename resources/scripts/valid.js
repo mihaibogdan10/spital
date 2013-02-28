@@ -8,7 +8,7 @@ $(function () {
 		rules: {
 			nume: "required",
 			prenume: "required",
-			parola: { required: true, minlength: 6 },
+			password: { required: true, minlength: 6 },
 			parola1: { required: "#psc:checked", minlength: function() {
 																if ($('#psc').prop('checked')) 
 																	return 6;

@@ -5,7 +5,7 @@
 {% block ContentRight %}
 	<h4>{{ user.email}}</h4>
 	<hr />	
-	<form action="change_password.php" method="post" class="cmxform" id="passwordForm">
+	<form action="change_password.php" method="post" class="cmxform" id="passwordForm" autocomplete="off">
 		<table>
 			<tr>
 				<td>Nume:</td>
@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td id="passText">Parola:</td>
-				<td><input type="password" name="parola" id="parola"/></td>
+				<td><input type="password" name="password" id="password" autocomplete="off"/></td>
 			</tr>
 			<tr class="passLines" style="display: none;">
 				<td>Parola noua:</td>

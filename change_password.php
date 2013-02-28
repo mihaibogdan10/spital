@@ -6,7 +6,7 @@
 	
 	$_POST['nume'] = isset($_POST['nume']) ? $_POST['nume'] : NULL;
 	$_POST['prenume'] = isset($_POST['prenume']) ? $_POST['prenume'] : NULL;
-	$_POST['parola'] = isset($_POST['parola']) ? $_POST['parola'] : NULL;
+	$_POST['password'] = isset($_POST['password']) ? $_POST['password'] : NULL;
 	$_POST['parola1'] = isset($_POST['parola1']) ? $_POST['parola1'] : NULL;
 	$_POST['parola2'] = isset($_POST['parola2']) ? $_POST['parola2'] : NULL;
 	$password = isset($_POST['psc']) ? true : false;
@@ -15,7 +15,7 @@
 
 
 	try {
-		if (!($user->parola == passEncode(mysql_real_escape_string($_POST['parola']))))
+		if (!($user->parola == passEncode(mysql_real_escape_string($_POST['password']))))
 			header('location: user.php#Parola este incorecta! Nu am schimbat datele!');
 		else {
 			if ($password)
