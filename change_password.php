@@ -15,18 +15,19 @@
 
 
 	try {
-		if ($password)
-			if ($user->parola == passEncode(mysql_real_escape_string($_POST['parola'])))
+		if (!($user->parola == passEncode(mysql_real_escape_string($_POST['parola']))))
+			header('location: user.php#Parola este incorecta! Nu am schimbat datele!');
+		else {
+			if ($password)
 				$user->parola = passEncode(mysql_real_escape_string($_POST['parola1']));
-			else
-				header('location: user.php#Parola veche este incorecta! Nu am schimbat datele!');
-		
-		$user->nume = mysql_real_escape_string($_POST['nume']);
-		$user->prenume = mysql_real_escape_string($_POST['prenume']);
-				
-		$user->save();
-		$user->Connect();
-		header('location: user.php#Datele schimbate cu succes!');
+
+			$user->nume = mysql_real_escape_string($_POST['nume']);
+			$user->prenume = mysql_real_escape_string($_POST['prenume']);
+					
+			$user->save();
+			$user->Connect();
+			header('location: user.php#Datele schimbate cu succes!');
+		}
 	}
 	catch (Exception $ex) { // parola nu e corecta	
 		header('location: user.php#Nu am putut schimba datele!');

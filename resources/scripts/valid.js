@@ -1,14 +1,14 @@
+var texts = {
+	passwordRequiredText : "Introduceti parola"
+};
+
+
 $(function () {			
 	$('#passwordForm').validate({
 		rules: {
 			nume: "required",
 			prenume: "required",
-			parola: { required: "#psc:checked", minlength: function() {
-																if ($('#psc').prop('checked')) 
-																	return 6;
-																else 
-																	return 0; 
-															} },
+			parola: { required: true, minlength: 6 },
 			parola1: { required: "#psc:checked", minlength: function() {
 																if ($('#psc').prop('checked')) 
 																	return 6;
@@ -21,8 +21,9 @@ $(function () {
 			nume: "Numele este obligatoriu",
 			prenume: "Prenumele este obligatoriu",
 			parola: {
-				required: "Introduceti parola veche",
-				minlength: jQuery.format("Introduceti parola veche"),
+				// aici folosesc functie pentru a putea modifica textul afisat, cu fisierul password.js
+				required: function() {return texts['passwordRequiredText'];} ,
+				minlength: function() {return texts['passwordRequiredText'];},
 			},
 			parola1: {
 				required: "Introduceti noua parola",

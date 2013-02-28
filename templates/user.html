@@ -16,14 +16,14 @@
 				<td><input type="text" name="prenume" id="prenume" value="{{user.prenume}}"/></td>
 			</tr>
 			<tr>
-				<td>Parola veche:</td>
+				<td id="passText">Parola:</td>
 				<td><input type="password" name="parola" id="parola"/></td>
 			</tr>
-			<tr>
+			<tr class="passLines" style="display: none;">
 				<td>Parola noua:</td>
 				<td><input type="password" name="parola1" id="parola1"/></td>
 			</tr>
-			<tr>
+			<tr class="passLines" style="display: none;">
 				<td>Repeta parola:</td>
 				<td><input type="password" name="parola2" id="parola2"/></td>
 			</tr>
@@ -49,4 +49,5 @@
 {% block Bottom %}
 	{{ parent() }}
 <script type="text/javascript" src="resources/scripts/valid.js"></script>
+<script type="text/javascript" src="resources/scripts/password.js"></script>
 {% endblock %}
