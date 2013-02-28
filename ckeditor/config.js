@@ -21,7 +21,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote',
 		'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
-		{ name: 'links', items : [ 'Link','Unlink','Anchor','Source' ] },
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','SpecialChar','PageBreak' ] },
 	];
 	
