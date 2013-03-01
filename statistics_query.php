@@ -7,8 +7,9 @@
 	require_once '__TwigConfig.php';
 	require_once '__PermissionStudent.php';
 	
-	$sex = isset($_POST['sex']) ? $_POST['sex'] : "Both";
-	$age_range = isset($_POST['age_range']) ? $_POST['age_range'] : null;
+	$sex = isset($_POST['sex']) ? $_POST['sex'] : "B &amp; F";
+	$min_age = isset($_POST['min_age']) ? $_POST['min_age'] : null;
+	$max_age = isset($_POST['max_age']) ? $_POST['max_age'] : null;
 	
 	$sql = "SELECT * FROM (SELECT cnp, investigation, DATE_FORMAT ( FROM_DAYS ( TO_DAYS ( NOW() ) - TO_DAYS ( concat(
 			(CASE 
@@ -18,21 +19,10 @@
 			END), substr(cnp, 2, 2), '-', substr(cnp, 4, 2), '-', substr(cnp, 6, 2)))), '%Y') + 0 as 'age'
 		FROM record, patient WHERE record.patient = patient.id) AS derived_table WHERE 1";
 	
-	if ($sex == "Male")
+	if ($sex == "B")
 		$sql .= " AND mod(substr(cnp,1,1), 2) = 1";
-	else if ($sex == "Female")
+	else if ($sex == "F")
 		$sql .= " AND mod(substr(cnp,1,1), 2) = 0";
-	
-	if ($age_range){
-		$exploded_age_range = explode('-', $age_range);
-		try{
-			$min_age = (int)$exploded_age_range[0];
-			$max_age = (int)$exploded_age_range[1];
-		}
-		catch (Exception $e){
-			//shouldn't
-		}
-	}
 	
 	if (isset($min_age) && isset($max_age))
 		$sql .= sprintf(" AND age >= %d AND age <= %d", $min_age, $max_age);

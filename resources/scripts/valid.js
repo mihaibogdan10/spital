@@ -20,7 +20,7 @@ $(function () {
 		messages: {
 			nume: "Numele este obligatoriu",
 			prenume: "Prenumele este obligatoriu",
-			parola: {
+			password: {
 				// aici folosesc functie pentru a putea modifica textul afisat, cu fisierul password.js
 				required: function() {return texts['passwordRequiredText'];} ,
 				minlength: function() {return texts['passwordRequiredText'];},
