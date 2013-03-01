@@ -1,0 +1,66 @@
+h1, h2 {
+    text-align : center;
+    margin : 30px 0px 20px 0px;
+}
+
+body {
+    width : 800px;
+    margin : 10px auto 0px auto;
+}
+
+.importantInfo {
+    font-weight: 600;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.info {
+	font-family: "Times New Roman", Times, serif;
+    padding : 0px;
+    margin : 0px 0px 0px 1.0cm;
+}
+
+#header {
+    float: left;
+    width: 490px;
+    text-align: center;
+    margin : 5px 0px 0px 0px;
+    padding : 0px;
+}
+
+.header_p {
+    margin : 0px;
+    padding : 3px;
+}
+
+#clinicName {
+    font-size:1.2em;
+    font-weight : 700;
+}
+
+#investigation_result_div{
+	margin-left : 1.0cm;
+}
+
+.printButton{
+    position : fixed;
+	top : 20px;
+	left : 20px;
+}
+
+#save_result_div {
+    position : fixed;
+	left : 50px;
+	top : 140px;
+}
+
+@media print{
+	.printButton{
+		display : none;
+	}
+	body{
+		margin : 0;
+	}
+	#header{
+		margin : 0;
+	}
+}
