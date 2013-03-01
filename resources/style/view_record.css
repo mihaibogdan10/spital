@@ -4,7 +4,7 @@ h1, h2 {
 }
 
 body {
-    width : 800px;
+    width : 810px;
     margin : 10px auto 0px auto;
 }
 
@@ -17,6 +17,10 @@ body {
 	font-family: "Times New Roman", Times, serif;
     padding : 0px;
     margin : 0px 0px 0px 1.0cm;
+}
+
+.western{
+	text-indent : 3em;
 }
 
 #header {
@@ -39,6 +43,7 @@ body {
 
 #investigation_result_div{
 	margin-left : 1.0cm;
+	width : 810px;
 }
 
 .printButton{

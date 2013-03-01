@@ -4,7 +4,7 @@ h1, h2 {
 }
 
 body {
-    width : 800px;
+    width : 810px;
     margin : 10px auto 0px auto;
 	line-height: 150%;
 }
@@ -66,14 +66,19 @@ body {
     display : inline-block;
 }
 
+table{
+	border-spacing: 40px 3px;
+}
+
 #save_result_div {
     position : fixed;
-	left : 50px;
+	left : 30px;
 	top : 140px;
 }
 
 #save_result_text{
 	color : #53B0E7;
+	font-size : 1.4em;
 }
 
 #save_result_image{
