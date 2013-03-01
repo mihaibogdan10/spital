@@ -30,9 +30,10 @@ window.onload = function() {
         on :{
             instanceReady : function( ev ){
 				var blockTags = ['div','h1','h2','h3','h4','h5','h6','p','pre','li','blockquote','ul','ol',
-								'table','thead','tbody','tfoot','td','th', 'tr'];
+								'table','thead','tbody','tfoot','td','th', 'tr', 'br'];
 								
                 //functie care elimina /n-urile
+				// /n-urile sunt evil!!! nu le vrem intr-un textbox in care incarcam ckeditor
 				for (var i = 0; i < blockTags.length; i++)
 					this.dataProcessor.writer.setRules( blockTags[i],
 						{
@@ -45,9 +46,6 @@ window.onload = function() {
             }
         }
     });
-	
-	$('#save_result_image').css('left', $('#investigation_result_textarea').position().left + 750 + 'px');
-	$('#save_result_image').css('top', $('#investigation_result_textarea').position().top + 20 + 'px');
 };
 
 function showSelect() {
@@ -61,8 +59,8 @@ $('#investigation_select').change(function () {
 	$('#investigation_title').html($('#investigation_select').val()); 
 	$('#investigation_select').hide(); 
 });
-	
-$('#save_result_image').click( function () {
+
+function savePage() {
 	$.ajax({
 		type: "POST",
 		url: "update_record.php",
@@ -86,4 +84,7 @@ $('#save_result_image').click( function () {
 			window.location.replace("patient.php?id=" + patient_id + "#Fisa a fost salvata!");
 		}
 	});
-});
+}
+
+$('#save_result_image').click( savePage );
+$('#save_result_text').click( savePage );

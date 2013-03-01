@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} - Fisa {% endblock %}</title> 
 	{% block Style %}
-		<link rel="stylesheet" type="text/css" href="resources/style/record.css" />
+		<link rel="stylesheet" type="text/css" href="resources/style/view_record.css" />
 	{% endblock %}
 	{% block Scripts %}
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -15,7 +15,7 @@
 <body>
 	<input type = "button" class = "printButton" onclick="javascript: window.print();" value = "Tipareste pagina"/>
 	
-	<span type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />
+	<input type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />	
 	<div>
 		<img style = "float : left; border: 2px solid;" src = "resources/images/symbol.png" height = "150" width = "150" alt = "symbol" />
 		<div id = "header">
@@ -85,10 +85,10 @@
 		
 	<div id = "investigation_details">
 		<h2 id = "investigation_title"> 
-			{{ record.investigation }}
+			{{ record.investigation | title }}
 		</h2>
-		<div id = "investigation_result_div">
-		</div>
+		<div id = "investigation_result_div"></div>
+		<br><p class = "info"> Am primit rezultatul, </p>
 	</div>
 	
 	<br style = "clear : both;" />

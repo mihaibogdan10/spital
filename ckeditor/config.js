@@ -24,8 +24,10 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','SpecialChar','PageBreak' ] },
 	];
 	
-	config.width = 800;
-	config.height = 800;
+	config.width = 750;
+	config.height = 600;
+	config.enterMode = CKEDITOR.ENTER_BR;
+	
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
 	//config.removeButtons = 'Underline,Subscript,Superscript';
