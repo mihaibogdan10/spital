@@ -1,5 +1,5 @@
 <?php
-
+	
 	require_once 'models/PatientModel.php';
 	require_once 'models/RecordModel.php';
 	require_once '__Variables.php';
