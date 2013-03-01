@@ -1,37 +1,155 @@
 {% extends 'base.html' %}
 
 {% block Title %} Statistici {% endblock %}
+
 {% block Style %}
 	{{ parent() }}
-	<link rel="stylesheet" type="text/css" href="resources/style/statistics.css" />
+	<style type="text/css">
+		#questions .question { margin-bottom: 5px; }
+		#questions .question .q_content { 
+			padding: 7px 5px 10px 10px; 
+			background: #ffffde; 
+			color: #876d66; 
+			border: 1px solid #e4e4c6; 
+			border-radius: 5px;
+			display: none;
+		}
+		
+		#slider_age_min { margin: 2px 7px 0px 100px; font-weight: bold; width: 15px; }
+		#slider_age_max { margin: 2px 0px 0px 7px; font-weight: bold; width: 15px; }
+		#slider_age {
+			width: 250px;
+			height: 5px;
+			margin: 7px 10px 0px 10px;
+		}
+		
+		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+			width: 10px;
+			height: 10px;
+			border-radius: 10px;
+			margin-top: 1px;
+			background: #efefef; /* Old browsers */ 
+			background: -moz-linear-gradient(top, #fefefe 0%, #efefef 100%); /* FF3.6+ */ 
+			background: -webkit-linear-gradient(top, #fefefe 0%, #efefef 100%); /* Chrome10+,Safari5.1+ */ 
+			border: 1px solid #d26911; /*#ececec;*/
+			cursor: pointer;
+		}
+		
+		.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
+			border: 1px solid #d26911; 
+			background: inherit; 
+		}
+		
+		.ui-widget-header { background: #d26911; }
+		
+	</style>
 {% endblock %}
 {% block Scripts %}
 	{{ parent() }}
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+	<script type="text/javascript" src="resources/scripts/draw_statistics.js"></script>
 {% endblock %}
 
-{% block Content %}
-	
-	<p> Alegeti sexul si varsta pentru care doriti sa viziualizati o reprezentare grafica a impartirii pe categorii a fiselor inscrise pana in prezent.</p>
-	
-	<select id = "sex_select">
-		<option value = "Both"> Ambele sexe </option>
-		<option value = "Male"> Barbati </option>
-		<option value = "Female"> Femei </option>
-	</select>
-	<p>
-		<label for="age_span">Varsta:</label>
-		<span id="age_span"></span>
-	</p>
-	<div id="slider_age"></div>
-	<input type="button" value="trimite" id = "query_button">
-		
-    <!--Div that will hold the pie chart-->
+{% block ContentLeftStyle %} width: 600px; {% endblock %}
+{% block ContentRightStyle %} width: 320px; {% endblock %}
+
+{% block ContentLeft %}
+	<div id="filter_menu">
+		<div class="button hfirst left" title="Barbati">B</div>
+		<div class="button left" title="Femei">F</div>
+		<div class="button hlast active left" title="Barbati &amp; Femei">B &amp; F</div>
+		<div id="slider_age_min" class="left"></div><div id="slider_age" class="left"></div><div id="slider_age_max" class="left"></div>
+		<div class="clear"></div>
+	</div>	
+	<!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+{% endblock %}
+{% block ContentRight %}
+	<div id="questions">
+		{% for question in questions %}
+		<div class="question">
+			<div class="button{% if loop.first %} vfirst{% elseif loop.last %} vlast{% endif %}" style="font-weight: normal;" title="{{ question }}">
+				{{ question|slice(0, 50) }}...
+			</div>
+			<div class="q_content">
+				{{ question }}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 {% endblock %}
 
 {% block Bottom %}
 	{{ parent() }}
-	<script type="text/javascript" src="resources/scripts/statistics.js"></script>
+	<script type="text/javascript">
+		// question click
+		// show question details
+		$('#questions .question div.button').click(function () {
+			$('#questions .question div.active').next().not($(this).next()).slideUp('fast');
+			$(this).next().slideToggle('slow');
+			$('#questions .question div.button').removeClass('active');
+			$(this).addClass('active');
+		});
+		
+		/////////////////////////////
+		// filter_menu 
+		///////////////////////
+		
+		//click (sex, age)
+		$('#filter_menu .button').click(function () {
+			$('#filter_menu .button').removeClass('active');
+			$(this).addClass('active');
+			drawPieChart();
+		});
+		
+		// age slider
+		$('#slider_age').slider({
+			range: true,
+			min: 0,
+			max: 150,
+			values: [ 0, 150 ],
+			slide: function( event, ui ) {
+				$('#slider_age_min').html(ui.values[0]);
+				$('#slider_age_max').html(ui.values[1]);
+			},
+			change: function (e, ui) {
+				drawPieChart();
+			}
+		});
+		$('#slider_age_min').html($("#slider_age").slider("values", 0));
+		$('#slider_age_max').html($("#slider_age").slider("values", 1));
+		
+		function drawPieChart() {
+			$.ajax({
+				type: "POST",
+				url: "statistics_query.php",
+				datatype: 'json',
+				data: { 
+					sex: $("#filter_menu .button.active").html().trim(),
+					min_age: $('#slider_age_min').html().trim(),
+					max_age: $('#slider_age_max').html().trim()
+				},
+				beforeSend: function () {},
+				error: function (e) { 
+					console.log(e);
+				},
+				success: function (data) {
+					console.log(data);
+					data = JSON.parse(data);
+					drawInvestigationChart(
+						data["scintigrama_osoasa"], 
+						data["scintigrama_tiroidiana"], 
+						data["scintigrama_paratiroidiana"],
+						data["scintigrama_hepatica"], 
+						data["scintigrama_renala"], 
+						data["scintigrama_pulmonara"], 
+						data["scintigrama_de_cord"], 
+						data["diverse"]
+					);
+				}
+			});
+		}
+		drawPieChart();
+		
+	</script>
 {% endblock %}
