@@ -20,31 +20,31 @@
 		<table>
 			<tr>
 				<td class = "info">Gamma camera : </td>
-				<td><input type="text" class = "editable importantInfo" id = "gamma_room_input" placeholder="Introduceti gamma camera."></td>
+				<td><input class = "editable importantInfo" id = "gamma_room_input" placeholder="Introduceti gamma camera."/></td>
 			</tr>
 			<tr>
 				<td class = "info">Colimator : </td>
-				<td><input class = "editable importantInfo" id = "collimator_input" placeholder="Introduceti colimatorul."></td>
+				<td><input class = "editable importantInfo" id = "collimator_input" placeholder="Introduceti colimatorul."/></td>
 			</tr>
 			<tr>
 				<td class = "info">Izotop <sup>99m</sup>Tc  Radiofarmaceutic: </td>
-				<td><input class = "editable importantInfo" id = "radiopharmaceutical_isotope_input" placeholder="Introduceti izotopul radiofarmaceutic."></td>
+				<td><input class = "editable importantInfo" id = "radiopharmaceutical_isotope_input" placeholder="Introduceti izotopul radiofarmaceutic."/></td>
 			</tr>
 			<tr>
 				<td class = "info">Doza: </td>
-				<td><input class = "editable importantInfo" id = "dose_input" placeholder="Introduceti doza."></td>
+				<td><input class = "editable importantInfo" id = "dose_input" placeholder="Introduceti doza."/></td>
 			</tr>		
 			<tr>
 				<td class = "info">Clinica / Cabinet medical: </td>
-				<td><input class = "editable importantInfo" id = "clinic_input" placeholder="Introduceti clinica."></td>
+				<td><input class = "editable importantInfo" id = "clinic_input" placeholder="Introduceti clinica."/></td>
 			</tr>		
 			<tr>
 				<td class = "info">Investigatie recomandata de: </td>
-				<td><input class = "editable importantInfo" id = "sending_medic_input" placeholder="Introduceti numele."></td>
+				<td><input class = "editable importantInfo" id = "sending_medic_input" placeholder="Introduceti numele."/></td>
 			</tr>
 			<tr>
 				<td class = "info">Diagnostic de trimitere: </td>
-				<td><input class = "editable importantInfo" id = 'sending_diagnosis_input' placeholder="Introduceti diagnosticul de trimitere."></td>
+				<td><input class = "editable importantInfo" id = 'sending_diagnosis_input' placeholder="Introduceti diagnosticul de trimitere."/></td>
 			</tr>
 			<tr>
 				<td class = "info">Tipul investigatiei de medicina nucleara: </td>
@@ -86,7 +86,7 @@
 
 {% block Bottom %}
 	{{ parent() }}
-	<script>
+	<script type = "text/javascript">
 		patient_id = {{record.getPatient().id}};
 		clinic_data = "{{ record.clinic }}";
 		gamma_room_data = "{{ record.gamma_room }}";
@@ -95,7 +95,7 @@
 		dose_data = "{{ record.dose }}";
 		sending_medic_data = "{{ record.sending_medic }}";
 		sending_diagnosis_data = "{{ record.sending_diagnosis }}";
-		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;746&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;it-IT&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;it-IT&quot;&gt;Prof.dr. &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt; &lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
+		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;763&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;ro-RO&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td style = &quot;text-align : right;&quot;&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&nbsp;&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Prof.dr. &nbsp;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
 	</script>
 	<script type="text/javascript" src="resources/scripts/edit_record.js"></script>
 {% endblock %}
