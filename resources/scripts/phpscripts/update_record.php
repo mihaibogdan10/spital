@@ -20,7 +20,7 @@
 	}
 	
 	$user = $_SESSION['user'];
-	$record = new Record($passed_data);
+	$record = new Record($passed_data); 
 	
 	if ($record->save()) { // success
 		header("location: /spital/edit_record.php?id={$passed_data['id']}");
