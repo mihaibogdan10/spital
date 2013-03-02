@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block Title %} Conectare {% endblock %}
+
+{% block ContentLeft %}
+	<h4>{{ user.email}}</h4>
+	<hr />	
+	<form action="resources/scripts/phpscripts/stop_recovery.php" method="post" id="recoverForm" autocomplete="off">
+		<table>
+			<tr>
+				<td>Nume:</td>
+				<td><input type="text" name="nume" id="nume" value="{{user.nume}}" disabled="disabled"/></td>
+			</tr>
+			<tr>
+				<td>Prenume:</td>
+				<td><input type="text" name="prenume" id="prenume" value="{{user.prenume}}" disabled="disabled"/></td>
+			</tr>
+			<tr class="passLines" >
+				<td>Parola noua:</td>
+				<td><input type="password" name="parola1" id="parola1"/></td>
+			</tr>
+			<tr class="passLines" >
+				<td>Repeta parola:</td>
+				<td><input type="password" name="parola2" id="parola2"/></td>
+			</tr>
+		</table>
+		<input type="text" value="{{user.id}}" id="id" name="id" style="display:none;"/>
+		<input type="submit" value="Modifica datele" class="btn"/>
+	</form>
+{% endblock %}
+
+{% block ContentRight %}
+
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+<script type="text/javascript" src="resources/scripts/jscripts/valid.js"></script>
+<script type="text/javascript" src="resources/scripts/jscripts/password.js"></script>
+{% endblock %}

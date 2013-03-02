@@ -33,6 +33,20 @@ $(function () {
 		}
 	});
 
+	$('#recoverForm').validate({
+		rules: {
+			parola1: { required: true, minlength: 6},
+			parola2: { equalTo: "#parola1" }
+		},
+		messages: {
+			parola1: {
+				required: "Introduceti noua parola",
+				minlength: jQuery.format("Introduceti minim {0} caractere")
+			},
+			parola2: { equalTo: "Parolele nu coincid" }
+		}
+	});
+
 	$('#loginForm').validate({
 		rules: {
 			email: { required: true, email: true },

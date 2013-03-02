@@ -67,7 +67,7 @@
 //			header("location: /spital/connect.php#Trimitere esuata");
 //		}
 
-		header("location: connect.php#Link trimis pe adresa de e-mail");
+		header("location: /spital/connect.php#Link trimis pe adresa de e-mail");
 	}
 	catch (Exception $e) {
 		header("location: /spital/connect.php#adresa de e-mail nu este inregistrata pe acest site!");
