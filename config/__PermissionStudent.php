@@ -1,6 +1,6 @@
 <?php
 
-	require_once 'models/UserModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/UserModel.php';
 	require_once '__Variables.php';
 	
 	$user=  $_SESSION['user'];

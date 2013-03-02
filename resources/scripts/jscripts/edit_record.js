@@ -63,7 +63,7 @@ $('#investigation_select').change(function () {
 function savePage() {
 	$.ajax({
 		type: "POST",
-		url: "update_record.php",
+		url: "resources/scripts/phpscripts/update_record.php",
 		data: { 
 			id: $('#record_id').val(),
 			investigation_result: CKEDITOR.instances.investigation_result_textarea.getData().trim(),

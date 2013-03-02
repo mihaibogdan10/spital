@@ -1,11 +1,11 @@
 <?php
 
-	require_once 'models/PatientModel.php';
-	require_once 'models/RecordModel.php';
-	require_once 'config/__Variables.php';
-	require_once 'config/__DBConnect.php';
-	require_once 'config/__TwigConfig.php';
-	require_once 'config/__PermissionStudent.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/PatientModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/RecordModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__Variables.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__DBConnect.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__TwigConfig.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__PermissionStudent.php';
 	
 	$sex = isset($_POST['sex']) ? $_POST['sex'] : "B &amp; F";
 	$min_age = isset($_POST['min_age']) ? $_POST['min_age'] : null;

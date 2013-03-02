@@ -1,11 +1,10 @@
 <?php
-
-	require_once 'models/UserModel.php';
-	require_once 'models/PatientModel.php';
-	require_once 'models/RecordModel.php';
-	require_once 'config/__Variables.php';
-	require_once 'config/__DBConnect.php';
-	require_once 'config/__PermissionDoctor.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/UserModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/PatientModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/RecordModel.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__Variables.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__DBConnect.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__PermissionDoctor.php';
 	
 	$user = $_SESSION['user'];
 	$user = ($user && $user->isStudent()) ? NULL : $user;
@@ -20,10 +19,10 @@
 	$record = new Record($passed_data);
 		
 	if ($record->save()) { // success
-		header("location: patient.php?id={$patient->id}");
+		header("location: ".$_SERVER['DOCUMENT_ROOT']."/spital/patient.php?id={$patient->id}");
 	}
 	else { // eroare
-		header("location: patient.php?id={$patient->id}#Eroare");
+		header("location: ".$_SERVER['DOCUMENT_ROOT']."/spital/patient.php?id={$patient->id}#Eroare");
 	}
 
 ?>
