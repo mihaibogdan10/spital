@@ -1,8 +1,8 @@
 <?php
 
 	require_once 'models/UserModel.php';
-	require_once '__Variables.php';
-	require_once '__TwigConfig.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__TwigConfig.php';
 	
 	$_POST['name'] = isset($_POST['name']) ? $_POST['name'] : NULL;
 	$_POST['email'] = isset($_POST['email']) ? $_POST['email'] : NULL;

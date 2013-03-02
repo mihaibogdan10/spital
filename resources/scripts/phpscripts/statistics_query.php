@@ -2,10 +2,10 @@
 
 	require_once 'models/PatientModel.php';
 	require_once 'models/RecordModel.php';
-	require_once '__Variables.php';
-	require_once '__DBConnect.php';
-	require_once '__TwigConfig.php';
-	require_once '__PermissionStudent.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__DBConnect.php';
+	require_once 'config/__TwigConfig.php';
+	require_once 'config/__PermissionStudent.php';
 	
 	$sex = isset($_POST['sex']) ? $_POST['sex'] : "B &amp; F";
 	$min_age = isset($_POST['min_age']) ? $_POST['min_age'] : null;

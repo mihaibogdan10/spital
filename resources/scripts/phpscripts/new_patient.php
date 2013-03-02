@@ -2,9 +2,9 @@
 
 	require_once 'models/UserModel.php';
 	require_once 'models/PatientModel.php';
-	require_once '__Variables.php';
-	require_once '__DBConnect.php';
-	require_once '__PermissionDoctor.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__DBConnect.php';
+	require_once 'config/__PermissionDoctor.php';
 
 	$_POST['firstname'] = isset($_POST['firstname']) ? $_POST['firstname'] : NULL;
 	$_POST['lastname'] = isset($_POST['lastname']) ? $_POST['lastname'] : NULL;

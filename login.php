@@ -1,8 +1,8 @@
 <?php
-	require_once 'encryption.php';
+	require_once 'resources/scripts/phpscripts/encryption.php';
 	require_once 'models/UserModel.php';
-	require_once '__Variables.php';
-	require_once '__DBConnect.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__DBConnect.php';
 	
 	$_POST['email'] = isset($_POST['email']) ? $_POST['email'] : NULL;
 	$_POST['parola'] = isset($_POST['parola']) ? $_POST['parola'] : NULL;

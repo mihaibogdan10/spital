@@ -2,10 +2,10 @@
 
 	require_once 'models/PatientModel.php';
 	require_once 'models/RecordModel.php';
-	require_once '__Variables.php';
-	require_once '__DBConnect.php';
-	require_once '__TwigConfig.php';
-	require_once '__PermissionDoctor.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__DBConnect.php';
+	require_once 'config/__TwigConfig.php';
+	require_once 'config/__PermissionDoctor.php';
 	
 	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
 	$record = Record::get(array('id' => $_GET['id']));

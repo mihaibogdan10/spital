@@ -1,7 +1,7 @@
 <?php
 	require_once 'models/UserModel.php';
-	require_once '__Variables.php';
-	require_once '__TwigConfig.php';
+	require_once 'config/__Variables.php';
+	require_once 'config/__TwigConfig.php';
 	
 	switch ($_SESSION['user']) {
 		// daca utilizatorul nu este logat il timit pe pagina de logare/inregistrare
