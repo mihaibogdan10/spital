@@ -60,14 +60,14 @@
 		$subject = "Password change";
 		$body = "Hi,\n\nHow are you? \n\nClick on the link below to reset your password \n\n" .
 				"http://localhost/spital/recover.php?id=" . $key;
-		if (mail($to, $subject, $body)) {
-			header("location: /spital/connect.php#Link trimis pe adresa de e-mail");
-		}
-		else {
-			header("location: /spital/connect.php#Trimitere esuata");
-		}
+//		if (mail($to, $subject, $body)) {
+//			header("location: /spital/connect.php#Link trimis pe adresa de e-mail");
+//		}
+//		else {
+//			header("location: /spital/connect.php#Trimitere esuata");
+//		}
 
-//		header("location: connect.php#Link trimis pe adresa de e-mail");
+		header("location: connect.php#Link trimis pe adresa de e-mail");
 	}
 	catch (Exception $e) {
 		header("location: /spital/connect.php#adresa de e-mail nu este inregistrata pe acest site!");
