@@ -8,7 +8,8 @@
 	require_once 'config/__PermissionDoctor.php';
 	
 	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
-	$record = Record::get(array('id' => $_GET['id']));
+	try { $record = Record::get(array('id' => $_GET['id'])); }
+	catch(Exception $ex) { header("location: /spital/patient.php"); exit(0); }
 	
 	$template = $twig->loadTemplate('view_record.html');
 	echo $template->render(array('record' => $record));

@@ -1,8 +1,8 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/resources/scripts/phpscripts/encryption.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/UserModel.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__Variables.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__DBConnect.php';
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/scripts/phpscripts/encryption.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
 	
 	$_POST['nume'] = isset($_POST['nume']) ? $_POST['nume'] : NULL;
 	$_POST['prenume'] = isset($_POST['prenume']) ? $_POST['prenume'] : NULL;
@@ -10,9 +10,16 @@
 	$_POST['parola1'] = isset($_POST['parola1']) ? $_POST['parola1'] : NULL;
 	$_POST['parola2'] = isset($_POST['parola2']) ? $_POST['parola2'] : NULL;
 	
+	if ($_POST['nume'] == NULL || $_POST['prenume'] == NULL || $_POST['email'] == NULL || $_POST['parola1'] == NULL ||
+		$_POST['parola1'] != $_POST['parola2']) {
+			header("location: /spital/connect.php#Date incorecte!");
+			exit(0);
+	}
+	
 	try {
 		$user = User::get(array('email' => mysql_real_escape_string($_POST['email'])));
-		header("location: connect.php#Adresa de e-mail este folosita de alta persoana!");
+		header("location: /spital/connect.php#Adresa de e-mail este folosita de alta persoana!");
+		exit(0);
 	}
 	catch (Exception $ex) { // email address it's not used		
 		$user = new User(
@@ -27,7 +34,8 @@
 			
 		$user->save();
 		$user->Connect();
-		header('location: index.php');
+		header('location: /spital/index.php');
+		exit(0);
 	}
 	
 ?>

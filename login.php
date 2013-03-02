@@ -17,9 +17,11 @@
 		
 		$user->Connect();
 		header('location: index.php');
+		exit(0);
 	}
 	catch (Exception $e) {
 		header("location: connect.php#Oops... Nu ai putut fi conectat");
+		exit(0);
 	}
 
 ?>

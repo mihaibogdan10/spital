@@ -1,5 +1,5 @@
 <?php	
-	require_once 'resources/modules/Twig-1.12.2/lib/Twig/Autoloader.php';
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/modules/Twig-1.12.2/lib/Twig/Autoloader.php";
 	
 	// register Twig
 	Twig_Autoloader::register();

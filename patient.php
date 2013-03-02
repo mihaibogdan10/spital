@@ -9,7 +9,8 @@
 	
 	switch ($_GET['id']) {
 		case !NULL:
-			$patient = Patient::get(array('id' => $_GET['id']));			
+			try { $patient = Patient::get(array('id' => $_GET['id'])); }
+			catch (Exception $ex) { header("location: patient.php"); exit(0); }
 			$template = $twig->loadTemplate('patient_details.html');
 			echo $template->render(array('user' => $_SESSION['user'], 'patient' => $patient));
 		break;

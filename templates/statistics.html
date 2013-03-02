@@ -122,7 +122,7 @@
 		function drawPieChart() {
 			$.ajax({
 				type: "POST",
-				url: "statistics_query.php",
+				url: "resources/scripts/phpscripts/statistics_query.php",
 				datatype: 'json',
 				data: { 
 					sex: $("#filter_menu .button.active").html().trim(),

@@ -24,8 +24,8 @@ function deleteObject(what, id) {
 	var m = confirm("Esti sigur ca vrei sa stergi " + what + "?");
 	if (m) {
 		if (what == 'pacientul')
-			document.location = 'delete_patient.php?id=' + id;
+			document.location = 'resources/scripts/phpscripts/delete_patient.php?id=' + id;
 		else if (what == 'fisa')
-			document.location = 'delete_record.php?id=' + id;
+			document.location = 'resources/scripts/phpscripts/delete_record.php?id=' + id;
 	}
 }

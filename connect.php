@@ -12,7 +12,8 @@
 		
 		// altfel, afisez prima pagina :)
 		default:
-			header('location: index.php');
+			header('location: /spital/index.php');
+			exit(0);
 		break;
 	}
 

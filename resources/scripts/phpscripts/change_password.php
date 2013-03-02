@@ -1,8 +1,9 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/resources/scripts/phpscripts/encryption.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/models/UserModel.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__Variables.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/spital/config/__DBConnect.php';
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/scripts/phpscripts/encryption.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
+	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionStudent.php"; // trebuie sa fii logat
 	
 	$_POST['nume'] = isset($_POST['nume']) ? $_POST['nume'] : NULL;
 	$_POST['prenume'] = isset($_POST['prenume']) ? $_POST['prenume'] : NULL;
@@ -13,10 +14,11 @@
 	
 	$user = $_SESSION['user'];
 
-
 	try {
-		if (!($user->parola == passEncode(mysql_real_escape_string($_POST['password']))))
-			header('location: user.php#Parola este incorecta! Nu am schimbat datele!');
+		if (!($user->parola == passEncode(mysql_real_escape_string($_POST['password'])))) {
+			header('location: /spital/user.php#Parola este incorecta! Nu am schimbat datele!');
+			exit(0);
+		}
 		else {
 			if ($password)
 				$user->parola = passEncode(mysql_real_escape_string($_POST['parola1']));
@@ -26,11 +28,13 @@
 					
 			$user->save();
 			$user->Connect();
-			header('location: user.php#Datele schimbate cu succes!');
+			header('location: /spital/user.php#Datele schimbate cu succes!');
+			exit(0);
 		}
 	}
 	catch (Exception $ex) { // parola nu e corecta	
-		header('location: user.php#Nu am putut schimba datele!');
+		header('location: /spital/user.php#Nu am putut schimba datele!');
+		exit(0);
 	}
 	
 ?>
