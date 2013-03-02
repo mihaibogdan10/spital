@@ -2,57 +2,82 @@
 
 {% block Title %} Conectare {% endblock %}
 
+{% block Style %}
+	{{ parent() }}
+	<link href="resources/style/recovery.css" type="text/css" rel="stylesheet" media="all" />
+{% endblock %}
+
 {% block ContentLeft %}
-	<h4>Am deja un cont!</h4>
-	<hr />	
-	<form action="login.php" method="post" class="cmxform" id="loginForm">
-		<table>
-			<tr>
-				<td>E-mail:</td>
-				<td><input type="text" name="email" /></td>
-			</tr>
-			<tr>
-				<td>Parola:</td>
-				<td><input type="password" name="parola" /></td>
-			</tr>
-		</table>
-		<input type="submit" value="Conectare" class="btn" />
-	</form>
+	<div id="loginDiv">	
+		<h4>Am deja un cont!</h4>
+		<hr />	
+		<form action="login.php" method="post" class="cmxform" id="loginForm">
+			<table>
+				<tr>
+					<td>E-mail:</td>
+					<td><input type="text" name="email" /></td>
+				</tr>
+				<tr>
+					<td>Parola:</td>
+					<td><input type="password" name="parola" /></td>
+				</tr>
+			</table>
+			<input type="submit" value="Conectare" class="btn" />
+			<a href="#" id="forgot" name="forgot"> Am uitat parola </a>
+		</form>
+	</div>
+	
+	<div id = "passDiv" style="display:none;">
+		<h4>Schimba parola</h4>
+		<hr />	
+		<form action="resources/scripts/phpscripts/start_recovery.php" method="post" class="cmxform" id="changeForm">
+			<table>
+				<tr>
+					<td>E-mail:</td>
+					<td><input type="text" name="email" /></td>
+				</tr>
+			</table>
+			<input type="submit" value="Schimba parola" class="btn" />
+		</form>
+	</div>
 {% endblock %}
 
 {% block ContentRight %}
-	<h4>Vreau un cont nou</h4>
-	<hr />
-	<form action="resources/scripts/phpscripts/register.php" method="post" id="registerForm">
-		<table>
-			<tr>
-				<td>Nume:</td>
-				<td><input type="text" name="nume" /></td>
-			</tr>
-			<tr>
-				<td>Prenume:</td>
-				<td><input type="text" name="prenume" /></td>
-			</tr>
-			<tr>
-				<td>E-mail:</td>
-				<td><input type="text" name="email" /></td>
-			</tr>
-			<tr>
-				<td>Parola:</td>
-				<td><input type="password" name="parola1" id="parola1"/></td>
-			</tr>
-			<tr>
-				<td>Repeta parola:</td>
-				<td><input type="password" name="parola2" /></td>
-			</tr>
-		</table><br />
-		<label for="tos">Sunt de acord cu <a href="tos.html">Termenii si conditiile</a></label>
-		<input type="checkbox" name="tos" id="tos" style="margin: 0px 0px 0px 30px;" /><br /><br />
-		<input type="submit" value="Inregistrare" class="btn" />
-	</form>
+	<div id="registerDiv">	
+		<h4 id="registerTitle">Vreau un cont nou</h4>
+		<hr />
+		<form action="resources/scripts/phpscripts/register.php" method="post" id="registerForm" autocomplete="off">
+			<table>
+				<tr>
+					<td>Nume:</td>
+					<td><input type="text" name="nume" /></td>
+				</tr>
+				<tr>
+					<td>Prenume:</td>
+					<td><input type="text" name="prenume" /></td>
+				</tr>
+				<tr>
+					<td>E-mail:</td>
+					<td><input type="text" name="email" /></td>
+				</tr>
+				<tr>
+					<td>Parola:</td>
+					<td><input type="password" name="parola1" id="parola1" autocomplete="off"/></td>
+				</tr>
+				<tr>
+					<td>Repeta parola:</td>
+					<td><input type="password" name="parola2" autocomplete="off"/></td>
+				</tr>
+			</table><br />
+			<label for="tos">Sunt de acord cu <a href="tos.html">Termenii si conditiile</a></label>
+			<input type="checkbox" name="tos" id="tos" style="margin: 0px 0px 0px 30px;" /><br /><br />
+			<input type="submit" value="Inregistrare" class="btn" />
+		</form>
+	</div>
 {% endblock %}
 
 {% block Bottom %}
 	{{ parent() }}
 <script type="text/javascript" src="resources/scripts/jscripts/valid.js"></script>
+<script type="text/javascript" src="resources/scripts/jscripts/recovery.js"></script>
 {% endblock %}

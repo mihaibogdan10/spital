@@ -74,4 +74,16 @@ $(function () {
 			tos: "Campul trebuie bifat"
 		}
 	});
+
+	$('#changeForm').validate({
+		rules: {
+			email: { required: true, email: true }
+		},
+		messages: {
+			email: {
+				required: "Adresa de e-mail este necesara",
+				email: "Adresa de e-mail nu este corecta"
+			}
+		}
+	});
 });
