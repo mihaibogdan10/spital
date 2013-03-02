@@ -11,17 +11,17 @@
 				'radiopharmaceutical_isotope', 'dose', 'gamma_room', 'collimator', 'clinic');
 	
 	$passed_data = array();
-	foreach ($columns as $key => $column) {
+	foreach ($columns as $key => $column)
 		$passed_data[$column] = isset($_POST[$column]) ? $_POST[$column] : NULL;
-		if ($passed_data[$column] == NULL) {
-			header("location: /spital/patient.php");
-			exit(0);
-		}
+		
+	if ($passed_data['id'] == NULL) {
+		header("location: /spital/patient.php");
+		exit(0);
 	}
 	
 	$user = $_SESSION['user'];
 	$record = new Record($passed_data);
-			
+	
 	if ($record->save()) { // success
 		header("location: /spital/edit_record.php?id={$passed_data['id']}");
 		exit(0);
