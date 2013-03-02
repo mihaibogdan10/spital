@@ -20,14 +20,25 @@
 	}
 	
 	$user = $_SESSION['user'];
-	$record = new Record($passed_data); 
+	$record = new Record($passed_data);
 	
-	if ($record->save()) { // success
-		header("location: /spital/edit_record.php?id={$passed_data['id']}");
+	try{
+		$old_record = Record::get(array('id' => $record ->id));
+		$patient = $old_record -> getPatient();
+		$patient -> updated = date('Y.m.d H:i:s');
+	}
+	catch (Exception $e){
+		// eroare
+		header("location: /spital/patient.php?id={$patient -> id}#Nu exista un pacient pentru fisa aceasta");
+		exit(0);
+	}
+	
+	if ($record->save() && $patient->save()) { // success
+		header("location: /spital/patient.php?id={$patient -> id}#Fisa a fost salvata.");
 		exit(0);
 	}
 	else { // eroare
-		header("location: /spital/edit_record.php?id={$passed_data['id']}#msg=Error");
+		header("location: spital/patient.php?id={$patient -> id }#Error");
 		exit(0);
 	}
 	

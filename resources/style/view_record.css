@@ -19,10 +19,6 @@ body {
     margin : 0px 0px 0px 30px;
 }
 
-.western{
-	text-indent : 30px;
-}
-
 #header {
     float: left;
     width: 490px;
@@ -44,7 +40,6 @@ body {
 #investigation_result_div{
 	margin-left : 30px;
 	width : 780px;
-	text-indent: 30px;
 }
 
 .printButton{

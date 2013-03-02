@@ -14,38 +14,39 @@
 {% block ContentStyle %}width : 810px; margin : 0px; border: 1px solid #E0E0E0;{% endblock %}
 {% block Content %}
 	
-	<input type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />		
+	<form action = "resources/scripts/phpscripts/update_record.php" id = "save_form" method = "post"></form>
+	<input type="hidden" id="record_id" name="id" value="{{ record.id }}" form = "save_form"/>		
 	<br style = "clear : both;" />
 	
 	<div id = "firstSection">
 		<table>
 			<tr>
 				<td class = "info">Gamma camera : </td>
-				<td><input class = "editable importantInfo" id = "gamma_room_input" placeholder="Introduceti gamma camera."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "gamma_room_input" name = "gamma_room" placeholder="Introduceti gamma camera." form = "save_form"/></td>
 			</tr>
 			<tr>
 				<td class = "info">Colimator : </td>
-				<td><input class = "editable importantInfo" id = "collimator_input" placeholder="Introduceti colimatorul."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "collimator_input" name = "collimator" placeholder="Introduceti colimatorul." form = "save_form"/></td>
 			</tr>
 			<tr>
 				<td class = "info">Izotop <sup>99m</sup>Tc  Radiofarmaceutic: </td>
-				<td><input class = "editable importantInfo" id = "radiopharmaceutical_isotope_input" placeholder="Introduceti izotopul radiofarmaceutic."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "radiopharmaceutical_isotope_input" name = "radiopharmaceutical_isotope" placeholder="Introduceti izotopul radiofarmaceutic."  form = "save_form"/></td>
 			</tr>
 			<tr>
 				<td class = "info">Doza: </td>
-				<td><input class = "editable importantInfo" id = "dose_input" placeholder="Introduceti doza."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "dose_input" name = "dose" placeholder="Introduceti doza."  form = "save_form"/></td>
 			</tr>		
 			<tr>
 				<td class = "info">Clinica / Cabinet medical: </td>
-				<td><input class = "editable importantInfo" id = "clinic_input" placeholder="Introduceti clinica."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "clinic_input" name = "clinic" placeholder="Introduceti clinica."  form = "save_form"/></td>
 			</tr>		
 			<tr>
 				<td class = "info">Investigatie recomandata de: </td>
-				<td><input class = "editable importantInfo" id = "sending_medic_input" placeholder="Introduceti numele."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "sending_medic_input" name = "sending_medic" placeholder="Introduceti numele." form = "save_form"/></td>
 			</tr>
 			<tr>
 				<td class = "info">Diagnostic de trimitere: </td>
-				<td><input class = "editable importantInfo" id = 'sending_diagnosis_input' placeholder="Introduceti diagnosticul de trimitere."/></td>
+				<td><input type = "text" class = "editable importantInfo" id = "sending_diagnosis_input" name = "sending_diagnosis" placeholder="Introduceti diagnosticul de trimitere."  form = "save_form"/></td>
 			</tr>
 			<tr>
 				<td class = "info">Tipul investigatiei de medicina nucleara: </td>
@@ -53,7 +54,7 @@
 					<span class="importantInfo" id="investigation_span">
 						{{ record.investigation }}
 					</span>
-					<select id = "investigation_select">
+					<select id = "investigation_select" name = "investigation" form = "save_form">
 						<option value = ""> alege o optiune </option>
 						<option value = "scintigrama osoasa">scintigrama osoasa</option>
 						<option value = "scintigrama tiroidiana">scintigrama tiroidiana</option>
@@ -77,12 +78,12 @@
 			{{ record.investigation | title }}
 		</h2>
 		
-		<textarea id = 'investigation_result_textarea'>
+		<textarea id = 'investigation_result_textarea' name = "investigation_result" form = "save_form">
 		</textarea>
 		
 		<div id = "save_result_div">
-			<span id = "save_result_text"> Salveaza modificarile</span>
-			<img id = "save_result_image" name = "save_result_image" src = "resources/images/save-button.png" alt = "save"/>
+			<input type = "submit" value = "Salveaza modificarile" form = "save_form"/>
+			<button type = "submit" form = "save_form"> <img id = "save_result_image" name = "save_result_image" src = "resources/images/save-button.png" alt = "save"/></button>
 		</div>
 	</div>
 	
@@ -97,9 +98,10 @@
 		collimator_data = "{{ record.collimator }}";
 		radiopharmaceutical_isotope_data = "{{ record.radiopharmaceutical_isotope }}";
 		dose_data = "{{ record.dose }}";
+		investigation_data = "{{ record.investigation }}";
 		sending_medic_data = "{{ record.sending_medic }}";
 		sending_diagnosis_data = "{{ record.sending_diagnosis }}";
-		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;710&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;br /&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;ro-RO&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;br /&gt;Prof. dr.&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot;text-align : right;&quot;&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;br /&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Prof.dr. &amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p align=&quot;CENTER&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;br /&gt;Dr.&lt;/p&gt;{%endif%}";
+		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;710&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;br /&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;ro-RO&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;br /&gt;Prof. dr.&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot;text-align : right;&quot;&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;br /&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Prof.dr.  &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p align=&quot;CENTER&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;br /&gt;Dr.&lt;/p&gt;{%endif%}";
 	</script>
 	<script type="text/javascript" src="resources/scripts/jscripts/edit_record.js"></script>
 {% endblock %}
