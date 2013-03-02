@@ -39,7 +39,7 @@
 		</tr>
 		<tr>
 			<td>Ultima actualizare:</td>
-			<td>{{ patient.updated }}</td>
+			<td>{{ patient.updated | date("d.m.Y H:i:s")}}</td>
 		</tr>
 	</table>
 {% endblock %}

@@ -26,7 +26,7 @@
 			
 			$month = $this->cnp[3].$this->cnp[4];
 			$day = $this->cnp[5].$this->cnp[6];
-			return $day.'/'.$month.'/'.$year; 
+			return $day.'.'.$month.'.'.$year; 
 		}
 		function __toString() { return $this->lastname.' '.$this->firstname; }
 	}
