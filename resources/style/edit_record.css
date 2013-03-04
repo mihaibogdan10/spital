@@ -44,7 +44,8 @@ body {
 
 #investigation_result_textarea {
 	display : inline-block;
-	width : 760px;
+	width : 750px;
+	height : 600px;
 }
 
 .editable {
@@ -76,11 +77,6 @@ table{
 	top : 140px;
 }
 
-#save_result_text{
-	color : #53B0E7;
-	font-size : 1.4em;
-}
-
 #save_result_image{
 	vertical-align : middle;
 }
@@ -89,7 +85,8 @@ table{
     cursor : pointer;
 }
 
-#save_result_text:hover{
-	cursor : pointer;
-	color : #7FCCE7;
+.thumb {
+	height: 75px;
+	border: 1px solid #000;
+	margin: 10px 5px 0 0;
 }

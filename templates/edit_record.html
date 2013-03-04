@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} {% endblock %}
@@ -14,7 +15,7 @@
 {% block ContentStyle %}width : 810px; margin : 0px; border: 1px solid #E0E0E0;{% endblock %}
 {% block Content %}
 	
-	<form action = "resources/scripts/phpscripts/update_record.php" id = "save_form" method = "post"></form>
+	<form enctype="multipart/form-data" action = "resources/scripts/phpscripts/update_record.php" id = "save_form" method = "post"></form>
 	<input type="hidden" id="record_id" name="id" value="{{ record.id }}" form = "save_form"/>		
 	<br style = "clear : both;" />
 	
@@ -85,6 +86,16 @@
 			<input type = "submit" value = "Salveaza modificarile" form = "save_form"/>
 			<button type = "submit" form = "save_form"> <img id = "save_result_image" name = "save_result_image" src = "resources/images/save-button.png" alt = "save"/></button>
 		</div>
+		
+		<br>
+		<!--<form enctype="multipart/form-data" method  = "post">-->
+			<label for = "upload_files">Adaugati imagini asociate fisei curente:</label>
+			<!-- MAX_FILE_SIZE must precede the file input field: ~ 50 MB limit (plenty of space) -->
+			<input type="hidden" name="MAX_FILE_SIZE" value="52500000" />
+			<!-- Name of input element determines name in $_FILES array -->
+			<input id="upload_files" name="upload_files" multiple="multiple" type="file" form = "save_form">
+		<!--</form>-->
+		<p id="list_files"></p>
 	</div>
 	
 {% endblock %}
@@ -92,7 +103,6 @@
 {% block Bottom %}
 	{{ parent() }}
 	<script type = "text/javascript">
-		patient_id = {{record.getPatient().id}};
 		clinic_data = "{{ record.clinic }}";
 		gamma_room_data = "{{ record.gamma_room }}";
 		collimator_data = "{{ record.collimator }}";

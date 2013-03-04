@@ -34,6 +34,16 @@
 	}
 	
 	if ($record->save() && $patient->save()) { // success
+		//see if there is anything to upload
+		if(isset($_FILES['upload_files'])){
+			$uploaddir = "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/uploads/";
+			$uploadfile = $uploaddir . basename($_FILES['upload_files']['name']);
+
+			if (getimagesize($_FILES['upload_files']['tmp_name']))
+				move_uploaded_file($_FILES['upload_files']['tmp_name'], $uploadfile);
+		}
+		
+		//redirect to the patient's page with ok message
 		header("location: /spital/patient.php?id={$patient -> id}#Fisa a fost salvata.");
 		exit(0);
 	}
