@@ -93,6 +93,7 @@
 {% block Bottom %}
 	{{ parent() }}
 	<script type="text/javascript" src="resources/scripts/jscripts/utils.js"></script>
+	<script type="text/javascript" src="resources/scripts/jscripts/jquery.sortElements.js"></script>
 	<script type="text/javascript">
 		$(function () {
 			$('#addRecordForm').validate({
@@ -111,4 +112,5 @@
 			});
 		});
 	</script>
+	<script type="text/javascript" src="resources/scripts/jscripts/investigation_sort.js"></script>
 {% endblock %}
