@@ -13,6 +13,20 @@
 				$this->$key = $value;
 		}
 		
+		function getAttachments(){
+			$dir = "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/uploads/" . $this -> id;
+			$attachments = array();
+			
+			//check to see if the corresponding directory exists
+			if ($handle = opendir($dir)){
+				//From php manual : This is the correct way to loop over the directory.
+				while (false !== ($entry = readdir($handle))) 
+					if ($entry != '.' && $entry != '..')
+						array_push($attachments, $entry);
+			}
+			
+			return $attachments;
+		}
 		function getPatient() { return Patient::get(array('id' => $this->patient)); }
 		function getParent() { return User::get(array('id' => $this->addedby)); }
 		function getDate() { return date_format(new DateTime($this->timestamp), 'd.m.Y');}

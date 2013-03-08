@@ -81,6 +81,10 @@ table{
 	vertical-align : middle;
 }
 
+#imgUploadFrame{
+	#display:none;
+}
+
 .edit_image:hover, #save_result_image:hover{
     cursor : pointer;
 }
