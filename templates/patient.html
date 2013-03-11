@@ -5,7 +5,21 @@
 {% block Content %}
 	{% include 'patients_table.html' with {'patients': patients}%}
 	<br />
-	<div id="add_new_patient">
+	<div id="page_controls">
+		<div id="pages" style="float: left; margin-right: 100px;">
+			<a onclick="$.prevPage();" style="color: gray; font-size: 22px; text-decoration:none" >&#8592; </a>
+			<a onclick="$.nextPage();" style="color: gray; font-size: 22px; text-decoration:none" > &#8594;</a>
+		</div>
+		<div id="currentlyShowing" style="float: left; display: block;"></div>
+		<div id="ssp" style="float: right;">
+			Arata 
+			<select id="pager" onchange="$.generatePages(parseInt($(this).val()));" style="">
+			
+			</select>
+			(de) intrari
+		</div>
+	</div>
+	<div id="add_new_patient" style="clear: both;">
 		<h4>Adauga un pacient nou</h4>
 		<hr />
 		<form action="resources/scripts/phpscripts/new_patient.php" method="post" id="addPatientForm">
@@ -31,6 +45,17 @@
 {% block Bottom %}
 	{{ parent() }}
 	<script type="text/javascript" src="resources/scripts/jscripts/utils.js"></script>
+	<script type="text/javascript" src="resources/scripts/jscripts/jquery.spager.js"></script>
+	<script type="text/javascript">
+		$("#patients").spager({
+                    
+                    items:    10,
+                    ctrls:    "page_controls",
+                    animate:  true,
+                    opts:     [5,10,20,30,50],
+                    offset:   500
+                    });
+	</script>
 	<script type="text/javascript">
 		$(function () {
 			$.validator.addMethod("cnp", function(value, element) { return checkCNP(value); });
