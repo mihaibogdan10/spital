@@ -20,6 +20,26 @@
 			
 			return $arr;
 		}
+
+		// returneaza obiectele, intre anumite limite
+		static function range($args) {
+			$class = get_called_class(); // Numele clasei care apeleaza functia
+			$sortBy = isset($args['sortBy']) ? $args['sortBy'] : 'id' ;
+			$sortMode = isset($args['sortMode']) ? $args['sortMode'] : 'ASC' ;
+
+			$sql = sprintf("select * from `%s` ORDER BY `%s` %s LIMIT %d, %d ", 
+							mysql_real_escape_string(strtolower($class)),
+							mysql_real_escape_string($sortBy),
+							mysql_real_escape_string($sortMode),
+							$args['inferior'], $args['offset']);
+			$q = mysql_query($sql) or die(mysql_error());
+			
+			$arr = array();
+			while ($r = mysql_fetch_assoc($q))
+				array_push($arr, new $class($r));
+			
+			return $arr;
+		}
 		
 		// returneaza obiectele dupa filtru
 		// $args = array('id' => 1, 'prenume' => 'Alex');

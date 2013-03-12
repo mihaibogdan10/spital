@@ -49,12 +49,16 @@
 	<script type="text/javascript">
 		$("#patients").spager({
                     
-                    items:    10,
+                    items:    {{ pgOpt }},
                     ctrls:    "page_controls",
                     animate:  true,
                     opts:     [5,10,20,30,50],
-                    offset:   500
+                    offset:   {{ sort.offset }},
+                    isLast:   {{ sort.isLast }},
+                    ipp:      {{ sort.ipp }},
+                    startPage:{{ pg }}
                     });
+		function changePage(t) {window.location.href = 'patient.php?by=' + t.id;}
 	</script>
 	<script type="text/javascript">
 		$(function () {

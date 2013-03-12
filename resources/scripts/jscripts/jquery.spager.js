@@ -36,11 +36,13 @@ var itemsPerPage=settings.items;
 var opts=settings.opts;
 var animation=settings.animate;
 var offset=settings.offset;
+var ppi=settings.ipp;
+var isLast=settings.isLast;
 var tg=$(this);
 var rows=$(tg).children().find("tr").filter(":not(:first-child)");
 var rowCount=rows.size();
 var tableHeight;
-var curPage = 1;
+var curPage = settings.startPage;
 var lastPage = 1;
 
 if (opts==null) {
@@ -55,15 +57,23 @@ jQuery.nextPage = function() {
     if (curPage < lastPage) 
         jQuery.page(curPage + 1);
     else
-        {/*fa o interogare pentru noul set de 500 de intrari*/}
+        if (isLast == 0) {
+            /*fa o interogare pentru noul set de 500 de intrari*/
+            window.location.href = "patient.php?inferior=" + (parseInt(offset) + parseInt(ppi))
+                                    + "&po=" + itemsPerPage;
+        }
 }
 
 jQuery.prevPage = function() {
     if (curPage > 1) 
         jQuery.page(curPage - 1);
     else
-        if (offset > 0)
-            {/*fa o interogare pentru setul anterior*/}
+        if (offset > 0) {
+            /*fa o interogare pentru setul anterior*/
+            window.location.href = "patient.php?inferior=" + (parseInt(offset) - parseInt(ppi))
+                                   + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage))
+                                   + "&po=" + itemsPerPage;
+        }
 }
 
 jQuery.page=function(pg) {
@@ -109,7 +119,7 @@ lastPage = page;
 }
          
 $("#"+controlsElement+"#pages a:eq(0)").addClass("action");
-$.page(1);
+$.page(curPage);
 }
 
 //$("#"+controlsElement).empty().append("<div id='currentlyShowing'></div><div id='pages'></div><div id='ssp'>Show <select id='pager' onchange='$.generatePages(parseInt($(this).val()));'></select></div>").css("text-align","center");
