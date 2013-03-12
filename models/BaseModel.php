@@ -27,7 +27,7 @@
 			$sortBy = isset($args['sortBy']) ? $args['sortBy'] : 'id' ;
 			$sortMode = isset($args['sortMode']) ? $args['sortMode'] : 'ASC' ;
 
-			$sql = sprintf("select * from `%s` ORDER BY `%s` %s LIMIT %d, %d ", 
+			$sql = sprintf("select * from `%s` ORDER BY %s %s LIMIT %d, %d ", 
 							mysql_real_escape_string(strtolower($class)),
 							mysql_real_escape_string($sortBy),
 							mysql_real_escape_string($sortMode),
