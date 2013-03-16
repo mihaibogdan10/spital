@@ -4,7 +4,6 @@ h1, h2 {
 }
 
 body {
-    margin : 10px 15% 0px 15%;
 	line-height: 150%;
 }
 
@@ -45,6 +44,7 @@ body {
 	display : inline-block;
 	width : 750px;
 	height : 600px;
+	margin : auto;
 }
 
 .editable {
@@ -85,7 +85,8 @@ table{
 }
 
 .thumbnail{
-	margin : 10px auto 10px auto;
+	margin : 0px auto 20px auto;
+	border: 1px solid #E0E0E0;
 }
 
 .edit_image:hover, #save_result_image:hover, .thumbnail:hover{

@@ -12,8 +12,10 @@
 	<script type="text/javascript" src="resources/modules/ckeditor/ckeditor.js"></script>
 {% endblock %}
 
-{% block ContentStyle %}width : 810px; margin : 0px; border: 1px solid #E0E0E0;{% endblock %}
-{% block Content %}
+{% block ContentStyle %}background : #FAF8F6; padding : 0px;{% endblock %}
+	
+{% block ContentLeftStyle %}background : white; width : 810px; border: 1px solid #E0E0E0; {% endblock %}
+{% block ContentLeft %}
 	
 	<form action = "resources/scripts/phpscripts/update_record.php" id = "save_form" method = "post"></form>
 	<input type="hidden" id="record_id" name="id" value="{{ record.id }}" form = "save_form"/>		
@@ -84,7 +86,6 @@
 		
 		<div id = "save_result_div">
 			<input type = "submit" value = "Salveaza modificarile" form = "save_form"/>
-			<button type = "submit" form = "save_form"> <img id = "save_result_image" name = "save_result_image" src = "resources/images/save-button.png" alt = "save"/></button>
 		</div>
 		
 		<br>
@@ -100,13 +101,17 @@
 		</form>
 		<iframe name="imgUploadFrame" id="imgUploadFrame"></iframe>
 		<p id="list_files"></p>
+		<br/>
 	</div>
-	
+{% endblock %}
+
+{% block ContentRightStyle %}width : 100px; margin : 0px;{% endblock %}
+{% block ContentRight %}
 	<p>
 		{% for image_name in record.getAttachments %}
 			{% if image_name|slice(0,10) == 'fullsized_' %}
 				<a class="fancybox-buttons" data-fancybox-group="button" href="resources/uploads/{{record.id}}/{{ image_name }}">
-					<img src="resources/uploads/{{record.id}}/thumbnail_{{ image_name|slice(10, image_name | length - 10) }}" alt="" />
+					<img class = "thumbnail" src="resources/uploads/{{record.id}}/thumbnail_{{ image_name|slice(10, image_name | length - 10) }}" alt="" />
 				</a>
 			{% endif %}
 		{% endfor %}

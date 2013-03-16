@@ -18,11 +18,13 @@
 			$attachments = array();
 			
 			//check to see if the corresponding directory exists
-			if ($handle = opendir($dir)){
-				//From php manual : This is the correct way to loop over the directory.
-				while (false !== ($entry = readdir($handle))) 
-					if ($entry != '.' && $entry != '..')
-						array_push($attachments, $entry);
+			if (file_exists($dir)){
+				if ($handle = opendir($dir)){
+					//From php manual : This is the correct way to loop over the directory.
+					while (false !== ($entry = readdir($handle))) 
+						if ($entry != '.' && $entry != '..')
+							array_push($attachments, $entry);
+				}
 			}
 			
 			return $attachments;
