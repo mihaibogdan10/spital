@@ -18,3 +18,27 @@
 .patients tr:nth-child(2n+3) { background: #F0F0F0; }
 
 #add_new_patient { }
+
+#tags span.tag{  
+    display:block; 
+	margin: 0 3px 3px 0; 
+	padding:3px 20px 4px 8px;  
+    position:relative; 
+	float:left; 
+	background-color:#eee;
+    border:1px solid #333; 
+	-moz-border-radius:7px;  
+    -webkit-border-radius:7px; 
+	border-radius:7px; 
+	color:#333;  
+    font-size: 12px;
+}  
+#tags span.tag a {  
+    position:absolute; 
+	top:2px; 
+	color:#666;  
+    font-size: 12px;
+	text-decoration:none; 
+	margin-left: 5px;
+}  
+#tags span.tag a:hover { color:#F00; }  

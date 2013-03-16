@@ -7,7 +7,7 @@
 	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
 	
 	$user = $_SESSION['user'];
-	$columns = array('patient', 'sending_diagnosis', 'sending_medic', 'investigation', 'clinic');
+	$columns = array('patient', 'sending_diagnosis', 'sending_medic', 'investigation', 'clinic', 'tags');
 	foreach ($columns as $column) {
 		$_POST[$column] = isset($_POST[$column]) ? $_POST[$column] : NULL;
 		$passed_data[$column] = $_POST[$column];
