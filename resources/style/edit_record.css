@@ -54,6 +54,11 @@ body {
     display:none;
 }
 
+#investigation_details{
+	text-align : center;
+	border : 1px solid;	
+}
+
 #investigation_result_textarea {
 	display : inline-block;
 	width : 750px;
