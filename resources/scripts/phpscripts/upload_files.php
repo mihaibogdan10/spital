@@ -90,7 +90,7 @@
 					//actually upload the file (presumed image)
 					move_uploaded_file($tmp_name, $uploadfile);
 					
-					echo sprintf('fullsized_%s si thumbnail_%s au fost atasate<br/>', $old_name, $old_name);
+					echo sprintf('%s a fost atasata<br/>', $old_name, $old_name);
 				}
 				else 
 					echo $old_name.' e prea mare<br/>';

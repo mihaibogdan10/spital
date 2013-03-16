@@ -109,9 +109,15 @@ else {
 	alert('The File APIs are not fully supported in this browser.');
 }
 
+function refreshPage(){
+	alert("ok");
+}
+
+// select the target node
+target = document.getElementById('imgUploadFrame').contentWindow.document.body;
+
 $(document).ready(function(){
 	//Button helper. Disable animations, hide close button, change title type and content
-	
 	$('.fancybox-buttons').fancybox({
 		openEffect  : 'none',
 		closeEffect : 'none',
@@ -129,4 +135,9 @@ $(document).ready(function(){
 			this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
 		}
 	});
-})
+	
+	//upload done listener
+	$('#imgUploadFrame').load(function() {
+		$('#list_files').html($(this).contents().find('body').html() + "Pentru a le vedea dati refresh la pagina. Nu uitati sa salvati in prealabil daca ai facut modificari.");		
+    });
+});
