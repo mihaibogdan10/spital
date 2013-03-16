@@ -16,7 +16,8 @@
 		<td><a href="view_record.php?id={{ record.id }}" target="_blank">{{ record.timestamp | date("d.m.Y H:i:s") }}</a></td>
 		<td>
 			<div class="left" style="width: 30px;">
-			<a href="javascript:" class="edit_btn" record_id="{{ record.id }}">
+			<!-- a href="javascript:" class="edit_btn" record_id="{{ record.id }}">-->
+			<a href="edit_record.php?id={{ record.id }}">
 				<img src="resources/images/edit-icon.png" title="Editeaza" />
 			</a>
 			</div>
@@ -32,14 +33,14 @@
 	<p>Nu am gasit nici o fisa.</p>
 	{% endfor %}
 </table>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	$(function () {
 		$('.edit_btn').click(function () {
 			var record_id = $(this).attr('record_id');
 			if (typeof(window_edit_record) != 'undefined' && !window_edit_record.closed)
 				window_edit_record.close();
-			window_edit_record = window.open('edit_record.php?id=' + record_id, 'window_edit_record', 'directories=no,fullscreen=yes,location=no,menubar=no,status=no,toolbar=no,scrollbars=yes')
+			window_edit_record = window.open('edit_record.php?id=' + record_id, 'window_edit_record', 'directories=no,fullscreen=yes,location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,addressbar=no')
 			window_edit_record.focus();
 		});
 	});
-</script>
+</script>-->
