@@ -9,7 +9,7 @@
 	$pg = isset($_GET['pg']) ? $_GET['pg'] : 1;
 
 	// cu cate elemente/pagina sa pagineze javascript
-	$pgOpt = isset($_GET['po']) ? $_GET['po'] : 5; // 5 pt teste, probabil va fi 10
+	$pgOpt = isset($_GET['po']) ? $_GET['po'] : 10; // 5 pt teste, probabil va fi 10
 
 	if (!isset($_SESSION['sort'])) {
 		$_SESSION['sort'] = array(
@@ -17,7 +17,7 @@
 			'mode' => 'ASC', 
 			'isLast' => false, 
 			'offset' => 0, 
-			'ipp' => 10 //items per page, 10 pentru teste, va fi in jur de 500
+			'ipp' => 100 //items per page, 10 pentru teste, va fi in jur de 500
 		);
 	}
 
