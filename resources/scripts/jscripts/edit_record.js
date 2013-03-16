@@ -103,8 +103,30 @@ function handleFileSelect(evt) {
 
 if (window.File && window.FileReader && window.FileList && window.Blob) {
 	// Great success! All the File APIs are supported.
-	document.getElementById('upload_files').addEventListener('change', handleFileSelect, false);
+	document.getElementById('upload_files[]').addEventListener('change', handleFileSelect, false);
 }
 else {
 	alert('The File APIs are not fully supported in this browser.');
 }
+
+$(document).ready(function(){
+	//Button helper. Disable animations, hide close button, change title type and content
+	
+	$('.fancybox-buttons').fancybox({
+		openEffect  : 'none',
+		closeEffect : 'none',
+		prevEffect : 'none',
+		nextEffect : 'none',
+
+		closeBtn  : false,
+		helpers : {
+			title : {
+				type : 'inside'
+			},
+			buttons	: {}
+			},
+			afterLoad : function() {
+			this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+		}
+	});
+})

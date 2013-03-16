@@ -14,14 +14,14 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar_bogdan_toolbar =
 	[
 		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-		{ name: 'editing', items : [ 'Find','SelectAll' ] },
+		{ name: 'editing', items : [ 'Find' ] },
 		{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
 		{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 		'/',
 		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 		{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote',
 		'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
-		{ name: 'insert', items : [ 'Image','Table','HorizontalRule','SpecialChar','PageBreak' ] },
+		{ name: 'insert', items : [ 'Table','HorizontalRule','SpecialChar','PageBreak' ] },
 	];
 	
 	config.width = 750;

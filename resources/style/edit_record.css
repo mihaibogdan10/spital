@@ -4,8 +4,7 @@ h1, h2 {
 }
 
 body {
-    width : 810px;
-    margin : 10px auto 0px auto;
+    margin : 10px 15% 0px 15%;
 	line-height: 150%;
 }
 
@@ -82,10 +81,14 @@ table{
 }
 
 #imgUploadFrame{
-	#display:none;
+	display:none;
 }
 
-.edit_image:hover, #save_result_image:hover{
+.thumbnail{
+	margin : 10px auto 10px auto;
+}
+
+.edit_image:hover, #save_result_image:hover, .thumbnail:hover{
     cursor : pointer;
 }
 

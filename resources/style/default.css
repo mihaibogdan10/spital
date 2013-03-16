@@ -1,9 +1,9 @@
 * { margin: 0; padding: 0; }
 body { background: #FAF8F6; color: #726f66;/*#3C3A37;*/ font-size: 15px;}
 
-#topline { height: 5px; /*background: #F07C15; #3C3A37; #0093D0; */ background: linear-gradient(to right, #7FCDE8 0px, #7FCDE8 50%, #B6D99F 51%, #B6D99F 100%) repeat scroll center top transparent; background: -webkit-linear-gradient(left, #7fcde8 0, #7fcde8 50%, #b6d99f 51%, #b6d99f 100%); position: fixed; width: 100%; top: 0px; left: 0px; z-index: 9999; }
+#topline { height: 5px; /*background: #F07C15; #3C3A37; #0093D0; */ background: linear-gradient(to right, #7FCDE8 0px, #7FCDE8 50%, #B6D99F 51%, #B6D99F 100%) repeat scroll center top transparent; background: -webkit-linear-gradient(left, #7fcde8 0, #7fcde8 50%, #b6d99f 51%, #b6d99f 100%); position: fixed; width: 100%; top: 0px; left: 0px; z-index: 1; }
 
-#navbar { height: 75px; background: #FFF; margin: 0 auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset; position: fixed; width: 100%; top: 5px; left: 0px; z-index: 9999; }
+#navbar { height: 75px; background: #FFF; margin: 0 auto; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset; position: fixed; width: 100%; top: 5px; left: 0px; z-index: 1; }
 #navbar .search { background: url(../images/search-icon.png) 3px 4px no-repeat; width: 20px; height: 20px; border: 1px solid #FFF; padding: 3px; margin-top: 20px; border-radius: 5px 0px 0px 5px; }
 #navbar .search:hover { background: url(../images/search-icon.png) 3px -20px no-repeat; width: 20px; height: 20px; }
 #navbar #search_txt { margin: 20px 0px 0px 0px; padding: 5px; border: 1px solid #F0F0F0; border-left: 0px; border-radius: 0px 5px 5px 0px; width: 0px; color: #A0A0A0; display: none; }
