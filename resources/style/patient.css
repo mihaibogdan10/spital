@@ -13,12 +13,43 @@
 
 .patients td:nth-child(1), .patients td:nth-child(4), .patients td:nth-child(2), .patients td:nth-child(6), .patients td:nth-child(3), .patients td:nth-child(5), .patients td:nth-child(7) { border-left: 1px solid #F1F1F1; border-right: 1px solid #F1F1F1; }
 
-.patients tr:hover > td { border: 1px solid #99FFFF; background-color:#99FFFF;}
+.patients tr:hover > td { border: 1px solid #99FFFF; }
+.patients tr:hover > td { background-color:#99FFFF; }
+.patients tr:nth-child(2n+3):hover > td { background-color:#99FFFF; }
+
 .patients tr:hover > td:nth-child(2) { text-decoration: underline; }
 .patients tr:nth-child(1), .patients tr:nth-child(n) { text-align: left; border-bottom: 1px solid #F0F0F0; }
-.patients tr:nth-child(2n+3) { background: #F0F0F0; }
 
-.hand {cursor: hand; cursor: pointer; }
+.patients tr > td {
+	background-color: #FFFFFF;
+	-o-transition:background-color .4s ease-out;
+	-ms-transition:background-color .4s ease-out;
+	-moz-transition:background-color .4s ease-out;
+	-webkit-transition:background-color .4s ease-out;
+	/* ...and now override with proper CSS property */
+	transition:background-color .4s ease-out;
+}
+
+.patients tr:nth-child(2n+3) > td { 
+	background-color: #F0F0F0;
+	-o-transition:background-color .4s ease-out;
+	-ms-transition:background-color .4s ease-out;
+	-moz-transition:background-color .4s ease-out;
+	-webkit-transition:background-color .4s ease-out;
+	/* ...and now override with proper CSS property */
+	transition:background-color .4s ease-out;
+ }
+
+.hand {cursor: hand; cursor: pointer; color:#726f66;
+	-o-transition:color .4s ease-out;
+	-ms-transition:color .4s ease-out;
+	-moz-transition:color .4s ease-out;
+	-webkit-transition:color .4s ease-out;
+	/* ...and now override with proper CSS property */
+	transition:color .4s ease-out;
+}
+
+.hand:hover {color:red;}
 
 #add_new_patient { }
 
