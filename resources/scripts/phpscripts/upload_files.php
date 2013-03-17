@@ -55,24 +55,29 @@
 		imagecopyresampled($new, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 		return $new;
 	}
-	
+		
 	//see if there is anything to upload
 	if(isset($_FILES['upload_files']) && $record_id){
 		//echo '<pre>';
 		//print_r($_FILES['upload_files']);
 		//echo '</pre>';
 		for($i = 0; $i < count($_FILES['upload_files']['name']); $i++) {
-			
-			//change the name of the file to something impossible to guess: 'fullsized_' + md5(rand) + md5(name + salt)
-			//use fullsized_ at the beginning to avoid the (slim) chance that a fullsized image will be randomly prefixed by thumbnail_..
+			//change the name of the file to something impossible to guess: 'fullsized_'/'thumbnail_' + md5(rand) + md5(name + salt)
 			$old_name = $_FILES['upload_files']['name'][$i];
 			$tmp_name = $_FILES['upload_files']['tmp_name'][$i];
+			
+			if ($_FILES["upload_files"]["error"][$i] == UPLOAD_ERR_FORM_SIZE || $_FILES["upload_files"]["error"][$i] == UPLOAD_ERR_INI_SIZE){
+				echo $old_name." este prea mare!<br/>";
+				continue;
+			}
+			
 			$ext = strtolower( pathinfo( $old_name, PATHINFO_EXTENSION ));
 			$new_name = md5(rand()).md5($old_name.'salt:)').'.'.$ext;
 			
 			$uploaddir = "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/uploads/" . $record_id;
 			//create the upload directory if it doesn't exist
-			if (!is_dir($uploaddir)) mkdir($uploaddir);
+			if (!is_dir($uploaddir))
+				mkdir($uploaddir);
 			$uploadfile  = $uploaddir . '/fullsized_' . basename($new_name);
 			
 			// Also create a thumbnail version for the image to upload.

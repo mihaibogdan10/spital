@@ -109,10 +109,6 @@ else {
 	alert('The File APIs are not fully supported in this browser.');
 }
 
-function refreshPage(){
-	alert("ok");
-}
-
 // select the target node
 target = document.getElementById('imgUploadFrame').contentWindow.document.body;
 
@@ -138,6 +134,8 @@ $(document).ready(function(){
 	
 	//upload done listener
 	$('#imgUploadFrame').load(function() {
-		$('#list_files').html($(this).contents().find('body').html() + "Pentru a le vedea dati refresh la pagina. Nu uitati sa salvati in prealabil daca ai facut modificari.");		
+		$('#list_files').html($(this).contents().find('body').html());
+		if ($('#list_files').html().indexOf("a fost atasata") >= 0)
+			$('#list_files').html($('#list_files').html() + "Pentru a le vedea dati refresh la pagina. Nu uitati sa salvati in prealabil daca ati facut modificari.");
     });
 });
