@@ -2,13 +2,13 @@
 	{% if patients %}
 	{# Am pacienti de afisat #}
 	<tr>
-		<th id = "id" onclick="changePage(this.id);"></th>
-		<th id = "lastname" onclick="changePage(this.id);">NUME</th>
-		<th id = "firstname" onclick="changePage(this.id);">PRENUME</th>
-		<th id = "cnp" onclick="changePage(this.id);">CNP</th>
-		<th id = "sex" onclick="changePage('(cnp/1000000000000)%2');">SEX</th>
-		<th id = "addedby" onclick="changePage(this.id);">ADAUGAT DE</th>
-		<th id = "updated" onclick="changePage(this.id);">ULTIMA ACTUALIZARE</th>
+		<th class="hand" id = "id" onclick="changePage(this.id);"></th>
+		<th class="hand" id = "lastname" onclick="changePage(this.id);">NUME</th>
+		<th class="hand" id = "firstname" onclick="changePage(this.id);">PRENUME</th>
+		<th class="hand" id = "cnp" onclick="changePage(this.id);">CNP</th>
+		<th class="hand" id = "sex" onclick="changePage('(cnp/1000000000000)%2');">SEX</th>
+		<th id = "addedby" >ADAUGAT DE</th>
+		<th class="hand" id = "updated" onclick="changePage(this.id);">ULTIMA ACTUALIZARE</th>
 		<th></th>
 	</tr>
 	{% endif %}

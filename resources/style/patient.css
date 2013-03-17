@@ -18,6 +18,8 @@
 .patients tr:nth-child(1), .patients tr:nth-child(n) { text-align: left; border-bottom: 1px solid #F0F0F0; }
 .patients tr:nth-child(2n+3) { background: #F0F0F0; }
 
+.hand {cursor: hand; cursor: pointer; }
+
 #add_new_patient { }
 
 #tags span.tag{  
