@@ -76,7 +76,6 @@
 			$arr = array();
 			while($r = mysql_fetch_assoc($q))
 				array_push($arr, new $class($r));
-			
 			return $arr;
 		}
 		
@@ -154,6 +153,70 @@
 				}
 			}
 			$response_array = array_unique($response_array);
+			return $response_array;
+		}
+
+
+		static function search2($args) {
+			$class = get_called_class(); // Numele clasei care apeleaza functia
+			$sortBy = isset($args['sortBy']) ? $args['sortBy'] : 'id' ;
+			$sortMode = isset($args['sortMode']) ? $args['sortMode'] : 'ASC' ;
+			$inferior = isset($args['inferior']) ? $args['inferior'] : 0 ;
+			$offset = isset($args['offset']) ? $args['offset'] : 1000 ;
+
+
+			$sql = sprintf("select * from `%s`", 
+							mysql_real_escape_string(strtolower($class)));
+
+			$q_arr = explode(' ', $args['q']);
+
+			$m = count($q_arr);
+			if ($m > 0) $sql .= " where";
+
+			$response_array = array();
+
+			foreach ($q_arr as $value) {
+				$n = count($args['fields']);
+				$sql .= " (";
+				foreach ($args['fields'] as $key) {
+					// $field = firstname
+					// $q = Alexandru
+
+					$type = strstr($key, '__');
+					$string_pattern = " `%s` = '%s'";
+					$key_exploded = explode('__', $key); // firstname__contains => [firstname, contains]
+					$key = $key_exploded[0]; // fac din firstname__contains => firstname
+					switch($type) {
+						case '__contains':
+							$string_pattern = " `%s` like '%%%s%%'";
+						break;					
+						case '__startswith':
+							$string_pattern = " `%s` like '%s%%'";
+						break;					
+						case '__endswith':
+							$string_pattern = " `%s` like '%%%s'";
+						break;
+					}
+					$sql .= sprintf($string_pattern, 
+								mysql_real_escape_string($key), 
+								mysql_real_escape_string($value));
+					
+					if (--$n > 0) $sql .= ' or';
+				}
+				$sql .= " )";
+				if (--$m > 0) $sql .= ' and';
+			}
+
+			$sql .= sprintf(" ORDER BY %s %s LIMIT %d, %d ", 
+							mysql_real_escape_string($sortBy),
+							mysql_real_escape_string($sortMode),
+							$inferior, $offset);
+
+			echo $sql;
+			$response = mysql_query($sql) or die(mysql_error());
+			$response_array = array();
+			while($r = mysql_fetch_assoc($response))
+				array_push($response_array, new $class($r));
 			return $response_array;
 		}
 		

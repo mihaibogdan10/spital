@@ -36,6 +36,7 @@ var itemsPerPage=settings.items;
 var opts=settings.opts;
 var animation=settings.animate;
 var offset=settings.offset;
+var pageName=settings.pageName
 var ppi=settings.ipp;
 var isLast=settings.isLast;
 var tg=$(this);
@@ -59,7 +60,7 @@ jQuery.nextPage = function() {
     else
         if (isLast == 0) {
             /*fa o interogare pentru noul set de 500 de intrari*/
-            window.location.href = "patient.php?inferior=" + (parseInt(offset) + parseInt(ppi));
+            window.location.href = pageName + "inferior=" + (parseInt(offset) + parseInt(ppi));
         }
 }
 
@@ -69,7 +70,7 @@ jQuery.prevPage = function() {
     else
         if (offset > 0) {
             /*fa o interogare pentru setul anterior*/
-            window.location.href = "patient.php?inferior=" + (parseInt(offset) - parseInt(ppi))
+            window.location.href = pageName + "inferior=" + (parseInt(offset) - parseInt(ppi))
                                    + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage));
         }
 }

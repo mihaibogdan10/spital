@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block Title %}Cauta: {{ query }}{% endblock %}
+
+{% block Content %}
+	
+	<h4>Rezultate pentru pacienti:</h4>
+	<hr /><br />
+	{% include 'patients_table.html' with {'patients': patients}%}
+	<br />
+	<div id="page_controls">
+		<div id="pages" style="float: left; margin-right: 100px;">
+			<a class="hand" onclick="$.prevPage();" style="font-size: 22px; text-decoration:none" >&#8592; </a>
+			<a class="hand" onclick="$.nextPage();" style="font-size: 22px; text-decoration:none" > &#8594;</a>
+		</div>
+		<div id="currentlyShowing" style="float: left; display: block;"></div>
+		<div id="ssp" style="float: right;">
+			Arata 
+			<select id="pager" onchange="changeItems(parseInt($(this).val()));" style="">
+			
+			</select>
+			(de) intrari
+		</div>
+	</div>
+		
+{% endblock %}
+
+{% block Bottom %}
+	{{ parent() }}
+	<script type="text/javascript" src="resources/scripts/jscripts/jquery.spager.js"></script>
+	<script type="text/javascript">
+		$("#patients").spager({
+                    
+                    items:    {{ sort.po }},
+                    ctrls:    "page_controls",
+                    animate:  true,
+                    opts:     [5,10,20,50],
+                    offset:   {{ sort.offset }},
+                    isLast:   {{ sort.isLast }},
+                    ipp:      {{ sort.ipp }},
+                    startPage:{{ pg }},
+                    pageName: "search.php?q={{ query }}&"
+                    });
+		function changePage(t) {window.location.href = 'search.php?q={{ query }}&by=' + t;}
+		function changeItems(t) {window.location.href = 'search.php?q={{ query }}&po=' + t;}
+	</script>
+{% endblock %}

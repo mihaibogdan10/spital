@@ -56,7 +56,8 @@
                     offset:   {{ sort.offset }},
                     isLast:   {{ sort.isLast }},
                     ipp:      {{ sort.ipp }},
-                    startPage:{{ pg }}
+                    startPage:{{ pg }},
+                    pageName: "patient.php?"
                     });
 		function changePage(t) {window.location.href = 'patient.php?by=' + t;}
 		function changeItems(t) {window.location.href = 'patient.php?po=' + t;}
