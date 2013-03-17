@@ -139,3 +139,8 @@ $(document).ready(function(){
 			$('#list_files').html($('#list_files').html() + "Pentru a le vedea dati refresh la pagina. Nu uitati sa salvati in prealabil daca ati facut modificari.");
     });
 });
+
+function deleteImage(record_id, name) {
+	if (confirm("Esti sigur ca vrei sa stergi aceasta imagine?"))
+		document.location = 'resources/scripts/phpscripts/delete_image.php?record_id=' + record_id + '&image_name=' + name;
+}

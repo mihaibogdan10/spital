@@ -5,7 +5,6 @@
 	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
 	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
 	
-	$MAX_FILE_SIZE = isset($_POST['MAX_FILE_SIZE']) ? $_POST['MAX_FILE_SIZE'] : 52500001;
 	$record_id = isset($_POST['id']) ? $_POST['id'] : null;
 	
 	function imageCreateFromFile($filename, $ext) {
@@ -84,21 +83,16 @@
 			$uploadthumb = $uploaddir . '/thumbnail_' . basename($new_name);
 			
 			if (getimagesize($tmp_name)){
-				if (filesize($tmp_name) < $MAX_FILE_SIZE){					
+				$new = createThumbnail($tmp_name, $ext);
 					
-					$new = createThumbnail($tmp_name, $ext);
+				//actually upload the thumbnail
+				imagejpeg($new, $uploadthumb, 100); // 100 means best quality
+				imagedestroy($new); //free up memory
 					
-					//actually upload the thumbnail
-					imagejpeg($new, $uploadthumb, 100); // 100 means best quality
-					imagedestroy($new); //free up memory
+				//actually upload the file (presumed image)
+				move_uploaded_file($tmp_name, $uploadfile);
 					
-					//actually upload the file (presumed image)
-					move_uploaded_file($tmp_name, $uploadfile);
-					
-					echo sprintf('%s a fost atasata<br/>', $old_name, $old_name);
-				}
-				else 
-					echo $old_name.' e prea mare<br/>';
+				echo sprintf('%s a fost atasata<br/>', $old_name, $old_name);
 			}
 			else
 				echo $old_name.' nu e o imagine<br/>';
