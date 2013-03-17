@@ -59,8 +59,7 @@ jQuery.nextPage = function() {
     else
         if (isLast == 0) {
             /*fa o interogare pentru noul set de 500 de intrari*/
-            window.location.href = "patient.php?inferior=" + (parseInt(offset) + parseInt(ppi))
-                                    + "&po=" + itemsPerPage;
+            window.location.href = "patient.php?inferior=" + (parseInt(offset) + parseInt(ppi));
         }
 }
 
@@ -71,8 +70,7 @@ jQuery.prevPage = function() {
         if (offset > 0) {
             /*fa o interogare pentru setul anterior*/
             window.location.href = "patient.php?inferior=" + (parseInt(offset) - parseInt(ppi))
-                                   + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage))
-                                   + "&po=" + itemsPerPage;
+                                   + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage));
         }
 }
 
