@@ -15,7 +15,7 @@
 			'mode' => 'ASC', 
 			'isLast' => false, 
 			'offset' => 0, 
-			'ipp' => 100, //items per page, 10 pentru teste, va fi in jur de 500,
+			'ipp' => 200, //items per page, 10 pentru teste, va fi in jur de 500,
 			'po' => 10 // cu cate elemente/pagina sa pagineze javascript; 5 pt teste, probabil va fi 10
 		);
 	}
@@ -66,7 +66,7 @@
 			);
 
 			$n = count(Patient::range( array(
-							'inferior' => $inferior + 10, 
+							'inferior' => $inferior + $_SESSION['sort']['ipp'], 
 							'offset' => 1)
 						)
 			//ma uit daca mai e vreo intrare dupa aceste intrari
