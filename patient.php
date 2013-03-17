@@ -8,8 +8,6 @@
 	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
 	$pg = isset($_GET['pg']) ? $_GET['pg'] : 1;
 
-	// cu cate elemente/pagina sa pagineze javascript
-	$pgOpt = isset($_GET['po']) ? $_GET['po'] : 10; // 5 pt teste, probabil va fi 10
 
 	if (!isset($_SESSION['sort'])) {
 		$_SESSION['sort'] = array(
@@ -17,10 +15,13 @@
 			'mode' => 'ASC', 
 			'isLast' => false, 
 			'offset' => 0, 
-			'ipp' => 100 //items per page, 10 pentru teste, va fi in jur de 500
+			'ipp' => 100, //items per page, 10 pentru teste, va fi in jur de 500,
+			'po' => 10 // cu cate elemente/pagina sa pagineze javascript; 5 pt teste, probabil va fi 10
 		);
 	}
 
+	// cu cate elemente/pagina sa pagineze javascript
+	$_SESSION['sort']['po'] = isset($_GET['po']) ? $_GET['po'] : $_SESSION['sort']['po'];
 
 	$sortBy = $_SESSION['sort']['by'];
 	$sortMode = $_SESSION['sort']['mode'];
@@ -85,8 +86,7 @@
 								'user' => $_SESSION['user'], 
 								'patients' => $patients, 
 								'sort' => $_SESSION['sort'], 
-								'pg' => $pg,
-								'pgOpt' => $pgOpt
+								'pg' => $pg
 							)
 			);
 		break;

@@ -13,7 +13,7 @@
 		<div id="currentlyShowing" style="float: left; display: block;"></div>
 		<div id="ssp" style="float: right;">
 			Arata 
-			<select id="pager" onchange="$.generatePages(parseInt($(this).val()));" style="">
+			<select id="pager" onchange="changeItems(parseInt($(this).val()));" style="">
 			
 			</select>
 			(de) intrari
@@ -49,16 +49,17 @@
 	<script type="text/javascript">
 		$("#patients").spager({
                     
-                    items:    {{ pgOpt }},
+                    items:    {{ sort.po }},
                     ctrls:    "page_controls",
                     animate:  true,
-                    opts:     [5,10,20,30,50],
+                    opts:     [5,10,20,50],
                     offset:   {{ sort.offset }},
                     isLast:   {{ sort.isLast }},
                     ipp:      {{ sort.ipp }},
                     startPage:{{ pg }}
                     });
 		function changePage(t) {window.location.href = 'patient.php?by=' + t;}
+		function changeItems(t) {window.location.href = 'patient.php?po=' + t;}
 	</script>
 	<script type="text/javascript">
 		$(function () {
