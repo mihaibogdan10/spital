@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 	var msg = document.location.hash.substr(1);
 	if (msg.length == 0) return ;
 	$container = $("#container").notify();
@@ -6,6 +6,6 @@ $(document).ready(function () {
 		title: '',
 		text: msg
 	});
-					
+	
 	document.location.hash = "";
 });

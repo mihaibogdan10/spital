@@ -14,7 +14,10 @@
 		}
 		
 		function getRecords() { return Record::filter(array('patient' => $this->id)); }
-		function getParent() { return User::get(array('id' => $this->addedby)); }
+		function getParent() { 
+			try { return User::get(array('id' => $this->addedby)); }
+			catch(Exception $ex) {}
+		}
 		function getGender() { return $this->cnp[0] % 2 == 1 ? 'Masculin' : 'Feminin'; }
 		function getBirthDate() { 
 			// 2 92 08 20 374511
