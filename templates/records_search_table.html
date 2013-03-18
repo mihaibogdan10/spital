@@ -1,0 +1,46 @@
+<table class="patients" id="records">
+	{% if records %}
+	<tr>
+		<th ></th>
+		<th class="hand" id="investigation" onclick="changePage(this.id);">INVESTIGATIE</th>
+		<th class="hand" id="sending_medic" onclick="changePage(this.id);">DOCTOR</th>
+		<th class="hand" id="timestamp" onclick="changePage(this.id);">DATA</th>
+		<th class="hand" ></th>
+	</tr>
+	{% endif %}
+	{% for record in records %}
+	<tr>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ loop.index }}. </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ record.investigation|capitalize }} </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ record.sending_medic|title }} </a></td>
+		<td><a href="view_record.php?id={{ record.id }}" target="_blank">{{ record.timestamp | date("d.m.Y H:i:s") }}</a></td>
+		<td>
+			<div class="left" style="width: 30px;">
+			<!-- a href="javascript:" class="edit_btn" record_id="{{ record.id }}">-->
+			<a href="edit_record.php?id={{ record.id }}">
+				<img src="resources/images/edit-icon.png" title="Editeaza" />
+			</a>
+			</div>
+			<div class="left" style="width: 20px; margin: 4px 0px 0px 5px;">
+			<!--<a href="print_record.php?id={{ record.id }}">
+				<img src="resources/images/printer-icon.png" title="Imprima"/>
+			</a>-->
+				<img src="resources/images/trash-icon.png" title="Sterge fisa" style="cursor: pointer;" onclick="javascript: deleteObject('fisa', '{{ record.id }}');" />
+			</div>
+		</td>
+	</tr>
+	{% else%}
+	<p>Nu am gasit nici o fisa.</p>
+	{% endfor %}
+</table>
+<!--<script type="text/javascript">
+	$(function () {
+		$('.edit_btn').click(function () {
+			var record_id = $(this).attr('record_id');
+			if (typeof(window_edit_record) != 'undefined' && !window_edit_record.closed)
+				window_edit_record.close();
+			window_edit_record = window.open('edit_record.php?id=' + record_id, 'window_edit_record', 'directories=no,fullscreen=yes,location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,addressbar=no')
+			window_edit_record.focus();
+		});
+	});
+</script>-->

@@ -59,6 +59,7 @@
 
 	if ($wt != "sort_record") {
 
+		$records = array();
 		$patients = Patient::search2(array(
 			'q' => $_GET['q'],
 			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'),
@@ -81,6 +82,7 @@
 
 	else {
 
+		$patients = array();
 		$records = Record::search2(array(
 			'q' => $_GET['q'],
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'),

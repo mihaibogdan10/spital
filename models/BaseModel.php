@@ -212,7 +212,6 @@
 							mysql_real_escape_string($sortMode),
 							$inferior, $offset);
 
-			echo $sql;
 			$response = mysql_query($sql) or die(mysql_error());
 			$response_array = array();
 			while($r = mysql_fetch_assoc($response))

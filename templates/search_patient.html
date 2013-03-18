@@ -4,10 +4,15 @@
 
 {% block Content %}
 	
-	<h4>Rezultate pentru pacienti:</h4>
+	<h4>Rezultate pentru pacienti: 
+		<span>
+			<a href="search.php?q={{ query }}&wt=record" class="hand" style="text-decoration:none;"> | Rezultate pentru fise:</a>
+		<span>
+	</h4>
 	<hr /><br />
 	{% include 'patients_table.html' with {'patients': patients}%}
 	<br />
+	{% if patients %}
 	<div id="page_controls">
 		<div id="pages" style="float: left; margin-right: 100px;">
 			<a class="hand" onclick="$.prevPage();" style="font-size: 22px; text-decoration:none" >&#8592; </a>
@@ -22,7 +27,7 @@
 			(de) intrari
 		</div>
 	</div>
-		
+	{% endif %}	
 {% endblock %}
 
 {% block Bottom %}
