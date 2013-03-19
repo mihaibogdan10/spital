@@ -1,11 +1,14 @@
+#header, #footer { display:none;}
+#content { background: none; }
+
 h1, h2 {
     text-align : center;
     margin : 30px 0px 20px 0px;
 }
 
-body {
-    width : 810px;
-    margin : 10px auto 0px auto;
+body{
+	margin : 0;
+	font-size: 16px;
 }
 
 .importantInfo {
@@ -16,10 +19,10 @@ body {
 .info {
 	font-family: "Times New Roman", Times, serif;
     padding : 0px;
-    margin : 0px 0px 0px 30px;
+    margin : 0px 0px 0px 50px;
 }
 
-#header {
+#header_div {
     float: left;
     width: 490px;
     text-align: center;
@@ -38,7 +41,7 @@ body {
 }
 
 #investigation_result_div{
-	margin-left : 30px;
+	margin-left : 35px;
 	width : 780px;
 }
 
@@ -48,20 +51,25 @@ body {
 	left : 20px;
 }
 
-#save_result_div {
-    position : fixed;
-	left : 50px;
-	top : 140px;
+.thumbnail{
+	margin : 0px auto 20px auto;
+	border: 1px solid #E0E0E0;
 }
 
 @media print{
 	.printButton{
 		display : none;
 	}
+	
 	body{
 		margin : 0;
 	}
-	#header{
+	
+	.left{
+		border : 0;
+	}
+	
+	#header_div{
 		margin : 0;
 	}
 }

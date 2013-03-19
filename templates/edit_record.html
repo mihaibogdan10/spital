@@ -107,22 +107,20 @@
 
 {% block ContentRightStyle %}width : 100px; margin : 0px;{% endblock %}
 {% block ContentRight %}
-	<p>
-		{% for image_name in record.getAttachments %}
-			{% if image_name|slice(0,10) == 'fullsized_' %}
-				<table><tr>
-					<td>
-						<a class="fancybox-buttons" data-fancybox-group="button" href="resources/uploads/{{record.id}}/{{ image_name }}">
-							<img class = "thumbnail" src="resources/uploads/{{record.id}}/thumbnail_{{ image_name|slice(10, image_name | length - 10) }}" alt="" />
-						</a>
-					</td>
-					<td style = "display:block;">
-						<img src="resources/images/trash-icon.png" title="Sterge imaginea" style="cursor: pointer;" onclick="javascript: deleteImage('{{record.id}}', '{{ image_name|slice(10, image_name | length - 10) }}');" />
-					</td>
-				</tr></table>
-			{% endif %}
-		{% endfor %}
-	</p>
+	{% for image_name in record.getAttachments %}
+		{% if image_name|slice(0,10) == 'fullsized_' %}
+			<table><tr>
+				<td>
+					<a class="fancybox-buttons" data-fancybox-group="button" href="resources/uploads/{{record.id}}/{{ image_name }}">
+						<img class = "thumbnail" src="resources/uploads/{{record.id}}/thumbnail_{{ image_name|slice(10, image_name | length - 10) }}" alt="" />
+					</a>
+				</td>
+				<td style = "display:block;">
+					<img src="resources/images/trash-icon.png" title="Sterge imaginea" style="cursor: pointer;" onclick="javascript: deleteImage('{{record.id}}', '{{ image_name|slice(10, image_name | length - 10) }}');" />
+				</td>
+			</tr></table>
+		{% endif %}
+	{% endfor %}
 {% endblock %}
 
 {% block Bottom %}

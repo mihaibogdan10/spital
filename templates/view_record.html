@@ -1,24 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} - Fisa {% endblock %}</title> 
-	{% block Style %}
-		<link rel="stylesheet" type="text/css" href="resources/style/view_record.css" />
-	{% endblock %}
-	{% block Scripts %}
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
-	{% endblock %}
-</head>
+{% extends 'base.html' %}
 
-<body>
-	<input type = "button" class = "printButton button hfirst hlast" onclick="javascript: window.print();" value = "Tipareste pagina"/>
+{% block Title %} {{record.getPatient().lastname}} {{record.getPatient().firstname}} - Fisa {% endblock %}
+{% block Style %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="resources/style/view_record.css" />
+{% endblock %}
+{% block Scripts %}
+	{{ parent() }}
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+{% endblock %}
+
+{% block ContentStyle %}background : #FAF8F6; padding : 20px 0px; border : 0px;{% endblock %}
+	
+{% block ContentLeftStyle %}background : white; width : 810px; border: 1px solid #E0E0E0; {% endblock %}
+{% block ContentLeft %}
+	<input type = "button" class = "printButton" onclick="javascript: printDiv('w470left');" value = "Tipareste pagina"/>
 	
 	<input type="hidden" id="record_id" name="record_id" value="{{ record.id }}" />	
 	<div>
-		<img style = "float : left; border: 2px solid;" src = "resources/images/symbol.png" height = "134" width = "150" alt = "symbol" />
-		<div id = "header">
+		<img style = "float : left; border: 1px solid #E0E0E0;" src = "resources/images/symbol.png" height = "134" width = "150" alt = "symbol" />
+		<div id = "header_div">
 			<p class = "header_p" id = "clinicName">Spitalul Clinic Judetean de Urgente "Sf. Spiridon" IASI</p>
 			<p class = "header_p">Laborator Medicina Nucleara</p>
 			<p class = "header_p">B-dul Independentei nr. 1 Iasi, tel. 0232 240 822 int. 120</p>
@@ -91,21 +92,45 @@
 		<br>
 		<p class = "info"> Am primit rezultatul, </p>
 	</div>
+{% endblock %}
+
+{% block ContentRightStyle %}width : 100px; margin : 0px;{% endblock %}
+{% block ContentRight %}
+
+	{% for image_name in record.getAttachments %}
+		{% if image_name|slice(0,10) == 'fullsized_' %}
+			<table><tr>
+				<td>
+					<a class="fancybox-buttons" data-fancybox-group="button" href="resources/uploads/{{record.id}}/{{ image_name }}">
+						<img class = "thumbnail" src="resources/uploads/{{record.id}}/thumbnail_{{ image_name|slice(10, image_name | length - 10) }}" alt="" />
+					</a>
+				</td>
+				<td style = "display:block;">
+				</td>
+			</tr></table>
+		{% endif %}
+	{% endfor %}
+
+{% endblock %}
 	
-	<br style = "clear : both;" />
+{% block Bottom %}
+	<script>
+		gamma_room_data = "{{ record.gamma_room }}";
+		collimator_data = "{{ record.collimator }}";
+		radiopharmaceutical_isotope_data = "{{ record.radiopharmaceutical_isotope }}";
+		dose_data = "{{ record.dose }}";
+		sending_medic_data = "{{ record.sending_medic }}";
+		sending_diagnosis_data = "{{ record.sending_diagnosis }}";
+		investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;746&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;it-IT&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;it-IT&quot;&gt;Prof.dr. &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt; &lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
+	</script>
+	<script type="text/javascript" src="resources/scripts/jscripts/view_record.js"></script>
 	
-	{% block Bottom %}
-		<script>
-			gamma_room_data = "{{ record.gamma_room }}";
-			collimator_data = "{{ record.collimator }}";
-			radiopharmaceutical_isotope_data = "{{ record.radiopharmaceutical_isotope }}";
-			dose_data = "{{ record.dose }}";
-			sending_medic_data = "{{ record.sending_medic }}";
-			sending_diagnosis_data = "{{ record.sending_diagnosis }}";
-			investigation_result_data = "{%if record.investigation_result %}{{ record.investigation_result }}{%else%}&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; height=&quot;79&quot; width=&quot;746&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&amp;#350;ef Laborator,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;ro-RO&quot;&gt;Medic primar Medicin&amp;#259; Nu&lt;/span&gt;&lt;span lang=&quot;it-IT&quot;&gt;clear&amp;#259;,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Prof. dr. &lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p&gt;&lt;span lang=&quot;it-IT&quot;&gt;Prof.dr. &lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt; &lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Medic primar Medicin&amp;#259; Nuclear&amp;#259;,&lt;/p&gt;&lt;p align=&quot;CENTER&quot; class=&quot;western&quot; lang=&quot;it-IT&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Dr. &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt; &lt;/p&gt;&lt;p class=&quot;western&quot; lang=&quot;ro-RO&quot; style=&quot;margin-right: 0.3in; margin-bottom: 0in&quot;&gt;Am primit rezultatul,&lt;/p&gt;{%endif%}";
-		</script>
-		<script type="text/javascript" src="resources/scripts/jscripts/view_record.js"></script>
-	{% endblock %}
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="resources/modules/fancyBox/source/jquery.fancybox.js?v=2.1.4"></script>
+	<link rel="stylesheet" type="text/css" href="resources/modules/fancyBox/source/jquery.fancybox.css?v=2.1.4" media="screen" />
 	
-	</body>
-</html>
+	
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="resources/modules/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="resources/modules/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+{% endblock %}

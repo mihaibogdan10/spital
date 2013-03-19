@@ -19,7 +19,9 @@ h1, h2 {
 }
 
 body {
+	margin : 0;
 	line-height: 150%;
+	font-size: 16px;
 }
 
 .importantInfo {
@@ -30,20 +32,7 @@ body {
 .info {
 	font-family: "Times New Roman", Times, serif;
     padding : 0px;
-    margin : 0px 0px 0px 1.0cm;
-}
-
-#header {
-    float: left;
-    width: 490px;
-    text-align: center;
-    margin : 5px 0px 0px 0px;
-    padding : 0px;
-}
-
-.header_p {
-    margin : 0px;
-    padding : 3px;
+    margin : 0px 0px 0px 50px;
 }
 
 #clinicName {
@@ -115,5 +104,5 @@ body {
 .thumb {
 	height: 75px;
 	border: 1px solid #000;
-	margin: 10px 5px 0 0;
+	margin: 10px 10px 0 0;
 }

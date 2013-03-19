@@ -85,10 +85,10 @@
 				<div id="content_text"> 
 					<div class="alert"></div>
 					{% block Content %}
-						<div class="w470 left" style="{% block ContentLeftStyle %}{% endblock %}">
+						<div class="w470 left" id = "w470left" style="{% block ContentLeftStyle %}{% endblock %}">
 							{% block ContentLeft %}	{% endblock %}
 						</div>
-						<div class="w470 right" style="{% block ContentRightStyle %}{% endblock %}">
+						<div class="w470 right" id = "w470right" style="{% block ContentRightStyle %}{% endblock %}">
 							{% block ContentRight %} {% endblock %}
 						</div>
 					{% endblock %} 
