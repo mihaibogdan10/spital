@@ -3,9 +3,9 @@
 {% block Title %}Cauta: {{ query }}{% endblock %}
 
 {% block Content %}
-	<h4> 
+	<h4 style="margin:0; padding:0;"> 
 		<span>
-			<a href="search.php?q={{ query }}" class="hand" style="text-decoration:none;">Rezultate pentru pacienti: | </a>
+			<a href="search.php?q={{ query }}" class="hand" style="margin:0; padding:0; text-decoration:none;">Rezultate pentru pacienti: | </a>
 		<span>
 	Rezultate pentru fise:</h4>
 	<hr/><br />
@@ -13,12 +13,13 @@
 	<br />
 	{% if records %}
 	<div id="page_controls">
-		<div id="pages" style="float: left; margin-right: 100px;">
-			<a class="hand" onclick="$.prevPage();" style="font-size: 22px; text-decoration:none" >&#8592; </a>
-			<a class="hand" onclick="$.nextPage();" style="font-size: 22px; text-decoration:none" > &#8594;</a>
+		<div id="pages" style="float: left;">
+			<span class="hand" onclick="$.prevPage();" style="font-size: 22px; font-weight:bolder;" >&#8592; </span>
+			<span class="hand" onclick="$.nextPage();" style="font-size: 22px; font-weight:bolder;" > &#8594;</span>
+			<span id="pages_click" style=" margin-left: 50px;"></span>
 		</div>
-		<div id="currentlyShowing" style="float: left; display: block;"></div>
 		<div id="ssp" style="float: right;">
+			<span id="currentlyShowing" style="margin-right: 50px;"></span>
 			Arata 
 			<select id="pager" onchange="changeItems(parseInt($(this).val()));" style="">
 			
@@ -43,7 +44,8 @@
                     isLast:   {{ sort.isLast }},
                     ipp:      {{ sort.ipp }},
                     startPage:{{ pg }},
-                    pageName: "search.php?q={{ query }}&wt=record&"
+                    pageName: "search.php?q={{ query }}&wt=record&",
+                    entries:  {{ entries }}
                     });
 		function changePage(t) {window.location.href = 'search.php?q={{ query }}&wt=record&by=' + t;}
 		function changeItems(t) {window.location.href = 'search.php?q={{ query }}&wt=record&po=' + t;}

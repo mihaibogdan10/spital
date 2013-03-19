@@ -29,120 +29,165 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 (function($) {
 
-jQuery.fn.spager=function(settings) {
+	jQuery.fn.spager = function(settings) {
 
-var controlsElement=settings.ctrls;
-var itemsPerPage=settings.items;
-var opts=settings.opts;
-var animation=settings.animate;
-var offset=settings.offset;
-var pageName=settings.pageName
-var ppi=settings.ipp;
-var isLast=settings.isLast;
-var tg=$(this);
-var rows=$(tg).children().find("tr").filter(":not(:first-child)");
-var rowCount=rows.size();
-var tableHeight;
-var curPage = settings.startPage;
-var lastPage = 1;
+		var controlsElement = settings.ctrls;
+		var itemsPerPage = settings.items;
+		var opts = settings.opts;
+		var animation = settings.animate;
+		var offset = settings.offset;
+		var pageName = settings.pageName;
+		var entries = settings.entries;
+		var ppi = settings.ipp;
+		var isLast = settings.isLast;
+		var tg = $(this);
+		var rows = $(tg).children().find("tr").filter(":not(:first-child)");
+		var rowCount = rows.size();
+		var tableHeight;
+		var curPage = settings.startPage;
+		var lastPage = 1;
 
-if (opts==null) {
-opts=[10,15,25,50];
-}
+		var globalCurrentPage;
+		var globalCurrentSet;
+		var pagesPerSet;
+		var globalLastPage;
 
-if (itemsPerPage==null) {
-itemsPerPage=opts[0];
-}
+		if (opts == null) {
+			opts = [10, 15, 25, 50];
+		}
 
-jQuery.nextPage = function() {
-    if (curPage < lastPage) 
-        jQuery.page(curPage + 1);
-    else
-        if (isLast == 0) {
-            /*fa o interogare pentru noul set de 500 de intrari*/
-            window.location.href = pageName + "inferior=" + (parseInt(offset) + parseInt(ppi));
-        }
-}
+		if (itemsPerPage == null) {
+			itemsPerPage = opts[0];
+		}
 
-jQuery.prevPage = function() {
-    if (curPage > 1) 
-        jQuery.page(curPage - 1);
-    else
-        if (offset > 0) {
-            /*fa o interogare pentru setul anterior*/
-            window.location.href = pageName + "inferior=" + (parseInt(offset) - parseInt(ppi))
-                                   + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage));
-        }
-}
+		jQuery.nextPage = function() {
+			console.log (curPage, lastPage);
+			if (curPage < lastPage) jQuery.page(curPage + 1);
+			else if (isLast == 0) {
+				/*fa o interogare pentru noul set de 500 de intrari*/
+				window.location.href = pageName + "inferior=" + (parseInt(offset) + parseInt(ppi));
+			}
+		}
 
-jQuery.page=function(pg) {
-          curPage = pg;
-          stP=itemsPerPage*(pg-1);
-          enP=Math.min(rowCount-1,parseInt(stP)+parseInt(itemsPerPage)-1);
-          
-          
-$("#"+controlsElement+" #currentlyShowing").text("Intrari afisate: "+(offset + parseInt(stP+1))+" - "+(offset + parseInt(enP+1)));
-$(rows).show();
-$(rows).filter(":lt("+stP+")").hide();
-$(rows).filter(":gt("+enP+")").hide();
+		jQuery.prevPage = function() {
+			if (curPage > 1) jQuery.page(curPage - 1);
+			else if (offset > 0) {
+				/*fa o interogare pentru setul anterior*/
+				window.location.href = pageName + "inferior=" + (parseInt(offset) - parseInt(ppi)) + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage));
+			}
+		}
 
-          if (animation!=false) {
-                    $(tg).animate({
-                    height: 2,
-                    duration: 500
-                    })
-          }
-          
-}
+		jQuery.globalPage = function(pg) {
+			console.log("globalCurrentPage: " + globalCurrentPage);
+			console.log("globalCurrentSet: " + globalCurrentSet);
 
-jQuery.generatePages=function(max) {
-var page=0;
-if (max!=null) {
-          parseInt(itemsPerPage=max);
-}
-//           $("#"+controlsElement+" #pages").empty();
-           i=0;
-           while (i<rowCount) {
-           i+=itemsPerPage;
-           page++;
-//           $("#"+controlsElement+" #pages").append(" <a onclick='$.nextPage();'>-></a>");
-//           $("#"+controlsElement+" #pages").append(" <a onclick='$.page($(this).text()); $(this).parent().children().removeClass(); $(this).addClass(\"action\")' style='color: gray; font-size: 16px;'>"+page+"</a> ");
-           }
-//$("#"+controlsElement+" #pages").append(" <a onclick='$.nextPage();' style='color: gray; font-size: 16px;''>-></a>");
-lastPageProducts=rowCount-($("#"+controlsElement+" #pages a:last").text()*itemsPerPage);
-lastPage = page;
-if (lastPageProducts>0) {
-page++;
-lastPage = page;
-//$("#"+controlsElement+" #pages").append(" <a onclick='$.page($(this).text()); $(this).parent().children().removeClass(); $(this).addClass(\"action\")' style='color: gray; font-size: 16px;'>"+page+"</a> ");
-}
-         
-$("#"+controlsElement+"#pages a:eq(0)").addClass("action");
-$.page(curPage);
-}
+			//verific daca pagina dorita exista (poate redundant, dar nu se stie niciodata)
+			if (globalLastPage < pg || pg <= 0){
+				console.log("eroare in spager: pagina ceruta nu exista");
+				return;
+			} 
+			
+			//caut setul din care apartine pagina dorita
+			var globalSet = parseInt((parseInt(pg) - 1) / parseInt(pagesPerSet));
+			//caut a cata pagina din setul respectiv este
+			var localPage = pg - (globalSet * parseInt(pagesPerSet));
 
-//$("#"+controlsElement).empty().append("<div id='currentlyShowing'></div><div id='pages'></div><div id='ssp'>Show <select id='pager' onchange='$.generatePages(parseInt($(this).val()));'></select></div>").css("text-align","center");
+			console.log("globalSet: " + globalSet + "   localPage: " + localPage);
 
-          for(i=0; i<opts.length; i++) {
-          
-                    $("#pager").append("\n<option value='"+opts[i]+"'>"+opts[i]+"</option>");
-          
-          }
+			//daca pagina e din setul curent, schimb pur si simplu din javascript
+			if (globalSet == globalCurrentSet) {
+				jQuery.page(localPage);
+			}
+			//altfel trebuie sa apelez la php
+			else {
+				window.location.href = pageName + "inferior=" + (parseInt(ppi) * globalSet) + "&pg=" + localPage;
+			}
 
 
-          var ind=0;
-          $("#pager option").each(function() {
-          if ($(this).text()==itemsPerPage) {
-                    $(this).attr("selected","true");
-                    return;
-                    }
-          ind++;
-          })
+		}
 
-$.generatePages();
+		jQuery.page = function(pg) {
+			curPage = pg;
+			stP = itemsPerPage * (pg - 1);
+			enP = Math.min(rowCount - 1, parseInt(stP) + parseInt(itemsPerPage) - 1);
 
-return this;
 
-}
+			$("#" + controlsElement + " #currentlyShowing").text("Intrari afisate: " + (offset + parseInt(stP + 1)) + " - " + (offset + parseInt(enP + 1)));
+			$(rows).show();
+			$(rows).filter(":lt(" + stP + ")").hide();
+			$(rows).filter(":gt(" + enP + ")").hide();
+
+			if (animation != false) {
+				$(tg).animate({
+					height: 2,
+					duration: 500
+				})
+			}
+
+			globalCurrentPage = parseInt(parseInt(offset) / itemsPerPage) + curPage;
+			globalCurrentSet = parseInt(parseInt(offset) / parseInt(ppi));
+			pagesPerSet = parseInt(parseInt(ppi) / parseInt(itemsPerPage));
+			globalLastPage = Math.ceil(parseInt(entries) / itemsPerPage);
+
+			$("#pages_click").empty();
+			if (globalCurrentPage > 3) {
+				$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +1+ "</span> ... ");
+			}
+			for (var i = Math.max(globalCurrentPage - 2, 1); i <= Math.min(globalCurrentPage + 2, globalLastPage); i++){
+				if (i == globalCurrentPage) {
+					$("#pages_click").append("<span class='hand' style='font-weight:bold; color:red;'>" +i+ "</span> ");
+				}
+				else {
+					$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +i+ "</span> ");
+				}
+			}
+			if (globalCurrentPage < globalLastPage - 2) {
+				$("#pages_click").append("... <span class='hand' onclick='$.globalPage($(this).text());'>" +globalLastPage+ "</span>");
+			}
+
+		}
+
+		jQuery.generatePages = function(max) {
+			var page = 0;
+			if (max != null) {
+				parseInt(itemsPerPage = max);
+			}
+			i = 0;
+			while (i < rowCount) {
+				i += itemsPerPage;
+				page++;
+			}
+			lastPageProducts = rowCount - (page * itemsPerPage);
+			lastPage = page;
+			if (lastPageProducts > 0) {
+				page++;
+				lastPage = page;
+			}
+
+			$("#" + controlsElement + "#pages a:eq(0)").addClass("action");
+			$.page(curPage);
+		}
+
+		for (i = 0; i < opts.length; i++) {
+
+			$("#pager").append("\n<option value='" + opts[i] + "'>" + opts[i] + "</option>");
+
+		}
+
+
+		var ind = 0;
+		$("#pager option").each(function() {
+			if ($(this).text() == itemsPerPage) {
+				$(this).attr("selected", "true");
+				return;
+			}
+			ind++;
+		})
+
+		$.generatePages();
+
+		return this;
+
+	}
 
 })(jQuery);

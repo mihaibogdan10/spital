@@ -57,7 +57,7 @@
 		
 		default:
 	
-//			$patients = Patient::all();
+			$entries = Patient::number();
 			$patients = Patient::range( array(
 				'inferior' => $inferior, 
 				'offset' => $_SESSION['sort']['ipp'],
@@ -86,7 +86,8 @@
 								'user' => $_SESSION['user'], 
 								'patients' => $patients, 
 								'sort' => $_SESSION['sort'], 
-								'pg' => $pg
+								'pg' => $pg,
+								'entries' => $entries
 							)
 			);
 		break;

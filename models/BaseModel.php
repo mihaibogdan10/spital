@@ -21,6 +21,18 @@
 			return $arr;
 		}
 
+		// returneaza numarul de elemente
+		static function number() {
+			$class = get_called_class(); // Numele clasei care apeleaza functia
+			
+			$sql = sprintf("select count(*) no from `%s`", mysql_real_escape_string(strtolower($class)));
+			$q = mysql_query($sql) or die(mysql_error());
+			
+			$r = mysql_fetch_assoc($q);
+			
+			return $r['no'];
+		}
+
 		// returneaza obiectele, intre anumite limite
 		static function range($args) {
 			$class = get_called_class(); // Numele clasei care apeleaza functia
@@ -217,6 +229,56 @@
 			while($r = mysql_fetch_assoc($response))
 				array_push($response_array, new $class($r));
 			return $response_array;
+		}
+		
+
+
+		static function search_number($args) {
+			$class = get_called_class(); // Numele clasei care apeleaza functia
+
+			$sql = sprintf("select count(*) no from `%s`", 
+							mysql_real_escape_string(strtolower($class)));
+
+			$q_arr = explode(' ', $args['q']);
+
+			$m = count($q_arr);
+			if ($m > 0) $sql .= " where";
+
+			foreach ($q_arr as $value) {
+				$n = count($args['fields']);
+				$sql .= " (";
+				foreach ($args['fields'] as $key) {
+					// $field = firstname
+					// $q = Alexandru
+
+					$type = strstr($key, '__');
+					$string_pattern = " `%s` = '%s'";
+					$key_exploded = explode('__', $key); // firstname__contains => [firstname, contains]
+					$key = $key_exploded[0]; // fac din firstname__contains => firstname
+					switch($type) {
+						case '__contains':
+							$string_pattern = " `%s` like '%%%s%%'";
+						break;					
+						case '__startswith':
+							$string_pattern = " `%s` like '%s%%'";
+						break;					
+						case '__endswith':
+							$string_pattern = " `%s` like '%%%s'";
+						break;
+					}
+					$sql .= sprintf($string_pattern, 
+								mysql_real_escape_string($key), 
+								mysql_real_escape_string($value));
+					
+					if (--$n > 0) $sql .= ' or';
+				}
+				$sql .= " )";
+				if (--$m > 0) $sql .= ' and';
+			}
+
+			$response = mysql_query($sql) or die(mysql_error());
+			$r = mysql_fetch_assoc($response);
+			return $r['no'];
 		}
 		
 	}

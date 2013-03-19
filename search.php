@@ -69,6 +69,11 @@
 			'sortMode' => $_SESSION[$wt]['mode'])
 		);
 
+		$entries = Patient::search_number(array(
+			'q' => $_GET['q'],
+			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'))
+		);
+
 		$n = count(Patient::search2(array(
 			'q' => $_GET['q'],
 			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'),
@@ -90,6 +95,11 @@
 			'offset' => $_SESSION[$wt]['ipp'],
 			'sortBy' => $_SESSION[$wt]['by'],
 			'sortMode' => $_SESSION[$wt]['mode'])
+		);
+
+		$entries = Record::search_number(array(
+			'q' => $_GET['q'],
+			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'))
 		);
 
 		$n = count(Record::search2(array(
@@ -120,7 +130,8 @@
 		'records' => $records, 
 		'sort' => $_SESSION[$wt],
 		'query' => $_GET['q'],
-		'pg' => $pg)
+		'pg' => $pg,
+		'entries' => $entries)
 	);
 
 ?>
