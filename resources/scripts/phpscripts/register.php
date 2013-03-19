@@ -1,8 +1,9 @@
 <?php
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/scripts/phpscripts/encryption.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
+	require_once "paths.php";
+	require_once $ROOT."/resources/scripts/phpscripts/encryption.php";
+	require_once $ROOT."/models/UserModel.php";
+	require_once $ROOT."/config/__Variables.php";
+	require_once $ROOT."/config/__DBConnect.php";
 	
 	$_POST['nume'] = isset($_POST['nume']) ? $_POST['nume'] : NULL;
 	$_POST['prenume'] = isset($_POST['prenume']) ? $_POST['prenume'] : NULL;

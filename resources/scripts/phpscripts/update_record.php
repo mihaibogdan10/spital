@@ -1,11 +1,11 @@
 <?php
-
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/PatientModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/RecordModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
+	require_once "paths.php";
+	require_once $ROOT."/models/UserModel.php";
+	require_once $ROOT."/models/PatientModel.php";
+	require_once $ROOT."/models/RecordModel.php";
+	require_once $ROOT."/config/__Variables.php";
+	require_once $ROOT."/config/__DBConnect.php";
+	require_once $ROOT."/config/__PermissionDoctor.php";
 	
 	$columns = array('id', 'category', 'sending_medic', 'sending_diagnosis', 'investigation', 'investigation_result', 
 				'radiopharmaceutical_isotope', 'dose', 'gamma_room', 'collimator', 'clinic');

@@ -1,10 +1,10 @@
 <?php
-
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/PatientModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
+	require_once "paths.php";
+	require_once $ROOT."/models/UserModel.php";
+	require_once $ROOT."/models/PatientModel.php";
+	require_once $ROOT."/config/__Variables.php";
+	require_once $ROOT."/config/__DBConnect.php";
+	require_once $ROOT."/config/__PermissionDoctor.php";
 
 	$_POST['firstname'] = isset($_POST['firstname']) ? $_POST['firstname'] : NULL;
 	$_POST['lastname'] = isset($_POST['lastname']) ? $_POST['lastname'] : NULL;

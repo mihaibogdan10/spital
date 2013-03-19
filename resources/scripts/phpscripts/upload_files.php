@@ -1,9 +1,9 @@
 <?php
-
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
+	require_once "paths.php";
+	require_once $ROOT."/models/UserModel.php";
+	require_once $ROOT."/config/__Variables.php";
+	require_once $ROOT."/config/__DBConnect.php";
+	require_once $ROOT."/config/__PermissionDoctor.php";
 	
 	$record_id = isset($_POST['id']) ? $_POST['id'] : null;
 	
@@ -73,7 +73,7 @@
 			$ext = strtolower( pathinfo( $old_name, PATHINFO_EXTENSION ));
 			$new_name = md5(rand()).md5($old_name.'salt:)').'.'.$ext;
 			
-			$uploaddir = "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/uploads/" . $record_id;
+			$uploaddir = $ROOT."/resources/uploads/" . $record_id;
 			//create the upload directory if it doesn't exist
 			if (!is_dir($uploaddir))
 				mkdir($uploaddir);

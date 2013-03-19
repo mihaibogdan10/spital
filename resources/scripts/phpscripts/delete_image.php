@@ -1,15 +1,15 @@
 <?php
-
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/models/UserModel.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__Variables.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__DBConnect.php";
-	require_once "{$_SERVER['DOCUMENT_ROOT']}/spital/config/__PermissionDoctor.php";
+	require_once "paths.php";
+	require_once $ROOT."/models/UserModel.php";
+	require_once $ROOT."/config/__Variables.php";
+	require_once $ROOT."/config/__DBConnect.php";
+	require_once $ROOT."/config/__PermissionDoctor.php";
 	
 	$record_id = isset($_GET['record_id']) ? $_GET['record_id'] : null;
 	$image_name = isset($_GET['image_name']) ? $_GET['image_name'] : null;
 
 	if ($record_id != null){
-		$dir = "{$_SERVER['DOCUMENT_ROOT']}/spital/resources/uploads/" . $record_id;
+		$dir = $ROOT."/resources/uploads/" . $record_id;
 		$fullsized_image  = $dir . '/fullsized_' . $image_name;
 		$thumbnail_image  = $dir . '/thumbnail_' . $image_name;
 		
