@@ -8,7 +8,7 @@
 	require_once $ROOT."/config/__PermissionDoctor.php";
 	
 	$columns = array('id', 'category', 'sending_medic', 'sending_diagnosis', 'investigation', 'investigation_result', 
-				'radiopharmaceutical_isotope', 'dose', 'gamma_room', 'collimator', 'clinic');
+				'radiopharmaceutical_isotope', 'dose', 'gamma_room', 'collimator', 'clinic', 'tags');
 	
 	$passed_data = array();
 	foreach ($columns as $key => $column)

@@ -8,7 +8,6 @@
 {% endblock %}
 {% block Scripts %}
 	{{ parent() }}
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="resources/modules/ckeditor/ckeditor.js"></script>
 {% endblock %}
 
@@ -88,7 +87,19 @@
 			<input type = "submit" value = "Salveaza modificarile" form = "save_form"/>
 		</div>
 		
-		<br>
+		<br/>
+		<div> 
+			<span> Taguri: </span>
+			<input type="text" name="tag" id="tag_input" /><br />
+			<input type="hidden" name="tags" id="tags_hidden" value = "{% for tag in record.getTags() %},{{ tag }},{% endfor %}" form = "save_form"/>
+			<div id="tags">
+				{% for tag in record.getTags() %}
+					<span class="tag">{{ tag }}<a class = "remove" href = "javascript:" title = "Remove {{ tag }}">x</a></span>
+				{% endfor %}
+			</div>
+		</div>
+		
+		<br/><br/>
 		
 		<form enctype="multipart/form-data" method  = "post" action = "resources/scripts/phpscripts/upload_files.php" target="imgUploadFrame">
 			<label for = "upload_files">Adaugati imagini asociate fisei curente (jpg, png sau gif):</label>
@@ -143,7 +154,7 @@
 	<link rel="stylesheet" type="text/css" href="resources/modules/fancyBox/source/jquery.fancybox.css?v=2.1.4" media="screen" />
 	
 	
-	<!-- Add Button helper (this is optional) -->
+	<!-- Add Button helper -->
 	<link rel="stylesheet" type="text/css" href="resources/modules/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
 	<script type="text/javascript" src="resources/modules/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
 
