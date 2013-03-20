@@ -131,18 +131,22 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 			$("#pages_click").empty();
 			if (globalCurrentPage > 3) {
-				$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +1+ "</span> ... ");
+				//$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +1+ "</span> ... ");
+				$("#pages_click").append('<div class="button left" onclick="$.globalPage($(this).text());">' + 1 + '</div><div class="button left" style="cursor: auto;">...</div>');
 			}
 			for (var i = Math.max(globalCurrentPage - 2, 1); i <= Math.min(globalCurrentPage + 2, globalLastPage); i++){
 				if (i == globalCurrentPage) {
-					$("#pages_click").append("<span class='hand' style='font-weight:bold; color:red;'>" +i+ "</span> ");
+					//$("#pages_click").append("<span class='hand' style='font-weight:bold; color:red;'>" +i+ "</span> ");
+					$("#pages_click").append('<div class="button active left">' + i + '</div>');
 				}
 				else {
-					$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +i+ "</span> ");
+					//$("#pages_click").append("<span class='hand' onclick='$.globalPage($(this).text());'>" +i+ "</span> ");
+					$("#pages_click").append('<div class="button left" onclick="$.globalPage($(this).text());">' + i + '</div>');
 				}
 			}
 			if (globalCurrentPage < globalLastPage - 2) {
-				$("#pages_click").append("... <span class='hand' onclick='$.globalPage($(this).text());'>" +globalLastPage+ "</span>");
+				//$("#pages_click").append("... <span class='hand' onclick='$.globalPage($(this).text());'>" +globalLastPage+ "</span>");
+				$("#pages_click").append('<div class="button left" style="cursor: auto;">...</div><div class="button left" onclick="$.globalPage($(this).text());">' + globalLastPage + '</div>');
 			}
 
 		}
