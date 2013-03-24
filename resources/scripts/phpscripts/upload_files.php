@@ -61,6 +61,8 @@
 		//print_r($_FILES['upload_files']);
 		//echo '</pre>';
 		for($i = 0; $i < count($_FILES['upload_files']['name']); $i++) {
+			if ($_FILES['upload_files']['error'][$i] != 0)
+				continue;
 			//change the name of the file to something impossible to guess: 'fullsized_'/'thumbnail_' + md5(rand) + md5(name + salt)
 			$old_name = $_FILES['upload_files']['name'][$i];
 			$tmp_name = $_FILES['upload_files']['tmp_name'][$i];
