@@ -152,6 +152,7 @@ Description: simple jQuery plugin which allows you to paginate your table
 		}
 
 		jQuery.getHash = function(key) {
+			if (typeof p[key] == "undefined") return "";
 			return p[key];
 		}
 
