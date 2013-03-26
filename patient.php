@@ -5,23 +5,32 @@
 	require_once 'config/__TwigConfig.php';
 	require_once 'config/__PermissionDoctor.php';
 	
-	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
-	$pg = isset($_GET['pg']) ? $_GET['pg'] : 1;
+	$id = isset($_GET['id']) ? $_GET['id'] : NULL;
+	$sortBy = isset($_GET['by']) ? $_GET['by'] : NULL;
+	$sortMode = isset($_GET['mode']) ? $_GET['mode'] : 'ASC';
+	$inferior = isset($_GET['inferior']) ? $_GET['inferior'] : 0;
+	$ipp = isset($_GET['ipp']) ? $_GET['ipp'] : 200;
+
+	if(count($_GET) < 1) {
+		$template = $twig->loadTemplate('patient.html');
+			echo $template->render(array(
+								'user' => $_SESSION['user']
+							)
+			);
+		return;
+	}
 
 
-	if (!isset($_SESSION['sort'])) {
+/*	if (!isset($_SESSION['sort'])) {
 		$_SESSION['sort'] = array(
 			'by' => 'id', 
-			'mode' => 'ASC', 
-			'isLast' => false, 
+			'mode' => 'ASC',
 			'offset' => 0, 
 			'ipp' => 200, //items per page, 10 pentru teste, va fi in jur de 500,
 			'po' => 10 // cu cate elemente/pagina sa pagineze javascript; 5 pt teste, probabil va fi 10
 		);
 	}
 
-	// cu cate elemente/pagina sa pagineze javascript
-	$_SESSION['sort']['po'] = isset($_GET['po']) ? $_GET['po'] : $_SESSION['sort']['po'];
 
 	$sortBy = $_SESSION['sort']['by'];
 	$sortMode = $_SESSION['sort']['mode'];
@@ -45,11 +54,11 @@
 				$_SESSION['sort']['mode'] = 'ASC';
 			}
 		}
-	}
+	}*/
 	
-	switch ($_GET['id']) {
+	switch ($id) {
 		case !NULL:
-			try { $patient = Patient::get(array('id' => $_GET['id'])); }
+			try { $patient = Patient::get(array('id' => $id)); }
 			catch (Exception $ex) { header("location: patient.php"); exit(0); }
 			$template = $twig->loadTemplate('patient_details.html');
 			echo $template->render(array('user' => $_SESSION['user'], 'patient' => $patient));
@@ -60,33 +69,17 @@
 			$entries = Patient::number();
 			$patients = Patient::range( array(
 				'inferior' => $inferior, 
-				'offset' => $_SESSION['sort']['ipp'],
-				'sortBy' => $_SESSION['sort']['by'],
-				'sortMode' => $_SESSION['sort']['mode'])
+				'offset' => $ipp,
+				'sortBy' => $sortBy,
+				'sortMode' => $sortMode)
 			);
 
-			$n = count(Patient::range( array(
-							'inferior' => $inferior + $_SESSION['sort']['ipp'], 
-							'offset' => 1)
-						)
-			//ma uit daca mai e vreo intrare dupa aceste intrari
-			);
-			
-			if ($n == 0) {
-				$_SESSION['sort']['isLast'] = 1;
-			}
-			else {
-				$_SESSION['sort']['isLast'] = 0;
-			}
 
-			$_SESSION['sort']['offset'] = $inferior;
+//			$_SESSION['sort']['offset'] = $inferior;
 	
-			$template = $twig->loadTemplate('patient.html');
+			$template = $twig->loadTemplate('patients_table.html');
 			echo $template->render(array(
-								'user' => $_SESSION['user'], 
-								'patients' => $patients, 
-								'sort' => $_SESSION['sort'], 
-								'pg' => $pg,
+								'patients' => $patients,  
 								'entries' => $entries
 							)
 			);

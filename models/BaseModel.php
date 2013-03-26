@@ -45,7 +45,6 @@
 							mysql_real_escape_string($sortMode),
 							$args['inferior'], $args['offset']);
 			$q = mysql_query($sql) or die(mysql_error());
-			
 			$arr = array();
 			while ($r = mysql_fetch_assoc($q))
 				array_push($arr, new $class($r));

@@ -3,13 +3,16 @@
 {% block Title %} Pacienti {% endblock %}
 
 {% block Content %}
-	{% include 'patients_table.html' with {'patients': patients}%}
+	<section id="ajax_section">
+		<img src="resources/images/ajax-loader.gif" style="margin-left:auto; margin-right:auto; display:block;" alt="Loading"/>
+	</section>
 	<br />
 	<div id="page_controls">
 		<div id="pages" style="float: left;">
 			<div class="button hfirst left" onclick="$.prevPage();">&laquo;</div>
 			<span id="pages_click" style=" margin-left: 50px;"></span>
 			<div class="button hlast left" onclick="$.nextPage();">&raquo;</div>
+			<img id="load_circle" src="resources/images/ajax-load.gif" style="margin-left:auto; margin-right:auto; display:none;"/>
 		</div>
 		<div id="ssp" style="float: right;">
 			<span id="currentlyShowing" style="margin-right: 50px;"></span>
@@ -50,19 +53,39 @@
 	<script type="text/javascript">
 		$("#patients").spager({
                     
-                    items:    {{ sort.po }},
+ //                   items:    {{ sort.po }},
                     ctrls:    "page_controls",
                     animate:  true,
                     opts:     [5,10,20,50],
-                    offset:   {{ sort.offset }},
-                    isLast:   {{ sort.isLast }},
-                    ipp:      {{ sort.ipp }},
-                    startPage:{{ pg }},
-                    pageName: "patient.php?",
-                    entries:  {{ entries }}
+                    other:    '',
+                    idName:   "patients",
+                    pageName: "patient.php"
                     });
-		function changePage(t) {window.location.href = 'patient.php?by=' + t;}
-		function changeItems(t) {window.location.href = 'patient.php?po=' + t;}
+		
+		$(window).bind('hashchange', function() {
+
+			newHash = window.location.hash.substring(2);
+			if (window.location.hash[1] != "#" || newHash.length == 0){
+				$.schimbaPg(null);
+				return;
+			}
+
+			var parametri = {};
+			var vect = newHash.split('&');
+			vect.forEach (function(par) {
+							var per = par.split('=');
+							parametri[per[0]] = per[1];
+						});
+			console.log(vect);
+			console.log(parametri);
+			$.schimbaPg(parametri);
+
+		});		
+   		$(window).trigger('hashchange');
+
+		
+		function changePage(t) {$.changeBy(t);}
+		function changeItems(t) {$.changeNumber(t);}
 	</script>
 	<script type="text/javascript">
 		$(function () {

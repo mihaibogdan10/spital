@@ -2,7 +2,7 @@
 	{% if patients %}
 	{# Am pacienti de afisat #}
 	<tr>
-		<th class="hand" id = "id" onclick="changePage(this.id);"></th>
+		<th class="hand" id = "id" onclick="changePage(this.id);"><div style="display:none" id="entries">{{ entries }}</div></th>
 		<th class="hand" id = "lastname" onclick="changePage(this.id);">NUME</th>
 		<th class="hand" id = "firstname" onclick="changePage(this.id);">PRENUME</th>
 		<th class="hand" id = "cnp" onclick="changePage(this.id);">CNP</th>
@@ -14,7 +14,7 @@
 	{% endif %}
 	{% for patient in patients %}
 	{# Parcurg pacientii si ii afisez #}
-	<tr>
+	<tr style="display:none;">
 		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.id }}. </a></td>
 		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.lastname|title }} </a></td>
 		<td><a href="patient.php?id={{ patient.id }}"> {{ patient.firstname|title }} </a></td>

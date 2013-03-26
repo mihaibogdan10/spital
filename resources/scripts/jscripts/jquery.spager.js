@@ -31,26 +31,35 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 	jQuery.fn.spager = function(settings) {
 
+
+		var p = {};
+		p['by'] = 'id';
+		p['mode'] = 'ASC';
+		p['po'] = 10;
+		p['pg'] = 1;
+		var oldp = jQuery.extend(true, {}, p);;
+
 		var controlsElement = settings.ctrls;
-		var itemsPerPage = settings.items;
+		var itemsPerPage = parseInt(p['po']);
 		var opts = settings.opts;
 		var animation = settings.animate;
-		var offset = settings.offset;
 		var pageName = settings.pageName;
-		var entries = settings.entries;
-		var ppi = settings.ipp;
-		var isLast = settings.isLast;
-		var tg = $(this);
-		var rows = $(tg).children().find("tr").filter(":not(:first-child)");
-		var rowCount = rows.size();
+		var other = settings.other;
+		var idName = "#" + settings.idName;
+		var entries;
+		var ppi = 200;
+		var tg;
+		var rows;
+		var rowCount;
 		var tableHeight;
-		var curPage = settings.startPage;
+		var curPage = 1;
 		var lastPage = 1;
 
 		var globalCurrentPage;
-		var globalCurrentSet;
+		var globalCurrentSet = -1;
 		var pagesPerSet;
-		var globalLastPage;
+		var globalLastPage = 4294967295;
+
 
 		if (opts == null) {
 			opts = [10, 15, 25, 50];
@@ -60,26 +69,27 @@ Description: simple jQuery plugin which allows you to paginate your table
 			itemsPerPage = opts[0];
 		}
 
-		jQuery.nextPage = function() {
-			console.log (curPage, lastPage);
-			if (curPage < lastPage) jQuery.page(curPage + 1);
-			else if (isLast == 0) {
-				/*fa o interogare pentru noul set de 500 de intrari*/
-				window.location.href = pageName + "inferior=" + (parseInt(offset) + parseInt(ppi));
-			}
-		}
 
-		jQuery.prevPage = function() {
-			if (curPage > 1) jQuery.page(curPage - 1);
-			else if (offset > 0) {
-				/*fa o interogare pentru setul anterior*/
-				window.location.href = pageName + "inferior=" + (parseInt(offset) - parseInt(ppi)) + "&pg=" + (parseInt(ppi) / parseInt(itemsPerPage));
-			}
-		}
 
-		jQuery.globalPage = function(pg) {
+		jQuery.schimbaPg = function(parametri) {
+			console.log(p);
+			if (globalCurrentSet >= 0) $("#load_circle").show();
+			if (parametri) p = parametri;
+			var pg = parseInt(p.pg);
 			console.log("globalCurrentPage: " + globalCurrentPage);
 			console.log("globalCurrentSet: " + globalCurrentSet);
+
+			if (opts.indexOf(parseInt(p['po'])) == -1){
+				p['po'] = opts[0];
+				jQuery.render();
+			}
+			if (p['mode'].toUpperCase() != 'ASC' && p['mode'].toUpperCase() != 'DESC'){
+				p['mode'] = 'ASC';
+				jQuery.render();
+			}
+
+			console.log(p);
+			console.log(oldp);
 
 			//verific daca pagina dorita exista (poate redundant, dar nu se stie niciodata)
 			if (globalLastPage < pg || pg <= 0){
@@ -87,29 +97,96 @@ Description: simple jQuery plugin which allows you to paginate your table
 				return;
 			} 
 			
-			//caut setul din care apartine pagina dorita
+
+			itemsPerPage = parseInt(p['po']);
+			pagesPerSet = parseInt(parseInt(ppi) / parseInt(itemsPerPage));
 			var globalSet = parseInt((parseInt(pg) - 1) / parseInt(pagesPerSet));
-			//caut a cata pagina din setul respectiv este
 			var localPage = pg - (globalSet * parseInt(pagesPerSet));
 
 			console.log("globalSet: " + globalSet + "   localPage: " + localPage);
 
+			if (oldp['po'] != p['po'] || oldp['by'] != p['by'] || oldp['mode'] != p['mode'] ) {
+				jQuery.loadSection(globalSet, localPage);
+				return;
+			}
+
 			//daca pagina e din setul curent, schimb pur si simplu din javascript
 			if (globalSet == globalCurrentSet) {
 				jQuery.page(localPage);
+//				console.log(this);
 			}
 			//altfel trebuie sa apelez la php
 			else {
-				window.location.href = pageName + "inferior=" + (parseInt(ppi) * globalSet) + "&pg=" + localPage;
-			}
+				jQuery.loadSection(globalSet, localPage);
 
+			}
 
 		}
 
+		jQuery.loadSection = function(globalSet, localPage) {
+			oldp = jQuery.extend(true, {}, p);
+			var obj = "by=" + p.by + "&mode=" + p.mode + "&inferior=" + (parseInt(ppi) * globalSet) + 
+									"&ipp=" + ppi + other;
+			console.log(obj);
+			curPage=localPage;
+			$("#ajax_section").load(pageName + " " + idName, obj, function(data) {
+				$(data).find('#icc10n');
+				jQuery.generatePages();});
+		}
+
+		jQuery.render = function() {
+			window.location.hash = "##" +
+			'by='+ p['by'] + 
+			'&mode=' + p['mode'] + 
+			'&po=' + p['po'] + 
+			'&pg=' + p['pg'];
+		}
+
+		jQuery.nextPage = function() {
+			p['pg'] = globalCurrentPage + 1;
+			jQuery.render();
+		}
+
+		jQuery.prevPage = function() {
+			p['pg'] = globalCurrentPage - 1;
+			jQuery.render();
+		}
+
+		jQuery.changeBy = function(by) {
+			if (p['by'].toUpperCase() === by.toUpperCase()) {
+				p['mode'] = (p['mode'].toUpperCase() === "ASC") ? "desc" : "asc";
+			}
+			else {
+				p['mode'] = "asc";
+			}
+			p['pg'] = 1;
+			p['by'] = by;
+			jQuery.render();
+		}
+
+		jQuery.changeNumber = function(by) {
+			p['po'] = parseInt(by);
+			p['pg'] = 1;
+			jQuery.render();
+		}
+
+
+		jQuery.globalPage = function(pg) {
+			p['pg'] = pg;
+			jQuery.render();
+		}
+
 		jQuery.page = function(pg) {
+			$("#load_circle").hide();
 			curPage = pg;
 			stP = itemsPerPage * (pg - 1);
 			enP = Math.min(rowCount - 1, parseInt(stP) + parseInt(itemsPerPage) - 1);
+
+
+			globalCurrentPage = parseInt(p.pg);
+			globalCurrentSet = parseInt((globalCurrentPage - 1) / pagesPerSet);
+			globalLastPage = Math.ceil(parseInt(entries) / itemsPerPage);
+			offset = parseInt(ppi) * globalCurrentSet;
 
 
 			$("#" + controlsElement + " #currentlyShowing").text("Intrari afisate: " + (offset + parseInt(stP + 1)) + " - " + (offset + parseInt(enP + 1)));
@@ -117,17 +194,12 @@ Description: simple jQuery plugin which allows you to paginate your table
 			$(rows).filter(":lt(" + stP + ")").hide();
 			$(rows).filter(":gt(" + enP + ")").hide();
 
-			if (animation != false) {
-				$(tg).animate({
-					height: 2,
-					duration: 500
-				})
-			}
 
-			globalCurrentPage = parseInt(parseInt(offset) / itemsPerPage) + curPage;
-			globalCurrentSet = parseInt(parseInt(offset) / parseInt(ppi));
-			pagesPerSet = parseInt(parseInt(ppi) / parseInt(itemsPerPage));
-			globalLastPage = Math.ceil(parseInt(entries) / itemsPerPage);
+
+//			globalCurrentPage = parseInt(parseInt(offset) / itemsPerPage) + curPage;
+//			globalCurrentSet = parseInt(parseInt(offset) / parseInt(ppi));
+//			pagesPerSet = parseInt(parseInt(ppi) / parseInt(itemsPerPage));
+//			globalLastPage = Math.ceil(parseInt(entries) / itemsPerPage);
 
 			$("#pages_click").empty();
 			if (globalCurrentPage > 3) {
@@ -152,6 +224,13 @@ Description: simple jQuery plugin which allows you to paginate your table
 		}
 
 		jQuery.generatePages = function(max) {
+			console.log(itemsPerPage);
+			entries = $("#entries").text();
+			console.log(entries);
+			tg = $(idName);
+			rows = $(tg).children().find("tr").filter(":not(:first-child)");
+			rowCount = rows.size();
+			console.log(tg);
 			var page = 0;
 			if (max != null) {
 				parseInt(itemsPerPage = max);
@@ -188,7 +267,7 @@ Description: simple jQuery plugin which allows you to paginate your table
 			ind++;
 		})
 
-		$.generatePages();
+//		$.generatePages();
 
 		return this;
 
