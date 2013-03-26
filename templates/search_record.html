@@ -7,8 +7,10 @@
 		<h4 style="margin:0; padding:0;"> Cautare avansata: </h4>
 		<span> Introduceti tagurile dupa care doriti sa filtrati rezultatele: </span>
 		<input type="text" name="tag" id="tag_input" />
-		<form method = "post" action = "search.php?q={{ query }}" style = "display : inline-block;">
-			<input type="submit" value="Cauta"/>
+		<form method = "get" action = "search.php" style = "display : inline-block;">
+			<input type="button" value="Cauta" onclick="f();"/>
+			<!--input type="hidden" name="q" id="q" value="{{ query }}"/>
+			<input type="hidden" name="wt" id="wt" value="record"/-->
 			<input type="hidden" name="tags" id="tags_hidden" />
 		</form>
 		
@@ -86,7 +88,7 @@
 		});		
 		$(window).trigger('hashchange');
 
-		
+		function f() {$.changeHash('tags',$('#tags_hidden').val());}
 		function changePage(t) {$.changeBy(t);}
 		function changeItems(t) {$.changeNumber(t);}
 	</script>

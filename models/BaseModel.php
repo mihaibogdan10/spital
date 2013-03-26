@@ -174,12 +174,21 @@
 			$sortMode = isset($args['sortMode']) ? $args['sortMode'] : 'ASC' ;
 			$inferior = isset($args['inferior']) ? $args['inferior'] : 0 ;
 			$offset = isset($args['offset']) ? $args['offset'] : 1000 ;
+			$tagName = isset($args['tagName']) ? $args['tagName'] : 'tags';
 
 
 			$sql = sprintf("select * from `%s`", 
 							mysql_real_escape_string(strtolower($class)));
 
 			$q_arr = explode(' ', $args['q']);
+			if (isset($args['tags'])) {
+				$k_arr = explode('*', $args['tags']);
+			}
+			else {
+				$k_arr = array();
+			}
+
+			$k = count($k_arr);
 
 			$m = count($q_arr);
 			if ($m > 0) $sql .= " where";
@@ -218,11 +227,18 @@
 				if (--$m > 0) $sql .= ' and';
 			}
 
+			foreach ($k_arr as $value) {
+				$string_pattern = " and `%s` like '%%%s%%'";
+				$sql .= sprintf($string_pattern,
+							mysql_real_escape_string($tagName),
+							mysql_real_escape_string($value));
+			}
+
 			$sql .= sprintf(" ORDER BY %s %s LIMIT %d, %d ", 
 							mysql_real_escape_string($sortBy),
 							mysql_real_escape_string($sortMode),
 							$inferior, $offset);
-
+			
 			$response = mysql_query($sql) or die(mysql_error());
 			$response_array = array();
 			while($r = mysql_fetch_assoc($response))
@@ -235,12 +251,23 @@
 		static function search_number($args) {
 			$class = get_called_class(); // Numele clasei care apeleaza functia
 
+			$tagName = isset($args['tagName']) ? $args['tagName'] : 'tags';
+			
 			$sql = sprintf("select count(*) no from `%s`", 
 							mysql_real_escape_string(strtolower($class)));
 
 			$q_arr = explode(' ', $args['q']);
-
 			$m = count($q_arr);
+
+			if (isset($args['tags'])) {
+				$k_arr = explode('*', $args['tags']);
+			}
+			else {
+				$k_arr = array();
+			}
+
+			$k = count($k_arr);
+
 			if ($m > 0) $sql .= " where";
 
 			foreach ($q_arr as $value) {
@@ -273,6 +300,13 @@
 				}
 				$sql .= " )";
 				if (--$m > 0) $sql .= ' and';
+			}
+
+			foreach ($k_arr as $value) {
+				$string_pattern = " and `%s` like '%%%s%%'";
+				$sql .= sprintf($string_pattern,
+							mysql_real_escape_string($tagName),
+							mysql_real_escape_string($value));
 			}
 
 			$response = mysql_query($sql) or die(mysql_error());

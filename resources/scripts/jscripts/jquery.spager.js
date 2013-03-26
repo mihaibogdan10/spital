@@ -102,9 +102,16 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 			console.log("globalSet: " + globalSet + "   localPage: " + localPage);
 
-			if (oldp['po'] != p['po'] || oldp['by'] != p['by'] || oldp['mode'] != p['mode'] ) {
-				jQuery.loadSection(globalSet, localPage);
-				return;
+//			if (oldp['po'] != p['po'] || oldp['by'] != p['by'] || oldp['mode'] != p['mode'] ) {
+//				jQuery.loadSection(globalSet, localPage);
+//				return;
+//			}
+
+			for (var key in p){
+				if (oldp[key] != p[key] && key != 'pg'){
+					jQuery.loadSection(globalSet, localPage);
+					return;
+				}
 			}
 
 			//daca pagina e din setul curent, schimb pur si simplu din javascript
@@ -122,8 +129,16 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 		jQuery.loadSection = function(globalSet, localPage) {
 			oldp = jQuery.extend(true, {}, p);
+
+			var h = '';
+			var exclude = ["by", "mode", "po", "pg"]
+			for (var key in p){
+				if (exclude.indexOf(key.toLowerCase()) == -1)
+					h += "&" + key + '=' + p[key];
+			}
+
 			var obj = "by=" + p.by + "&mode=" + p.mode + "&inferior=" + (parseInt(ppi) * globalSet) + 
-									"&ipp=" + ppi + other;
+									"&ipp=" + ppi + other + h;
 			console.log(obj);
 			curPage=localPage;
 			$("#ajax_section").load(pageName + " " + idName, obj, function(data) {
@@ -131,12 +146,20 @@ Description: simple jQuery plugin which allows you to paginate your table
 				jQuery.generatePages();});
 		}
 
+		jQuery.changeHash = function(key, value) {
+			p[key] = value;
+			jQuery.render();
+		}
+
 		jQuery.render = function() {
-			window.location.hash = "##" +
-			'by='+ p['by'] + 
-			'&mode=' + p['mode'] + 
-			'&po=' + p['po'] + 
-			'&pg=' + p['pg'];
+			var hs = "##";
+			var h = '';
+			for (var key in p){
+				h += "&" + key + '=' + p[key];
+			}
+			hs += h.substring(1);
+
+			window.location.hash = hs;
 		}
 
 		jQuery.nextPage = function() {

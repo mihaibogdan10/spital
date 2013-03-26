@@ -9,7 +9,10 @@
 	
 	$query = trim(isset($_GET['q']) ? $_GET['q'] : NULL);
 	$wt = 'search_' . (isset($_GET['wt']) ? $_GET['wt'] : 'patient');
-	$tags = isset($_POST['tags']) ? $_POST['tags'] : '';
+	$tags = isset($_GET['tags']) ? $_GET['tags'] : '';
+	
+	$tags = str_replace (',,', '*' , $tags);
+	$tags = str_replace (',', '' , $tags);
 
 	$id = isset($_GET['id']) ? $_GET['id'] : NULL;
 	$sortBy = isset($_GET['by']) ? $_GET['by'] : NULL;
@@ -20,7 +23,7 @@
 	$pg = isset($_GET['pg']) ? $_GET['pg'] : 1;
 
 
-	if(count($_GET) < 3) {
+	if(count($_GET) < (isset($_GET['tags']) ? 4 : 3)) {
 		$template = $twig->loadTemplate($wt.'.html');
 			echo $template->render(array(
 								'user' => $_SESSION['user'],
@@ -107,6 +110,8 @@
 		$patients = array();
 		$records = Record::search2(array(
 			'q' => $query,
+			'tags' => $tags,
+			'tagName' => 'tags',
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'),
 			'inferior' => $inferior, 
 			'offset' => $ipp,
@@ -116,6 +121,8 @@
 
 		$entries = Record::search_number(array(
 			'q' => $query,
+			'tags' => $tags,
+			'tagName' => 'tags',
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'))
 		);
 
