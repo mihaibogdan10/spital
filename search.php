@@ -9,9 +9,8 @@
 	
 	$_GET['q'] = trim(isset($_GET['q']) ? $_GET['q'] : NULL);
 	$wt = 'sort_' . (isset($_GET['wt']) ? $_GET['wt'] : 'patient');
-
-
-
+	$tags = isset($_POST['tags']) ? $_POST['tags'] : '';
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
@@ -24,8 +23,8 @@
 			'mode' => 'ASC', 
 			'isLast' => false, 
 			'offset' => 0, 
-			'ipp' => 200, //items per page, 10 pentru teste, va fi in jur de 500,
-			'po' => 10 // cu cate elemente/pagina sa pagineze javascript; 5 pt teste, probabil va fi 10
+			'ipp' => 200, //items per page -> va fi in jur de 500
+			'po' => 10 // cu cate elemente/pagina sa pagineze javascript;
 		);
 	}
 

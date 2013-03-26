@@ -3,6 +3,20 @@
 {% block Title %}Cauta: {{ query }}{% endblock %}
 
 {% block Content %}
+	<div>
+		<h4 style="margin:0; padding:0;"> Cautare avansata: </h4>
+		<span> Introduceti tagurile dupa care doriti sa filtrati rezultatele: </span>
+		<input type="text" name="tag" id="tag_input" />
+		<form method = "post" action = "search.php?q={{ query }}" style = "display : inline-block;">
+			<input type="submit" value="Cauta"/>
+			<input type="hidden" name="tags" id="tags_hidden" />
+		</form>
+		
+		<div id="tags"></div>
+		<br/>
+	</div>
+	
+	<br />
 	<h4 style="margin:0; padding:0;"> 
 		<span>
 			<a href="search.php?q={{ query }}" class="hand" style="margin:0; padding:0; text-decoration:none;">Rezultate pentru pacienti: | </a>
@@ -32,8 +46,14 @@
 
 {% block Bottom %}
 	{{ parent() }}
+	<script type="text/javascript" src="resources/scripts/jscripts/utils.js"></script>
 	<script type="text/javascript" src="resources/scripts/jscripts/jquery.spager.js"></script>
+	
 	<script type="text/javascript">
+		$(document).ready(function(){
+			//prepare tag input
+			initializeTagging();
+		});
 		$("#records").spager({
                     
                     items:    {{ sort.po }},
