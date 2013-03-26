@@ -1,5 +1,5 @@
+{% if patients %}
 <table class="patients" id="patients">
-	{% if patients %}
 	{# Am pacienti de afisat #}
 	<tr>
 		<th class="hand" id = "id" onclick="changePage(this.id);"><div style="display:none" id="entries">{{ entries }}</div></th>
@@ -11,7 +11,6 @@
 		<th class="hand" id = "updated" onclick="changePage(this.id);">ULTIMA ACTUALIZARE</th>
 		<th></th>
 	</tr>
-	{% endif %}
 	{% for patient in patients %}
 	{# Parcurg pacientii si ii afisez #}
 	<tr style="display:none;">
@@ -26,8 +25,10 @@
 			<img src="resources/images/trash-icon.png" title="Sterge pacientul" style="cursor: pointer;" onclick="javascript: deleteObject('pacientul', '{{ patient.id }}');" />
 		</td>
 	</tr>
-	{% else %}
-	<p>Nu avem nici un pacient inregistrat. <br />
-		Toata lumea e sanatoasa!</p>
 	{% endfor %}
 </table>
+{% else %}
+<p id="patients">Nu avem nici un pacient inregistrat. <br />
+	Toata lumea e sanatoasa!</p>
+{% endif %}
+

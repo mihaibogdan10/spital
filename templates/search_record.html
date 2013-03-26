@@ -23,14 +23,16 @@
 		<span>
 	Rezultate pentru fise:</h4>
 	<hr/><br />
-	{% include 'records_search_table.html' with {'records': records} %}
+	<section id="ajax_section">
+		<img src="resources/images/ajax-loader.gif" style="margin-left:auto; margin-right:auto; display:block;" alt="Loading"/>
+	</section>
 	<br />
-	{% if records %}
 	<div id="page_controls">
 		<div id="pages" style="float: left;">
-			<span class="hand" onclick="$.prevPage();" style="font-size: 22px; font-weight:bolder;" >&#8592; </span>
-			<span class="hand" onclick="$.nextPage();" style="font-size: 22px; font-weight:bolder;" > &#8594;</span>
+			<div class="button hfirst left" onclick="$.prevPage();">&laquo;</div>
 			<span id="pages_click" style=" margin-left: 50px;"></span>
+			<div class="button hlast left" onclick="$.nextPage();">&raquo;</div>
+			<img id="load_circle" src="resources/images/ajax-load.gif" style="margin-left:auto; margin-right:auto; display:none;"/>
 		</div>
 		<div id="ssp" style="float: right;">
 			<span id="currentlyShowing" style="margin-right: 50px;"></span>
@@ -41,7 +43,6 @@
 			(de) intrari
 		</div>
 	</div>
-	{% endif %}
 {% endblock %}
 
 {% block Bottom %}
@@ -54,20 +55,39 @@
 			//prepare tag input
 			initializeTagging();
 		});
+
 		$("#records").spager({
                     
-                    items:    {{ sort.po }},
                     ctrls:    "page_controls",
-                    animate:  true,
                     opts:     [5,10,20,50],
-                    offset:   {{ sort.offset }},
-                    isLast:   {{ sort.isLast }},
-                    ipp:      {{ sort.ipp }},
-                    startPage:{{ pg }},
-                    pageName: "search.php?q={{ query }}&wt=record&",
-                    entries:  {{ entries }}
+                    other:    "&q={{ query }}&wt=record",
+                    idName:   "records",
+                    pageName: "search.php"
                     });
-		function changePage(t) {window.location.href = 'search.php?q={{ query }}&wt=record&by=' + t;}
-		function changeItems(t) {window.location.href = 'search.php?q={{ query }}&wt=record&po=' + t;}
+		
+		$(window).bind('hashchange', function() {
+
+			newHash = window.location.hash.substring(2);
+			if (window.location.hash[1] != "#" || newHash.length == 0){
+				$.schimbaPg(null);
+				return;
+			}
+
+			var parametri = {};
+			var vect = newHash.split('&');
+			vect.forEach (function(par) {
+							var per = par.split('=');
+							parametri[per[0]] = per[1];
+						});
+			console.log(vect);
+			console.log(parametri);
+			$.schimbaPg(parametri);
+
+		});		
+		$(window).trigger('hashchange');
+
+		
+		function changePage(t) {$.changeBy(t);}
+		function changeItems(t) {$.changeNumber(t);}
 	</script>
 {% endblock %}

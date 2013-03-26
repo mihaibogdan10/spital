@@ -55,7 +55,6 @@
                     
  //                   items:    {{ sort.po }},
                     ctrls:    "page_controls",
-                    animate:  true,
                     opts:     [5,10,20,50],
                     other:    '',
                     idName:   "patients",
@@ -81,7 +80,7 @@
 			$.schimbaPg(parametri);
 
 		});		
-   		$(window).trigger('hashchange');
+		$(window).trigger('hashchange');
 
 		
 		function changePage(t) {$.changeBy(t);}

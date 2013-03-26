@@ -1,13 +1,12 @@
+{% if records %}
 <table class="patients" id="records">
-	{% if records %}
 	<tr>
-		<th ></th>
+		<th ><div style="display:none" id="entries">{{ entries }}</div></th>
 		<th class="hand" id="investigation" onclick="changePage(this.id);">INVESTIGATIE</th>
 		<th class="hand" id="sending_medic" onclick="changePage(this.id);">DOCTOR</th>
 		<th class="hand" id="timestamp" onclick="changePage(this.id);">DATA</th>
 		<th class="hand" ></th>
 	</tr>
-	{% endif %}
 	{% for record in records %}
 	<tr>
 		<td><a href="view_record.php?id={{ record.id }}" target="_blank"> {{ loop.index }}. </a></td>
@@ -29,10 +28,11 @@
 			</div>
 		</td>
 	</tr>
-	{% else%}
-	<p>Nu am gasit nici o fisa.</p>
-	{% endfor %}
+	{% endfor%}
 </table>
+{% else %}
+<p id="records">Nu am gasit nici o fisa.</p>
+{% endif %}
 <!--<script type="text/javascript">
 	$(function () {
 		$('.edit_btn').click(function () {

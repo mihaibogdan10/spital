@@ -7,17 +7,35 @@
 	require_once 'config/__TwigConfig.php';
 	require_once 'config/__PermissionDoctor.php';
 	
-	$_GET['q'] = trim(isset($_GET['q']) ? $_GET['q'] : NULL);
-	$wt = 'sort_' . (isset($_GET['wt']) ? $_GET['wt'] : 'patient');
+	$query = trim(isset($_GET['q']) ? $_GET['q'] : NULL);
+	$wt = 'search_' . (isset($_GET['wt']) ? $_GET['wt'] : 'patient');
 	$tags = isset($_POST['tags']) ? $_POST['tags'] : '';
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	$_GET['id'] = isset($_GET['id']) ? $_GET['id'] : NULL;
+	$id = isset($_GET['id']) ? $_GET['id'] : NULL;
+	$sortBy = isset($_GET['by']) ? $_GET['by'] : NULL;
+	$sortMode = isset($_GET['mode']) ? $_GET['mode'] : 'ASC';
+	$inferior = isset($_GET['inferior']) ? $_GET['inferior'] : 0;
+	$ipp = isset($_GET['ipp']) ? $_GET['ipp'] : 200;
+
 	$pg = isset($_GET['pg']) ? $_GET['pg'] : 1;
 
 
-	if (!isset($_SESSION[$wt])) {
+	if(count($_GET) < 3) {
+		$template = $twig->loadTemplate($wt.'.html');
+			echo $template->render(array(
+								'user' => $_SESSION['user'],
+								'query' => $query,
+							)
+			);
+		return;
+	}
+
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/*	if (!isset($_SESSION[$wt])) {
 		$_SESSION[$wt] = array(
 			'by' => 'id', 
 			'mode' => 'ASC', 
@@ -53,72 +71,66 @@
 				$_SESSION[$wt]['mode'] = 'ASC';
 			}
 		}
-	}
+	}*/
 	
 
-	if ($wt != "sort_record") {
+	if ($wt != "search_record") {
 
 		$records = array();
 		$patients = Patient::search2(array(
-			'q' => $_GET['q'],
+			'q' => $query,
 			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'),
 			'inferior' => $inferior, 
-			'offset' => $_SESSION[$wt]['ipp'],
-			'sortBy' => $_SESSION[$wt]['by'],
-			'sortMode' => $_SESSION[$wt]['mode'])
+			'offset' => $ipp,
+			'sortBy' => $sortBy,
+			'sortMode' => $sortMode)
 		);
 
 		$entries = Patient::search_number(array(
-			'q' => $_GET['q'],
+			'q' => $query,
 			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'))
 		);
 
-		$n = count(Patient::search2(array(
-			'q' => $_GET['q'],
+/*		$n = count(Patient::search2(array(
+			'q' => $query,
 			'fields' => array('firstname__contains', 'lastname__contains', 'cnp__contains'),
-			'inferior' => $inferior + $_SESSION[$wt]['ipp'], 
+			'inferior' => $inferior + $ipp, 
 			'offset' => 1
 		)));
 		//ma uit daca mai e vreo intrare dupa aceste intrari
-
-		$template_name = "search_patient.html";
+*/
+		$template_name = "patients_table.html";
 	}
 
 	else {
 
 		$patients = array();
 		$records = Record::search2(array(
-			'q' => $_GET['q'],
+			'q' => $query,
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'),
 			'inferior' => $inferior, 
-			'offset' => $_SESSION[$wt]['ipp'],
-			'sortBy' => $_SESSION[$wt]['by'],
-			'sortMode' => $_SESSION[$wt]['mode'])
+			'offset' => $ipp,
+			'sortBy' => $sortBy,
+			'sortMode' => $sortMode)
 		);
 
 		$entries = Record::search_number(array(
-			'q' => $_GET['q'],
+			'q' => $query,
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'))
 		);
 
-		$n = count(Record::search2(array(
-			'q' => $_GET['q'],
+/*		$n = count(Record::search2(array(
+			'q' => $query,
 			'fields' => array('investigation__contains', 'investigation_result__contains', 'sending_medic__contains', 'sending_diagnosis__contains'),
-			'inferior' => $inferior + $_SESSION[$wt]['ipp'], 
+			'inferior' => $inferior + $ipp, 
 			'offset' => 1
-		)));
+		)));*/
 
-		$template_name = "search_record.html";
+		$template_name = "records_search_table.html";
 	}
 
 
-	if ($n == 0) {
-		$_SESSION[$wt]['isLast'] = 1;
-	}
-	else {
-		$_SESSION[$wt]['isLast'] = 0;
-	}
-	$_SESSION[$wt]['offset'] = $inferior;
+//	$_SESSION[$wt]['offset'] = $inferior;
 
 	
 	
@@ -127,9 +139,7 @@
 		'user' => $_SESSION['user'], 
 		'patients' => $patients, 
 		'records' => $records, 
-		'sort' => $_SESSION[$wt],
-		'query' => $_GET['q'],
-		'pg' => $pg,
+		'query' => $query,
 		'entries' => $entries)
 	);
 

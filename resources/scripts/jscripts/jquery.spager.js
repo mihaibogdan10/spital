@@ -32,11 +32,7 @@ Description: simple jQuery plugin which allows you to paginate your table
 	jQuery.fn.spager = function(settings) {
 
 
-		var p = {};
-		p['by'] = 'id';
-		p['mode'] = 'ASC';
-		p['po'] = 10;
-		p['pg'] = 1;
+		var p = {by:'id', mode: 'ASC', po: '10', pg: '1'};
 		var oldp = jQuery.extend(true, {}, p);;
 
 		var controlsElement = settings.ctrls;
@@ -74,7 +70,8 @@ Description: simple jQuery plugin which allows you to paginate your table
 		jQuery.schimbaPg = function(parametri) {
 			console.log(p);
 			if (globalCurrentSet >= 0) $("#load_circle").show();
-			if (parametri) p = parametri;
+			if (parametri) 
+				p = jQuery.extend(true, {}, parametri);
 			var pg = parseInt(p.pg);
 			console.log("globalCurrentPage: " + globalCurrentPage);
 			console.log("globalCurrentSet: " + globalCurrentSet);
@@ -143,11 +140,15 @@ Description: simple jQuery plugin which allows you to paginate your table
 		}
 
 		jQuery.nextPage = function() {
+			if (globalCurrentPage == globalLastPage)
+				return;
 			p['pg'] = globalCurrentPage + 1;
 			jQuery.render();
 		}
 
 		jQuery.prevPage = function() {
+			if (globalCurrentPage <= 1)
+				return;
 			p['pg'] = globalCurrentPage - 1;
 			jQuery.render();
 		}
@@ -226,6 +227,9 @@ Description: simple jQuery plugin which allows you to paginate your table
 		jQuery.generatePages = function(max) {
 			console.log(itemsPerPage);
 			entries = $("#entries").text();
+			if (entries <= 0) {
+				$("#page_controls").hide();
+			}
 			console.log(entries);
 			tg = $(idName);
 			rows = $(tg).children().find("tr").filter(":not(:first-child)");
@@ -249,24 +253,30 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 			$("#" + controlsElement + "#pages a:eq(0)").addClass("action");
 			$.page(curPage);
-		}
-
-		for (i = 0; i < opts.length; i++) {
-
-			$("#pager").append("\n<option value='" + opts[i] + "'>" + opts[i] + "</option>");
-
-		}
 
 
-		var ind = 0;
-		$("#pager option").each(function() {
-			if ($(this).text() == itemsPerPage) {
-				$(this).attr("selected", "true");
-				return;
+			$("#pager").empty();
+			for (i = 0; i < opts.length; i++) {
+				if (i == parseInt(p['po']))
+					$("#pager").append("\n<option value='" + opts[i] + "'>" + opts[i] + "</option>");
+				else
+					$("#pager").append("\n<option value='" + opts[i] + "'>" + opts[i] + "</option>");
+
 			}
-			ind++;
-		})
 
+			var ind = 0;
+			$("#pager option").each(function() {
+				if (parseInt($(this).text()) == parseInt(p['po'])) {
+					$(this).attr("selected", "selected");
+					return;
+				}
+				ind++;
+			});
+		}
+
+
+
+		
 //		$.generatePages();
 
 		return this;
