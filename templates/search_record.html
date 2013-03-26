@@ -9,8 +9,6 @@
 		<input type="text" name="tag" id="tag_input" />
 		<form method = "get" action = "search.php" style = "display : inline-block;">
 			<input type="button" value="Cauta" onclick="f();"/>
-			<!--input type="hidden" name="q" id="q" value="{{ query }}"/>
-			<input type="hidden" name="wt" id="wt" value="record"/-->
 			<input type="hidden" name="tags" id="tags_hidden" />
 		</form>
 		
@@ -84,7 +82,17 @@
 			console.log(vect);
 			console.log(parametri);
 			$.schimbaPg(parametri);
-
+			
+			//restore old tags
+			old_tags = $.getHash("tags");
+			$('#tags_hidden').val(old_tags);
+			tag_list = old_tags.split(',').filter(Boolean);
+			$('#tags').html('');
+			
+			for (i = 0; i < tag_list.length; i++){
+				tag = tag_list[i];
+				$('#tags').append("<span class='tag'>" + tag + "<a class = 'remove' href = 'javascript:' title = 'Remove " + tag + "'>x</a></span>");
+			}
 		});		
 		$(window).trigger('hashchange');
 

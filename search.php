@@ -137,11 +137,11 @@
 	}
 
 
-//	$_SESSION[$wt]['offset'] = $inferior;
+	//	$_SESSION[$wt]['offset'] = $inferior;
 
 	
 	
-	$template = $twig->loadTemplate($template_name);
+	$template = $twig -> loadTemplate($template_name);
 	echo $template->render(array(
 		'user' => $_SESSION['user'], 
 		'patients' => $patients, 
