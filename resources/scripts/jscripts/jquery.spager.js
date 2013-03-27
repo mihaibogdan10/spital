@@ -148,6 +148,7 @@ Description: simple jQuery plugin which allows you to paginate your table
 
 		jQuery.changeHash = function(key, value) {
 			p[key] = value;
+			p['pg'] = 1;
 			jQuery.render();
 		}
 
