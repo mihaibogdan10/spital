@@ -8,15 +8,15 @@
 		<span> Introduceti tagurile dupa care doriti sa filtrati rezultatele: </span>
 		<input type="text" name="tag" id="tag_input" />
 		<form method = "get" action = "search.php" style = "display : inline-block;">
-			<input type="button" value="Cauta" onclick="f();"/>
-			<input type="hidden" name="tags" id="tags_hidden" />
+			<!--input type="button" value="Cauta" onclick="f();"/-->
+			<input type="hidden" style="" name="tags" id="tags_hidden" onchange="f();"/>
 		</form>
 		
 		<div id="tags"></div>
 		<br/>
 	</div>
 	
-	<br />
+	<br style="clear:both"/>
 	<h4 style="margin:0; padding:0;"> 
 		<span>
 			<a href="search.php?q={{ query }}" class="hand" style="margin:0; padding:0; text-decoration:none;">Rezultate pentru pacienti: | </a>

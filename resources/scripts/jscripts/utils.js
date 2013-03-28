@@ -81,6 +81,8 @@ function initializeTagging(){
 				$('#tags').append(span);
 				$('#tags_hidden').val($('#tags_hidden').val() + (',' + tag + ','));
 				$('#tag_input').val('');
+				//trigger onchange event
+				$('#tags_hidden').trigger('change');
 				
 				// remove default behaviour (that is, writing the selected value in the input bar)
 				return false;
@@ -111,5 +113,8 @@ function initializeTagging(){
 		if($("#tags span").length === 0) {  
 			$("#tag_input").css("top", 0);  
 		}                 
+
+		//trigger onchange event
+		$('#tags_hidden').trigger('change');
 	});
 }

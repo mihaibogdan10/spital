@@ -259,6 +259,9 @@ Description: simple jQuery plugin which allows you to paginate your table
 			if (entries <= 0) {
 				$("#page_controls").hide();
 			}
+			else{
+				$("#page_controls").show();
+			}
 			console.log(entries);
 			tg = $(idName);
 			rows = $(tg).children().find("tr").filter(":not(:first-child)");
