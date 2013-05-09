@@ -1,7 +1,8 @@
 .patients { margin:0; padding:0; width: 100%; empty-cells: hide; border-spacing:0; border-collapse:collapse; font-size: 13px; }
 
 .patients td a { display: block; width: 100%; height: 100%; color: #3C3A37; text-decoration: none; padding: 5px;}
-.patients tr:hover a { color:#330099;}
+.patients tr:hover a { color:#F0F0F0;}
+.patients tr:hover span { color:#F0F0F0 !important;}
 
 .patients td:nth-child(1) { width: 50px; } /* id */
 .patients td:nth-child(4), .patients th:nth-child(4) { width: 130px; } /* cnp */
@@ -11,13 +12,13 @@
 
 .patients td:nth-child(4), .patients th:nth-child(4), .patients td:nth-child(5), .patients th:nth-child(5), .patients td:nth-child(7), .patients th:nth-child(7) {  text-align: center; }
 
-.patients td:nth-child(1), .patients td:nth-child(4), .patients td:nth-child(2), .patients td:nth-child(6), .patients td:nth-child(3), .patients td:nth-child(5), .patients td:nth-child(7) { border-left: 1px solid #F1F1F1; border-right: 1px solid #F1F1F1; }
+/*.patients td:nth-child(1), .patients td:nth-child(4), .patients td:nth-child(2), .patients td:nth-child(6), .patients td:nth-child(3), .patients td:nth-child(5), .patients td:nth-child(7) { border-left: 1px solid #F1F1F1; border-right: 1px solid #F1F1F1; } */
 
-.patients tr:hover > td { border: 1px solid #99FFFF; }
-.patients tr:hover > td { background-color:#99FFFF; }
-.patients tr:nth-child(2n+3):hover > td { background-color:#99FFFF; }
+.patients tr:hover > td { border-color: #FF3333; }
+.patients tr:hover > td { background-color: #FF3333; }
+.patients tr:nth-child(2n+3):hover > td { background-color: #FF3333; }
 
-.patients tr:hover > td:nth-child(2) { text-decoration: underline; }
+.patients tr:hover > td:nth-child(2) { text-decoration: none; }
 .patients tr:nth-child(1), .patients tr:nth-child(n) { text-align: left; border-bottom: 1px solid #F0F0F0; }
 
 .patients tr > td {
@@ -49,6 +50,6 @@
 	transition:color .4s ease-out;
 }
 
-.hand:hover {color:red;}
+.hand:hover {color: red;}
 
 #add_new_patient { }
