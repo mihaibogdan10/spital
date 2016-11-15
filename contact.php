@@ -10,7 +10,7 @@
 	$_POST['message'] = isset($_POST['message']) ? $_POST['message'] : NULL;
 	
 	if ($_POST['email'] != NULL) {
-		$to = "the_snyper06@yahoo.com, m.bogdan92@yahoo.com";
+		$to = "webmaster@localhost";
 		$headers = sprintf("From: %s <%s>\r\nReply-To: %s", $_POST['name'], $_POST['email'], "contact@spital.ro");
 		//mail($to, $_POST['subject'], $_POST['message'], $headers);
 		//header('location: contact.php#Mesajul a fost trimis! Te vom contacta cat mai curand!');
